@@ -2,7 +2,7 @@
 
 Kompendium i **TMA4400 Matematikk 1: Kalkulus og lineær algebra** ved NTNU, høsten 2026.
 
-**Les det her: <https://fthorset.github.io>**
+**Les det her: <https://fthorset-tma4400.github.io>**
 
 Kompendiet er laget av en student til eksamensforberedelse. Det er ikke offisielt NTNU-materiell. Pensum, fremdriftsplan og eksamensinformasjon finner du på [emnesiden på wiki](https://wiki.math.ntnu.no/tma4400/2026h/start).
 
@@ -48,7 +48,7 @@ Kompendiet er bygget på [StudyCompanion](https://github.com/MartinSA04/StudyCom
 - `public/sims/` og `public/figures/`: simuleringer og figurer
 - `theme/apple.css`: eget fargetema oppå rammeverket
 
-Har du funnet en feil, kan du opprette en [issue](https://github.com/fthorset/fthorset.github.io/issues).
+Har du funnet en feil, kan du opprette en [issue](https://github.com/fthorset-tma4400/fthorset-tma4400.github.io/issues).
 
 ## Lisens
 

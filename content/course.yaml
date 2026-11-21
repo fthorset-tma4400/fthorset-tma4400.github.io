@@ -17,6 +17,7 @@ accentDark: "#7cc7b5" # rolig grønn (mørk)
 
 courseUrl: "https://www.ntnu.no/studier/emner/TMA4400"
 institution: "NTNU"
+hubUrl: "https://fthorset.github.io"
 
 # ── Eksamen ──────────────────────────────────────────────────────────────────
 exam:
