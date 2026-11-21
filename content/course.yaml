@@ -1,0 +1,214 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# course.yaml — TMA4400 Matematikk 1: Kalkulus og lineær algebra (NTNU, H2026)
+# Se AUTHORING.md i study-companion for feltene.
+# ─────────────────────────────────────────────────────────────────────────────
+
+schemaVersion: 5
+
+# ── Identitet ────────────────────────────────────────────────────────────────
+code: TMA4400
+title: Matematikk 1
+subtitle: Interaktivt kompendium i kalkulus og lineær algebra
+term: H2026
+language: nb
+
+accent: "#2f7a6b" # rolig grønn (lys)
+accentDark: "#7cc7b5" # rolig grønn (mørk)
+
+courseUrl: "https://www.ntnu.no/studier/emner/TMA4400"
+institution: "NTNU"
+
+# ── Eksamen ──────────────────────────────────────────────────────────────────
+exam:
+  date: 2026-12-01
+  time: "09:00"
+  durationMinutes: 240
+  format: "4 timer digital skoleeksamen i Inspera: 5 flervalgsoppgaver og 8 langsvarsoppgaver på ark"
+  aids: "Kode D: ingen trykte eller håndskrevne hjelpemidler. Bestemt, enkel kalkulator (Casio FX-82CW, FC100 V2, fx-82ES PLUS, fx-82EX, Citizen SR-270X, SR-270X College, HP30S)."
+  formulaSheet: false
+
+# Tidligere eksamener. TMA4400 er emnet; TMA4100 er det eldre emnet som dekker
+# kalkulusdelen. Alle PDF-ene ligger på wiki.math.ntnu.no.
+exams:
+  - { label: "TMA4400 kont 2026", id: "tma4400-k2026", url: "https://wiki.math.ntnu.no/_media/tma4400/tma4400_2026k.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4400/lf_tma4400_2026k.pdf", date: 2026-08-04 }
+  - { label: "TMA4400 høst 2025", id: "tma4400-h2025", url: "https://wiki.math.ntnu.no/_media/tma4400/tma4400_2025h.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4400/lf_tma4400_2025h.pdf", date: 2025-12-01 }
+  - { label: "TMA4400 prøveeksamen 2025", id: "tma4400-prove2025", url: "https://wiki.math.ntnu.no/_media/tma4400/proveeksamen_tma4400_2025h.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4400/lf_proveeksamen_tma4400_2025h.pdf" }
+  - { label: "TMA4100 høst 2025", id: "tma4100-h2025", url: "https://wiki.math.ntnu.no/_media/tma4100/tma4100_2025h_nn.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/lf_tma4100_2025h.pdf", date: 2025-11-19 }
+  - { label: "TMA4100 kont 2025", id: "tma4100-k2025", url: "https://wiki.math.ntnu.no/_media/tma4100/tma4100_2025k.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/lf_tma4100_2025k.pdf" }
+  - { label: "TMA4100 høst 2024", id: "tma4100-h2024", url: "https://wiki.math.ntnu.no/_media/tma4100/tma4100_2024h.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/lf_tma4100_2024h.pdf", date: 2024-12-02 }
+  - { label: "TMA4100 kont 2024", id: "tma4100-k2024", url: "https://wiki.math.ntnu.no/_media/tma4100/tma4100_2024k.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/lf_tma4100_2024k.pdf" }
+  - { label: "TMA4100 høst 2023", id: "tma4100-h2023", url: "https://wiki.math.ntnu.no/_media/tma4100/tma4100_2023h.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/lf_tma4100_2023h.pdf" }
+  - { label: "TMA4100 kont 2023", id: "tma4100-k2023", url: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/tma4100_2023k.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/lf_tma4100_2023k.pdf" }
+  - { label: "TMA4100 høst 2022", id: "tma4100-h2022", url: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/tma4100_2022h.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/lf_tma4100_2022h.pdf", date: 2022-12-01 }
+  - { label: "TMA4100 kont 2022", id: "tma4100-k2022", url: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/tma4100_2022k.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/lf_tma4100_2022k.pdf" }
+  - { label: "TMA4100 høst 2021", id: "tma4100-h2021", url: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/tma4100_2021h.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/lf_tma4100_2021h.pdf", date: 2022-01-07 }
+  - { label: "TMA4100 kont 2021", id: "tma4100-k2021", url: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/tma4100_2021k.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/lf_tma4100_2021k.pdf" }
+  - { label: "TMA4100 høst 2020", id: "tma4100-h2020", url: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/tma4100_2020h.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/lf_tma4100_2020h.pdf" }
+  - { label: "TMA4100 kont 2020", id: "tma4100-k2020", url: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/tma4100_2020k.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/lf_tma4100_2020k.pdf" }
+  - { label: "TMA4100 høst 2019", id: "tma4100-h2019", url: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/tma4100_2019h.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/lf_tma4100_2019h.pdf" }
+  - { label: "TMA4100 kont 2019", id: "tma4100-k2019", url: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/tma4100_2019k.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/lf_tma4100_2019k.pdf" }
+  - { label: "TMA4100 høst 2018", id: "tma4100-h2018", url: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/tma4100_2018h.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/lf_tma4100_2018h.pdf" }
+  - { label: "TMA4100 kont 2018", id: "tma4100-k2018", url: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/tma4100_2018k.pdf", solutionUrl: "https://wiki.math.ntnu.no/_media/tma4100/eksamen/lf_tma4100_2018k.pdf" }
+
+examArchive:
+  url: "https://wiki.math.ntnu.no/tma4400/2026h/eksamensoppgaver"
+  label: "Eksamensarkivet for TMA4400"
+
+# ── Lenker i sidemenyen ──────────────────────────────────────────────────────
+links:
+  - { label: "Emnesiden på wiki", url: "https://wiki.math.ntnu.no/tma4400/2026h/start", group: "Emnet" }
+  - { label: "Pensum", url: "https://wiki.math.ntnu.no/tma4400/2026h/pensum", group: "Emnet" }
+  - { label: "Fremdriftsplan med foiler og plenumsoppgaver", url: "https://wiki.math.ntnu.no/tma4400/2026h/fremdriftsplan", group: "Emnet" }
+  - { label: "Jupyter-notebooks", url: "https://s.ntnu.no/tma4400", group: "Emnet" }
+  - { label: "Informasjon om eksamen", url: "https://wiki.math.ntnu.no/tma4400/2026h/om_eksamen", group: "Eksamen" }
+  - { label: "Eksamensarkiv TMA4100 (eldre emne)", url: "https://wiki.math.ntnu.no/tma4100/2024h/eksamensoppgaver", group: "Eksamen", note: "Rekker og Simpsons metode er ikke pensum i TMA4400" }
+
+# ── Formler ──────────────────────────────────────────────────────────────────
+formulas:
+  # >>> AGENT A
+  - { id: lineaer-uavhengighet, tex: "c_1\\mathbf v_1 + \\cdots + c_k\\mathbf v_k = \\mathbf 0 \\;\\Longrightarrow\\; c_1 = \\cdots = c_k = 0", label: "Lineær uavhengighet: bare den trivielle løsningen", section: "Lineære ligningssystemer og Gauss-eliminasjon", onSheet: false }
+  - { id: matriseprodukt, tex: "(AB)_{ij} = a_{i1}b_{1j} + a_{i2}b_{2j} + \\cdots + a_{in}b_{nj}", label: "Matriseprodukt: rad $i$ i $A$ ganget med søyle $j$ i $B$", section: "Matriser, inversmatriser og LU-faktorisering", onSheet: false }
+  - { id: inversmatrise, tex: "AA^{-1} = A^{-1}A = I, \\qquad A\\mathbf x = \\mathbf b \\;\\Longrightarrow\\; \\mathbf x = A^{-1}\\mathbf b", label: "Inversmatrisen og løsning av $A\\mathbf x = \\mathbf b$", section: "Matriser, inversmatriser og LU-faktorisering", onSheet: false }
+  - { id: invers-produkt, tex: "(AB)^{-1} = B^{-1}A^{-1}", label: "Den inverse til et produkt", section: "Matriser, inversmatriser og LU-faktorisering", onSheet: false }
+  - { id: lu-losning, tex: "A = LU: \\quad L\\mathbf y = \\mathbf b, \\quad U\\mathbf x = \\mathbf y", label: "LU-faktorisering: forover- og bakover-innsetting", section: "Matriser, inversmatriser og LU-faktorisering", onSheet: false }
+  - { id: determinant-2x2, tex: "\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix} = ad - bc", label: "Determinanten til en $2 \\times 2$-matrise", section: "Determinanter, egenverdier og diagonalisering", onSheet: false }
+  - { id: determinant-3x3, tex: "\\begin{vmatrix} a & b & c \\\\ d & e & f \\\\ g & h & i \\end{vmatrix} = a\\begin{vmatrix} e & f \\\\ h & i \\end{vmatrix} - b\\begin{vmatrix} d & f \\\\ g & i \\end{vmatrix} + c\\begin{vmatrix} d & e \\\\ g & h \\end{vmatrix}", label: "Oppløsning etter første rad (fortegn $(-1)^{i+j}$ generelt)", section: "Determinanter, egenverdier og diagonalisering", onSheet: false }
+  - { id: karakteristisk-ligning, tex: "\\det(M - \\lambda I) = 0, \\qquad (M - \\lambda I)\\mathbf x = \\mathbf 0", label: "Egenverdier og egenvektorer", section: "Determinanter, egenverdier og diagonalisering", onSheet: false }
+  - { id: diagonalisering, tex: "M = PDP^{-1}, \\qquad M^k = PD^kP^{-1}", label: "Diagonalisering: egenvektorer i $P$, egenverdier i $D$", section: "Determinanter, egenverdier og diagonalisering", onSheet: false }
+  - { id: overgangsmatrise-potens, tex: "\\mathbf x_k = M^k\\mathbf x_0 = c_1\\lambda_1^k\\mathbf v_1 + \\cdots + c_n\\lambda_n^k\\mathbf v_n", label: "Overgangsmatrise: startvektoren skrevet med egenvektorer", section: "Determinanter, egenverdier og diagonalisering", onSheet: false }
+  - { id: fikspunkt-feil-ett-steg, tex: "x_{n+1} - r = g'(c_n)\\,(x_n - r), \\quad c_n \\text{ mellom } x_n \\text{ og } r", label: "Feilen i ett steg av fikspunktiterasjon (middelverdisetningen)", section: "Numerisk ligningsløsning med fikspunktiterasjon og Newtons metode", onSheet: false }
+  - { id: fikspunkt-feilestimat, tex: "|g'(x)| \\le L < 1 \\text{ på } [a,b] \\;\\Longrightarrow\\; |x_n - r| \\le L^n|x_0 - r| \\le L^n(b - a)", label: "Feilestimat for fikspunktiterasjon når $g$ sender $[a,b]$ inn i seg selv", section: "Numerisk ligningsløsning med fikspunktiterasjon og Newtons metode", onSheet: false }
+  - { id: konvergensorden, tex: "\\lim_{n \\to \\infty} \\frac{e_{n+1}}{e_n^{\\,q}} = C, \\quad 0 < C < \\infty, \\qquad e_n = |x_n - r|", label: "Konvergensorden $q$", section: "Numerisk ligningsløsning med fikspunktiterasjon og Newtons metode", onSheet: false }
+  - { id: newtons-metode, tex: "x_{n+1} = x_n - \\frac{f(x_n)}{f'(x_n)}", label: "Newtons metode", section: "Numerisk ligningsløsning med fikspunktiterasjon og Newtons metode", onSheet: false }
+  - { id: newton-orden, tex: "\\lim_{n \\to \\infty} \\frac{e_{n+1}}{e_n^2} = \\frac{|f''(r)|}{2\\,|f'(r)|}", label: "Newtons metode har orden 2 (når $f'(r) \\neq 0$, $f''(r) \\neq 0$)", section: "Numerisk ligningsløsning med fikspunktiterasjon og Newtons metode", onSheet: false }
+  - { id: separabel-ligning, tex: "p(y)\\,y' = q(x) \\;\\Longrightarrow\\; \\int p(y)\\,dy = \\int q(x)\\,dx", label: "Separabel ligning", section: "Første ordens differensialligninger", onSheet: false }
+  - { id: integrerende-faktor, tex: "y' + p(x)y = q(x): \\quad \\rho = e^{\\int p(x)\\,dx}, \\quad (\\rho y)' = \\rho q", label: "Lineær ligning med integrerende faktor", section: "Første ordens differensialligninger", onSheet: false }
+  - { id: logistisk-losning, tex: "y' = ky\\Big(1 - \\frac yK\\Big) \\;\\Longrightarrow\\; y(t) = \\frac{K}{1 + Ce^{-kt}}, \\quad C = \\frac{K - y_0}{y_0}", label: "Logistisk vekst og løsningen", section: "Første ordens differensialligninger", onSheet: false }
+  - { id: kompleks-divisjon, tex: "\\frac{w}{z} = \\frac{w\\bar z}{z\\bar z} = \\frac{w\\bar z}{|z|^2}, \\qquad z\\bar z = a^2 + b^2", label: "Divisjon: gang med den konjugerte av nevneren", section: "Komplekse tall", onSheet: false }
+  - { id: polar-form, tex: "z = a + bi = re^{i\\theta}, \\quad r = |z| = \\sqrt{a^2 + b^2}, \\quad \\cos\\theta = \\frac ar, \\; \\sin\\theta = \\frac br", label: "Polar form", section: "Komplekse tall", onSheet: false }
+  - { id: eulers-formel, tex: "e^{i\\theta} = \\cos\\theta + i\\sin\\theta", label: "Eulers formel", section: "Komplekse tall", onSheet: false }
+  - { id: kompleks-multiplikasjon, tex: "re^{i\\theta} \\cdot se^{i\\varphi} = rs\\,e^{i(\\theta + \\varphi)}, \\qquad \\big(re^{i\\theta}\\big)^n = r^ne^{in\\theta}", label: "Multiplikasjon og potenser på polar form", section: "Komplekse tall", onSheet: false }
+  - { id: nte-rotter, tex: "z^n = se^{i\\varphi} \\;\\Longrightarrow\\; z_k = \\sqrt[n]{s}\\,e^{i(\\varphi + 2\\pi k)/n}, \\quad k = 0, 1, \\dots, n - 1", label: "De $n$ løsningene av $z^n = w$", section: "Komplekse tall", onSheet: false }
+  - { id: karakteristisk-ligning-ode, tex: "ay'' + by' + cy = 0: \\quad ar^2 + br + c = 0", label: "Karakteristisk ligning for andre ordens ligning", section: "Andre ordens lineære differensialligninger", onSheet: false }
+  - { id: ode2-to-reelle, tex: "y = Ae^{r_1x} + Be^{r_2x}", label: "To reelle røtter $r_1 \\neq r_2$", section: "Andre ordens lineære differensialligninger", onSheet: false }
+  - { id: ode2-dobbel-rot, tex: "y = (A + Bx)e^{rx}", label: "Dobbel rot $r$", section: "Andre ordens lineære differensialligninger", onSheet: false }
+  - { id: ode2-komplekse, tex: "y = e^{\\alpha x}(A\\cos\\beta x + B\\sin\\beta x)", label: "Komplekse røtter $\\alpha \\pm \\beta i$", section: "Andre ordens lineære differensialligninger", onSheet: false }
+  - { id: ode2-inhomogen, tex: "y = y_h + y_s", label: "Inhomogen ligning: homogen løsning pluss én spesiell løsning", section: "Andre ordens lineære differensialligninger", onSheet: false }
+  - { id: euler-eksplisitt, tex: "y_{n+1} = y_n + h\\,F(t_n, y_n), \\qquad t_{n+1} = t_n + h", label: "Eulers eksplisitte metode for $y' = F(t, y)$", section: "Eksistens, entydighet og Eulers metoder", onSheet: false }
+  - { id: euler-implisitt, tex: "y_{n+1} = y_n + h\\,F(t_{n+1}, y_{n+1})", label: "Eulers implisitte metode", section: "Eksistens, entydighet og Eulers metoder", onSheet: false }
+  - { id: euler-lokal-feil, tex: "|y(t_{n+1}) - y_{n+1}| = \\tfrac12 h^2|y''(c_n)| \\le Ch^2 \\quad (y_n = y(t_n))", label: "Lokal feil for Eulers eksplisitte metode; global feil av størrelse $Ch$", section: "Eksistens, entydighet og Eulers metoder", onSheet: false }
+  - { id: eksistens-entydighet, tex: "|f'(y)| \\le L, \\;\\; L(T - t_0) < 1 \\;\\Longrightarrow\\; y' = f(y),\\; y(t_0) = y_0 \\text{ har nøyaktig én løsning på } [t_0, T]", label: "Eksistens og entydighet", section: "Eksistens, entydighet og Eulers metoder", onSheet: false }
+  # <<< AGENT A
+  # >>> AGENT B
+  - { id: folge-konvergens, tex: "\\lim_{n\\to\\infty} a_n = L \\iff \\forall \\varepsilon > 0\\ \\exists N:\\ |a_n - L| < \\varepsilon \\text{ for alle } n > N", label: "Konvergens av en følge", section: "Følger", onSheet: false }
+  - { id: folge-fikspunkt, tex: "x_{n+1} = g(x_n),\\ x_n \\to L,\\ g \\text{ kontinuerlig} \\ \\Rightarrow\\ L = g(L)", label: "Grensen til en rekursiv følge er et fikspunkt", section: "Følger", onSheet: false }
+  - { id: grenseverdi-eps-delta, tex: "\\lim_{x\\to a} f(x) = L \\iff \\forall \\varepsilon > 0\\ \\exists \\delta > 0:\\ 0 < |x - a| < \\delta \\Rightarrow |f(x) - L| < \\varepsilon", label: "Grenseverdi med ε og δ", section: "Kontinuitet", onSheet: false }
+  - { id: kontinuitet-eps-delta, tex: "\\forall \\varepsilon > 0\\ \\exists \\delta > 0:\\ |x - a| < \\delta \\Rightarrow |f(x) - f(a)| < \\varepsilon", label: "$f$ er kontinuerlig i $a$", section: "Kontinuitet", onSheet: false }
+  - { id: sinx-over-x, tex: "\\lim_{x\\to 0} \\frac{\\sin x}{x} = 1", label: "Trigonometrisk standardgrense", section: "Kontinuitet", onSheet: false }
+  - { id: derivert-definisjon, tex: "f'(x) = \\lim_{h\\to 0} \\frac{f(x + h) - f(x)}{h}", label: "Definisjonen av den deriverte", section: "Derivasjon", onSheet: false }
+  - { id: derivert-invers, tex: "(f^{-1})'(f(x)) = \\frac{1}{f'(x)}", label: "Den deriverte av en invers funksjon", section: "Derivasjon", onSheet: false }
+  - { id: linear-tilnarming, tex: "L(x) = f(x_0) + f'(x_0)(x - x_0)", label: "Lineær tilnærming", section: "Derivasjon", onSheet: false }
+  - { id: middelverdisetningen, tex: "f'(c) = \\frac{f(b) - f(a)}{b - a}, \\quad c \\in (a, b)", label: "Middelverdisetningen ($f$ kontinuerlig på $[a,b]$, deriverbar på $(a,b)$)", section: "Derivasjon", onSheet: false }
+  - { id: fremoverdifferanse, tex: "f'(x) \\approx \\frac{f(x + h) - f(x)}{h}", label: "Fremoverdifferanse", section: "Derivasjon", onSheet: false }
+  - { id: sentraldifferanse, tex: "f'(x) \\approx \\frac{f(x + h) - f(x - h)}{2h}", label: "Sentraldifferanse", section: "Derivasjon", onSheet: false }
+  - { id: konveks-test, tex: "f''(x) \\ge 0 \\text{ på } I \\Rightarrow f \\text{ konveks}, \\qquad f''(x) \\le 0 \\text{ på } I \\Rightarrow f \\text{ konkav}", label: "Konveksitet fra den andrederiverte", section: "Funksjonsdrøfting", onSheet: false }
+  - { id: antiderivert, tex: "\\int f(x)\\,dx = F(x) + C, \\quad F'(x) = f(x)", label: "Antiderivert og ubestemt integral", section: "Funksjonsdrøfting", onSheet: false }
+  - { id: tangentlinje, tex: "y - y_0 = y'(x_0)(x - x_0)", label: "Tangenten i $(x_0, y_0)$", section: "Funksjonsdrøfting", onSheet: false }
+  - { id: riemannsum, tex: "\\int_a^b f(x)\\,dx = \\lim_{\\|P\\|\\to 0} \\sum_{i=1}^n f(x_i^*)\\,\\Delta x_i", label: "Integralet som grense av Riemannsummer", section: "Det bestemte integralet", onSheet: false }
+  - { id: middelverdi-integral, tex: "\\int_a^b f(x)\\,dx = f(c)(b - a), \\quad c \\in [a, b]", label: "Middelverdisetningen for integraler ($f$ kontinuerlig)", section: "Det bestemte integralet", onSheet: false }
+  - { id: aft-del1, tex: "\\frac{d}{dx}\\int_a^{g(x)} f(t)\\,dt = f(g(x))\\,g'(x)", label: "Analysens fundamentalteorem, del 1 (med kjerneregelen)", section: "Det bestemte integralet", onSheet: false }
+  - { id: aft-del2, tex: "\\int_a^b f(x)\\,dx = G(b) - G(a), \\quad G' = f", label: "Analysens fundamentalteorem, del 2", section: "Det bestemte integralet", onSheet: false }
+  - { id: areal-mellom-kurver, tex: "A = \\int_a^b |f(x) - g(x)|\\,dx", label: "Areal mellom to kurver", section: "Det bestemte integralet", onSheet: false }
+  - { id: midtpunktmetoden, tex: "M_n = h\\sum_{i=0}^{n-1} f\\!\\left(\\frac{x_i + x_{i+1}}{2}\\right), \\quad h = \\frac{b-a}{n}", label: "Midtpunktmetoden", section: "Det bestemte integralet", onSheet: false }
+  - { id: trapesmetoden, tex: "T_n = \\frac h2\\left(f(x_0) + 2\\sum_{i=1}^{n-1} f(x_i) + f(x_n)\\right), \\quad h = \\frac{b-a}{n}", label: "Trapesmetoden", section: "Det bestemte integralet", onSheet: false }
+  - { id: substitusjon, tex: "\\int_a^b g(u(x))\\,u'(x)\\,dx = \\int_{u(a)}^{u(b)} g(u)\\,du", label: "Substitusjon", section: "Integrasjonsteknikker", onSheet: false }
+  - { id: delvis-integrasjon, tex: "\\int f'(x)\\,g(x)\\,dx = f(x)\\,g(x) - \\int f(x)\\,g'(x)\\,dx", label: "Delvis integrasjon", section: "Integrasjonsteknikker", onSheet: false }
+  - { id: uegentlig-integral, tex: "\\int_a^\\infty f(x)\\,dx = \\lim_{t\\to\\infty}\\int_a^t f(x)\\,dx", label: "Uegentlig integral over et ubegrenset intervall", section: "Integrasjonsteknikker", onSheet: false }
+  - { id: p-integral, tex: "\\int_1^\\infty \\frac{dx}{x^p} = \\frac{1}{p-1}\\ (p > 1), \\qquad \\int_0^1 \\frac{dx}{x^p} = \\frac{1}{1-p}\\ (p < 1)", label: "p-integraler (divergerer ellers)", section: "Integrasjonsteknikker", onSheet: false }
+  - { id: tverrsnittmetoden, tex: "V = \\int_a^b A(x)\\,dx", label: "Tverrsnittmetoden ($A(x)$ = tverrsnittareal)", section: "Anvendelser av integralet", onSheet: false }
+  - { id: skivemetoden, tex: "V = \\pi\\int_a^b f(x)^2\\,dx, \\qquad V = \\pi\\int_a^b \\bigl(R(x)^2 - r(x)^2\\bigr)\\,dx", label: "Omdreiningslegeme om $x$-aksen: skiver og ringer", section: "Anvendelser av integralet", onSheet: false }
+  - { id: buelengde, tex: "L = \\int_a^b \\sqrt{1 + f'(x)^2}\\,dx", label: "Buelengde", section: "Anvendelser av integralet", onSheet: false }
+  - { id: overflateareal, tex: "S = 2\\pi\\int_a^b |f(x)|\\sqrt{1 + f'(x)^2}\\,dx", label: "Overflateareal av rotasjonsflate om $x$-aksen", section: "Anvendelser av integralet", onSheet: false }
+  - { id: taylorpolynom, tex: "T_n(x) = \\sum_{k=0}^{n} \\frac{f^{(k)}(a)}{k!}(x - a)^k", label: "Taylorpolynomet av grad $n$ om $a$", section: "Taylors teorem og feilanalyse", onSheet: false }
+  - { id: taylor-restledd, tex: "R_n(x) = \\frac{f^{(n+1)}(c)}{(n+1)!}(x - a)^{n+1}, \\quad |R_n(x)| \\le \\frac{M}{(n+1)!}|x - a|^{n+1}", label: "Restleddet ($c$ mellom $a$ og $x$, $|f^{(n+1)}| \\le M$)", section: "Taylors teorem og feilanalyse", onSheet: false }
+  - { id: feil-fremoverdifferanse, tex: "\\frac{f(x + h) - f(x)}{h} - f'(x) = \\frac h2 f''(c)", label: "Feilen i fremoverdifferansen", section: "Taylors teorem og feilanalyse", onSheet: false }
+  - { id: feil-sentraldifferanse, tex: "\\frac{f(x + h) - f(x - h)}{2h} - f'(x) = \\frac{h^2}{12}\\bigl(f'''(c_1) + f'''(c_2)\\bigr)", label: "Feilen i sentraldifferansen", section: "Taylors teorem og feilanalyse", onSheet: false }
+  - { id: feil-midtpunkt, tex: "|E_M| \\le \\frac{(b-a)^3 K}{24 n^2}", label: "Feilskranke for midtpunktmetoden ($|f''| \\le K$)", section: "Taylors teorem og feilanalyse", onSheet: false }
+  - { id: feil-trapes, tex: "|E_T| \\le \\frac{(b-a)^3 K}{12 n^2}", label: "Feilskranke for trapesmetoden ($|f''| \\le K$)", section: "Taylors teorem og feilanalyse", onSheet: false }
+  # <<< AGENT B
+
+# ── Begreper ─────────────────────────────────────────────────────────────────
+glossary:
+  # >>> AGENT A
+  - { term: "Utvidet matrise", definition: "Matrisen som består av koeffisientene i et lineært ligningssystem, med høyresidene som en ekstra søyle til høyre for en loddrett strek. Hver rad er en ligning.", section: "Lineære ligningssystemer og Gauss-eliminasjon" }
+  - { term: "Radoperasjon", definition: "En av tre operasjoner på en matrise som ikke endrer løsningsmengden: bytte om to rader, gange en rad med et tall forskjellig fra null, eller legge et multiplum av en rad til en annen rad.", section: "Lineære ligningssystemer og Gauss-eliminasjon" }
+  - { term: "Pivotelement", definition: "Det første tallet forskjellig fra null i en rad i en matrise på trappeform. I Gauss-eliminasjon er det tallet du bruker til å skaffe nuller i resten av søylen.", section: "Lineære ligningssystemer og Gauss-eliminasjon" }
+  - { term: "Trappeform", definition: "En matrise der nullradene står nederst, hver annen rad starter med pivotelementet $1$, og pivotelementet i hver rad står lenger til høyre enn i raden over.", section: "Lineære ligningssystemer og Gauss-eliminasjon" }
+  - { term: "Redusert trappeform", definition: "Trappeform der det i tillegg bare står nuller over og under hvert pivotelement. Løsningen av systemet kan leses av direkte.", section: "Lineære ligningssystemer og Gauss-eliminasjon" }
+  - { term: "Fri parameter", definition: "En ukjent som hører til en søyle uten pivotelement, og som derfor kan velges fritt. Antallet frie parametre er løsningsmengdens dimensjon.", section: "Lineære ligningssystemer og Gauss-eliminasjon" }
+  - { term: "Lineært uavhengig", definition: "Vektorene $\\mathbf v_1, \\dots, \\mathbf v_k$ er lineært uavhengige hvis $c_1\\mathbf v_1 + \\cdots + c_k\\mathbf v_k = \\mathbf 0$ bare har løsningen $c_1 = \\cdots = c_k = 0$. Ellers er de lineært avhengige.", section: "Lineære ligningssystemer og Gauss-eliminasjon" }
+  - { term: "Inverterbar matrise", definition: "En $n \\times n$-matrise $A$ er inverterbar hvis det finnes en matrise $A^{-1}$ med $AA^{-1} = A^{-1}A = I$. Da har $A\\mathbf x = \\mathbf b$ den entydige løsningen $\\mathbf x = A^{-1}\\mathbf b$.", section: "Matriser, inversmatriser og LU-faktorisering" }
+  - { term: "Homogent ligningssystem", definition: "Et lineært system $A\\mathbf x = \\mathbf 0$ der alle høyresidene er null. Det har alltid den trivielle løsningen $\\mathbf x = \\mathbf 0$. Er $\\mathbf b \\neq \\mathbf 0$, kalles systemet inhomogent.", section: "Matriser, inversmatriser og LU-faktorisering" }
+  - { term: "Triangulær matrise", definition: "En kvadratisk matrise med bare nuller over diagonalen (nedre triangulær) eller bare nuller under diagonalen (øvre triangulær).", section: "Matriser, inversmatriser og LU-faktorisering" }
+  - { term: "LU-faktorisering", definition: "En faktorisering $A = LU$ der $L$ er nedre triangulær med enere på diagonalen og multiplikatorene fra Gauss-eliminasjon under, og $U$ er den øvre triangulære matrisen eliminasjonen ender med.", section: "Matriser, inversmatriser og LU-faktorisering" }
+  - { term: "Delvis pivotering", definition: "Gauss-eliminasjon der du før hver søyle bytter opp raden med størst tallverdi i søylen, slik at alle multiplikatorer har tallverdi høyst $1$ og avrundingsfeil ikke vokser.", section: "Matriser, inversmatriser og LU-faktorisering" }
+  - { term: "Egenverdi", definition: "Et tall $\\lambda$ slik at $M\\mathbf x = \\lambda\\mathbf x$ for en vektor $\\mathbf x \\neq \\mathbf 0$. Vektoren $\\mathbf x$ kalles en egenvektor. Egenverdiene er løsningene av $\\det(M - \\lambda I) = 0$.", section: "Determinanter, egenverdier og diagonalisering" }
+  - { term: "Diagonaliserbar matrise", definition: "En $n \\times n$-matrise $M$ som kan skrives $M = PDP^{-1}$ med $D$ diagonal og $P$ inverterbar. Søylene i $P$ er egenvektorer og diagonalen i $D$ egenverdiene. Krever $n$ lineært uavhengige egenvektorer.", section: "Determinanter, egenverdier og diagonalisering" }
+  - { term: "Overgangsmatrise", definition: "En matrise $M$ som beskriver en prosess i steg, $\\mathbf x_{k+1} = M\\mathbf x_k$, slik at $\\mathbf x_k = M^k\\mathbf x_0$. Har den tall mellom $0$ og $1$ og søylesum $1$, har den alltid egenverdien $1$.", section: "Determinanter, egenverdier og diagonalisering" }
+  - { term: "Konvergensorden", definition: "En følge $x_n \\to r$ med feil $e_n = |x_n - r|$ har konvergensorden $q$ hvis $e_{n+1}/e_n^{\\,q}$ går mot et tall $C$ med $0 < C < \\infty$. Orden 1 er lineær, orden 2 kvadratisk konvergens.", section: "Numerisk ligningsløsning med fikspunktiterasjon og Newtons metode" }
+  - { term: "Newtons metode", definition: "Iterasjonen $x_{n+1} = x_n - f(x_n)/f'(x_n)$ for å løse $f(x) = 0$. Neste tilnærming er nullpunktet til tangenten i $x_n$. Metoden har orden 2 når $f'(r) \\neq 0$.", section: "Numerisk ligningsløsning med fikspunktiterasjon og Newtons metode" }
+  - { term: "Differensialligning", definition: "En ligning der den ukjente er en funksjon, og der deriverte av funksjonen inngår. Ordenen er ordenen til den høyeste deriverte.", section: "Første ordens differensialligninger" }
+  - { term: "Initialverdiproblem", definition: "En differensialligning sammen med et initialkrav, for eksempel $y(0) = 3$, som bestemmer konstantene i den generelle løsningen.", section: "Første ordens differensialligninger" }
+  - { term: "Separabel differensialligning", definition: "En første ordens ligning som kan skrives $p(y)\\,y' = q(x)$. Den løses ved å integrere begge sider: $\\int p(y)\\,dy = \\int q(x)\\,dx$.", section: "Første ordens differensialligninger" }
+  - { term: "Integrerende faktor", definition: "Funksjonen $\\rho(x) = e^{\\int p(x)\\,dx}$. Ganger du $y' + p(x)y = q(x)$ med $\\rho$, blir venstresiden $(\\rho y)'$.", section: "Første ordens differensialligninger" }
+  - { term: "Logistisk vekst", definition: "Vekst etter $y' = ky(1 - y/K)$: nesten eksponentiell når $y$ er liten, og avtagende mot null når $y$ nærmer seg bærekapasiteten $K$.", section: "Første ordens differensialligninger" }
+  - { term: "Komplekst tall", definition: "Et tall $z = a + bi$ med $a, b$ reelle og $i^2 = -1$. Realdelen er $\\operatorname{Re} z = a$ og imaginærdelen $\\operatorname{Im} z = b$.", section: "Komplekse tall" }
+  - { term: "Konjugert", definition: "Den konjugerte til $z = a + bi$ er $\\bar z = a - bi$, speilbildet om den reelle aksen. Produktet $z\\bar z = a^2 + b^2$ er reelt.", section: "Komplekse tall" }
+  - { term: "Absoluttverdi av komplekst tall", definition: "Avstanden fra $z = a + bi$ til origo: $|z| = \\sqrt{a^2 + b^2}$. Også kalt modulus.", section: "Komplekse tall" }
+  - { term: "Argument", definition: "En vinkel $\\theta$ fra den positive reelle aksen til $z \\neq 0$, mot klokka og i radianer. Er $\\theta$ et argument, er også $\\theta + 2\\pi k$ det.", section: "Komplekse tall" }
+  - { term: "Eulers formel", definition: "$e^{i\\theta} = \\cos\\theta + i\\sin\\theta$. Gir polar form $z = re^{i\\theta}$ med $r = |z|$ og $\\theta$ et argument.", section: "Komplekse tall" }
+  - { term: "Karakteristisk ligning", definition: "For $ay'' + by' + cy = 0$ er den karakteristiske ligningen $ar^2 + br + c = 0$. Funksjonen $e^{rx}$ er en løsning nøyaktig når $r$ er en rot.", section: "Andre ordens lineære differensialligninger" }
+  - { term: "Ubestemte koeffisienter", definition: "Metode for å finne en spesiell løsning $y_s$ av $ay'' + by' + cy = f(x)$: foreslå en $y_s$ av samme type som $f$ med ukjente konstanter, sett inn og sammenlign koeffisientene. Også kalt gjettemetoden.", section: "Andre ordens lineære differensialligninger" }
+  - { term: "Retningsfelt", definition: "Korte streker med stigningstall $F(t, y)$ tegnet i mange punkter $(t, y)$ for ligningen $y' = F(t, y)$. Løsningskurvene følger strekene.", section: "Eksistens, entydighet og Eulers metoder" }
+  - { term: "Eulers eksplisitte metode", definition: "Tilnærming til $y' = F(t, y)$, $y(t_0) = y_0$ ved $y_{n+1} = y_n + h\\,F(t_n, y_n)$: små steg langs stigningstallet i starten av hvert steg. Lokal feil $\\le Ch^2$, orden 1.", section: "Eksistens, entydighet og Eulers metoder" }
+  - { term: "Eulers implisitte metode", definition: "Tilnærming ved $y_{n+1} = y_n + h\\,F(t_{n+1}, y_{n+1})$, med stigningstallet i enden av steget. Krever at du løser en ligning hvert steg, men er stabil også for stor $h$.", section: "Eksistens, entydighet og Eulers metoder" }
+  - { term: "Lokal feil", definition: "Feilen i ett steg av en numerisk metode når steget starter i den eksakte verdien, $y_n = y(t_n)$. For Eulers metoder er den høyst $Ch^2$.", section: "Eksistens, entydighet og Eulers metoder" }
+  # <<< AGENT A
+  # >>> AGENT B
+  - { term: "Følge", definition: "En funksjon som gir et tall $a_n$ for hvert naturlig tall $n$, skrevet $\\{a_n\\}_{n=1}^\\infty$. Den kan være gitt ved en formel eller rekursivt.", section: "Følger" }
+  - { term: "Begrenset følge", definition: "En følge er begrenset oppover hvis $a_n \\le M$ for alle $n$, og begrenset nedover hvis $a_n \\ge m$ for alle $n$. Begrenset betyr begge deler.", section: "Følger" }
+  - { term: "Monoton følge", definition: "En følge som er voksende ($a_{n+1} \\ge a_n$ for alle $n$) eller avtakende ($a_{n+1} \\le a_n$ for alle $n$).", section: "Følger" }
+  - { term: "Supremum", definition: "Den minste øvre skranken til en mengde $M$, skrevet $\\sup M$. Infimum, $\\inf M$, er den største nedre skranken. Ingen av dem trenger å ligge i $M$.", section: "Følger" }
+  - { term: "Kompletthetsegenskapen", definition: "Hver ikke-tom mengde av reelle tall som er begrenset oppover, har et supremum i $\\mathbb R$. Egenskapen gjelder ikke for $\\mathbb Q$.", section: "Følger" }
+  - { term: "Ensidig grenseverdi", definition: "$\\lim_{x\\to a^-} f(x)$ og $\\lim_{x\\to a^+} f(x)$, der $x$ bare nærmer seg $a$ fra venstre eller fra høyre. Grensen $\\lim_{x\\to a} f(x)$ finnes hvis og bare hvis begge finnes og er like.", section: "Kontinuitet" }
+  - { term: "Skviseteoremet", definition: "Hvis $g(x) \\le f(x) \\le h(x)$ nær $a$ og $\\lim_{x\\to a} g(x) = \\lim_{x\\to a} h(x) = L$, er $\\lim_{x\\to a} f(x) = L$.", section: "Kontinuitet" }
+  - { term: "Injektiv", definition: "$f$ er injektiv hvis $f(x_1) = f(x_2)$ bare når $x_1 = x_2$. En strengt monoton funksjon er injektiv.", section: "Kontinuitet" }
+  - { term: "Invers funksjon", definition: "For en injektiv $f$ er $f^{-1}$ funksjonen med $f^{-1}(f(x)) = x$. Definisjonsmengden til $f^{-1}$ er verdimengden til $f$.", section: "Kontinuitet" }
+  - { term: "Deriverbar", definition: "$f$ er deriverbar i $x$ hvis $\\lim_{h\\to0} \\frac{f(x+h) - f(x)}{h}$ eksisterer. Deriverbar gir kontinuerlig, men ikke omvendt.", section: "Derivasjon" }
+  - { term: "Lineær tilnærming", definition: "Tangentlinja brukt som funksjon: $L(x) = f(x_0) + f'(x_0)(x - x_0)$. Den har samme verdi og samme deriverte som $f$ i $x_0$.", section: "Derivasjon" }
+  - { term: "Fremoverdifferanse", definition: "Tilnærmingen $f'(x) \\approx \\frac{f(x+h) - f(x)}{h}$. Bakoverdifferansen bruker $x - h$ i stedet for $x + h$.", section: "Derivasjon" }
+  - { term: "Sentraldifferanse", definition: "Tilnærmingen $f'(x) \\approx \\frac{f(x+h) - f(x-h)}{2h}$, også kalt symmetrisk differanse. Feilen er av orden $h^2$.", section: "Derivasjon" }
+  - { term: "Lokalt ekstremalpunkt", definition: "$c$ er et lokalt maksimum hvis $f(c) \\ge f(x)$ for alle $x$ i et intervall rundt $c$ (minimum med $\\le$). Globalt når ulikheten gjelder i hele definisjonsmengden.", section: "Funksjonsdrøfting" }
+  - { term: "Kritisk punkt", definition: "Et punkt der $f'(c) = 0$. Lokale ekstremalpunkter ligger i kritiske punkter, singulære punkter (der $f'$ ikke finnes) eller endepunkter.", section: "Funksjonsdrøfting" }
+  - { term: "Konveks funksjon", definition: "$f$ er konveks på $I$ hvis grafen ligger under sekanten mellom hvert par av punkter i $I$, og konkav hvis den ligger over. $f'' \\ge 0$ gir konveks.", section: "Funksjonsdrøfting" }
+  - { term: "Vendepunkt", definition: "Et punkt der $f$ skifter mellom konveks og konkav. $f''(c) = 0$ alene er ikke nok.", section: "Funksjonsdrøfting" }
+  - { term: "Antiderivert", definition: "En funksjon $F$ med $F' = f$. To antideriverte til $f$ på et intervall skiller seg med en konstant.", section: "Funksjonsdrøfting" }
+  - { term: "Riemannsum", definition: "En sum $\\sum_{i=1}^n f(x_i^*)\\,\\Delta x_i$ over en partisjon av $[a,b]$, med ett punkt $x_i^*$ i hvert delintervall. Integralet er grensen når delintervallene går mot null.", section: "Det bestemte integralet" }
+  - { term: "Middelverdi", definition: "Middelverdien til $f$ på $[a,b]$ er $\\frac{1}{b-a}\\int_a^b f(x)\\,dx$. En kontinuerlig $f$ antar middelverdien i minst ett punkt.", section: "Det bestemte integralet" }
+  - { term: "Midtpunktmetoden", definition: "Tilnærmer $\\int_a^b f$ med $h\\sum f(m_i)$, der $m_i$ er midtpunktet i delintervall nummer $i$ og $h = (b-a)/n$.", section: "Det bestemte integralet" }
+  - { term: "Trapesmetoden", definition: "Tilnærmer $\\int_a^b f$ ved å erstatte grafen med rette linjer mellom $(x_i, f(x_i))$ og summere arealene av trapesene: $\\frac h2(f(x_0) + 2f(x_1) + \\dots + 2f(x_{n-1}) + f(x_n))$.", section: "Det bestemte integralet" }
+  - { term: "Delbrøkoppspalting", definition: "Å skrive en ekte rasjonal funksjon som en sum av brøker med én faktor av nevneren hver, for eksempel $\\frac{A}{x-a}$, $\\frac{B}{(x-a)^2}$ og $\\frac{Bx + C}{x^2 + px + q}$.", section: "Integrasjonsteknikker" }
+  - { term: "Uegentlig integral", definition: "Et integral over et ubegrenset intervall eller av en ubegrenset funksjon, definert som en grense av vanlige integraler. Det konvergerer hvis grensen finnes.", section: "Integrasjonsteknikker" }
+  - { term: "Tverrsnittmetoden", definition: "Volumet av et legeme er $\\int_a^b A(x)\\,dx$, der $A(x)$ er arealet av snittet vinkelrett på aksen i punktet $x$. Skiver og ringer er spesialtilfeller for omdreiningslegemer.", section: "Anvendelser av integralet" }
+  - { term: "Buelengde", definition: "Lengden av grafen til $f$ fra $x = a$ til $x = b$, $\\int_a^b \\sqrt{1 + f'(x)^2}\\,dx$.", section: "Anvendelser av integralet" }
+  - { term: "Rotasjonsflate", definition: "Flaten som oppstår når en graf dreies om en akse. Arealet om $x$-aksen er $2\\pi\\int_a^b |f|\\sqrt{1 + (f')^2}\\,dx$.", section: "Anvendelser av integralet" }
+  - { term: "Taylorpolynom", definition: "$T_n(x) = \\sum_{k=0}^n \\frac{f^{(k)}(a)}{k!}(x-a)^k$, polynomet av grad $n$ som har samme verdi og samme $n$ første deriverte som $f$ i $a$.", section: "Taylors teorem og feilanalyse" }
+  - { term: "Restledd", definition: "Feilen $R_n(x) = f(x) - T_n(x)$. Taylors teorem gir $R_n(x) = \\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}$ for en $c$ mellom $a$ og $x$.", section: "Taylors teorem og feilanalyse" }
+  # <<< AGENT B
+
+# ── Funksjoner ───────────────────────────────────────────────────────────────
+features: { progress: true, search: true, flashcards: true, theme: true }
+
+# ── Tekst-overstyringer ──────────────────────────────────────────────────────
+ui:
+  noFormulaSheetNote: "Til eksamen i TMA4400 deles det ikke ut noe formelark. Formlene her må du kunne utenat eller utlede selv."

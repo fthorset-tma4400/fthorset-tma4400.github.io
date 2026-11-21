@@ -1,0 +1,253 @@
+---
+order: 4
+title: Følger
+summary: Følger og grenseverdier, supremum og infimum, kompletthetsegenskapen og hvordan du viser med induksjon at en rekursiv følge er monoton og begrenset, og finner grensen som et fikspunkt.
+importance: core
+part: "Del 2: Følger, kontinuitet og derivasjon"
+tag: "Uke 37"
+---
+
+<LearningGoals>
+- Avgjøre om en følge er begrenset, monoton, konvergent eller divergent
+- Bruke ε-N-definisjonen av grenseverdi til en følge
+- Finne supremum og infimum til en mengde, og forklare kompletthetsegenskapen
+- Vise med induksjon at en rekursiv følge er monoton og begrenset, og konkludere med at den konvergerer
+- Finne grensen til $x_{n+1} = g(x_n)$ som et fikspunkt for $g$
+</LearningGoals>
+
+Start med $x_0 = 2$ og regn ut
+
+$$
+x_{n+1} = \frac12\left(x_n + \frac{2}{x_n}\right).
+$$
+
+Du får $x_1 = \tfrac32$, $x_2 = \tfrac{17}{12}$ og $x_3 = \tfrac{577}{408} \approx 1{,}414216$. Alle leddene er brøker, altså rasjonale tall. Likevel nærmer de seg $\sqrt 2 \approx 1{,}414214$, som ikke er rasjonalt. Følgen har et mål som ikke finnes blant de rasjonale tallene, og det er derfor du trenger de reelle tallene og en egenskap som skiller dem fra $\mathbb Q$. Den egenskapen er kompletthet, og den er grunnen til at følgen over har en grense i det hele tatt.
+
+## Følger og grenseverdier
+
+En <Term name="Følge">følge</Term> $\{a_n\}_{n=1}^\infty$ er en funksjon som gir et tall $a_n$ for hvert naturlig tall $n$. Følgen kan være gitt ved en formel, som $a_n = \frac{n}{n+1}$, eller rekursivt, der hvert ledd regnes ut fra det forrige, som $x_{n+1} = g(x_n)$ med en gitt startverdi.
+
+Følgen er <Term name="Begrenset følge">begrenset oppover</Term> hvis det finnes et tall $M$ med $a_n \le M$ for alle $n$, og begrenset nedover hvis det finnes et $m$ med $a_n \ge m$ for alle $n$. Den er <Term name="Monoton følge">voksende</Term> hvis $a_{n+1} \ge a_n$ for alle $n$, og avtakende hvis $a_{n+1} \le a_n$ for alle $n$. En følge som er voksende eller avtakende, kalles monoton.
+
+<Statement kind="definition" name="Konvergens av en følge">
+Følgen $\{a_n\}$ konvergerer mot tallet $L$, skrevet $\lim_{n\to\infty} a_n = L$, hvis det for hvert $\varepsilon > 0$ finnes et tall $N$ slik at $|a_n - L| < \varepsilon$ for alle $n > N$. En følge som ikke konvergerer mot noe tall, divergerer.
+</Statement>
+
+Les definisjonen som et spill. Noen gir deg en toleranse $\varepsilon$, så liten de vil. Du må svare med en $N$ slik at hvert ledd etter $a_N$ ligger mindre enn $\varepsilon$ fra $L$. Klarer du det for hver $\varepsilon$, er $L$ grensen.
+
+For $a_n = \frac{n}{n+1}$ og $L = 1$ er
+
+$$
+|a_n - 1| = \frac{1}{n+1} < \varepsilon \iff n > \frac1\varepsilon - 1,
+$$
+
+så $N = \frac1\varepsilon - 1$ virker. Med $\varepsilon = 0{,}1$ gir det $N = 9$: fra og med $a_{10} = \frac{10}{11}$ ligger alle leddene i båndet $(0{,}9;\ 1{,}1)$.
+
+<Simulation
+  src="/sims/04-epsilon.js"
+  host="dom"
+  title="Velg ε og finn N"
+  caption="Det skraverte båndet er $L \pm \varepsilon$. Den stiplede linja viser den minste $N$ som gjør at alle ledd med $n > N$ ligger i båndet. For $(-1)^n$ finnes ingen slik $N$ når $\varepsilon < 1$."
+  height={260}
+/>
+
+Følgen $a_n = (-1)^n$ hopper mellom $-1$ og $1$. Velg $\varepsilon = \tfrac12$. Uansett hvilken $L$ du prøver, ligger annethvert ledd minst $1$ unna $L$, så ingen $N$ virker, og følgen divergerer. Følgen $a_n = 2^n$ divergerer på en annen måte: den er ubegrenset og vokser forbi alle tall. Det skrives $\lim_{n\to\infty} 2^n = \infty$, men følgen konvergerer ikke.
+
+Grenser oppfører seg som du venter. Hvis $\lim a_n = A$ og $\lim b_n = B$, er
+
+$$
+\lim_{n\to\infty}(a_n \pm b_n) = A \pm B,\qquad \lim_{n\to\infty} a_n b_n = AB,\qquad \lim_{n\to\infty}\frac{a_n}{b_n} = \frac AB \ \text{ når } B \ne 0.
+$$
+
+To regler til brukes hele tiden for rekursive følger. Den forskjøvne følgen har samme grense: $\lim a_{n+1} = \lim a_n$. Og for funksjoner som $\sqrt x$, polynomer, $e^x$ og brøker med nevner forskjellig fra null kan du flytte grensen inn i funksjonen: $\lim g(a_n) = g(\lim a_n)$. Den siste egenskapen er det som kalles at $g$ er kontinuerlig.
+
+## Supremum, infimum og kompletthet
+
+Mengden $M = (0, 1)$ har ikke noe største element. Uansett hvilket tall under $1$ du velger, finnes det et større tall i $M$. Men $1$ er en øvre skranke, og ingen øvre skranke er mindre enn $1$.
+
+<Statement kind="definition" name="Supremum og infimum">
+En øvre skranke for en mengde $M \subseteq \mathbb R$ er et tall $b$ med $x \le b$ for alle $x \in M$. <Term name="Supremum">Supremum</Term> til $M$, $\sup M$, er den minste øvre skranken. Infimum til $M$, $\inf M$, er den største nedre skranken.
+</Statement>
+
+For $M = (0,1)$ er $\sup M = 1$ og $\inf M = 0$, og ingen av dem ligger i $M$. Supremum og infimum trenger altså ikke være med i mengden. Hvis $\sup M$ ligger i $M$, er det mengdens største element.
+
+<Statement kind="principle" name="Kompletthetsegenskapen">
+Hver ikke-tom mengde av reelle tall som er begrenset oppover, har et supremum i $\mathbb R$. Tilsvarende har hver ikke-tom mengde som er begrenset nedover, et infimum i $\mathbb R$.
+</Statement>
+
+Foilene kaller dette kompletthetsprinsippet. Egenskapen gjelder ikke for de rasjonale tallene. Mengden $\{x \in \mathbb Q : x^2 < 2\}$ er begrenset oppover, men den minste øvre skranken er $\sqrt 2$, og den finnes ikke i $\mathbb Q$. Det er akkurat dette hullet følgen i innledningen faller ned i, hvis du bare har rasjonale tall.
+
+Fra kompletthetsegenskapen får du det viktigste konvergensresultatet i emnet.
+
+<Statement kind="theorem" name="Monotone, begrensede følger konvergerer">
+En voksende følge som er begrenset oppover, konvergerer mot $\sup\{a_n\}$. En avtakende følge som er begrenset nedover, konvergerer mot $\inf\{a_n\}$.
+</Statement>
+
+<Derivation title="Bevis for den voksende følgen">
+Mengden $\{a_n\}$ er ikke-tom og begrenset oppover, så kompletthetsegenskapen gir $L = \sup\{a_n\}$. Ta en $\varepsilon > 0$. Siden $L$ er den minste øvre skranken, er $L - \varepsilon$ ikke en øvre skranke, så det finnes en $N$ med $a_N > L - \varepsilon$. Følgen er voksende, så for $n > N$ er
+
+$$
+L - \varepsilon < a_N \le a_n \le L.
+$$
+
+Dette betyr at $|a_n - L| < \varepsilon$ for alle $n > N$, og $\lim a_n = L$.
+</Derivation>
+
+Teoremet sier at grensen finnes, men ikke hva den er. Den finner du i neste trinn.
+
+## Rekursive følger: induksjon og fikspunkt
+
+En rekursiv følge $x_{n+1} = g(x_n)$ kalles også en fikspunktiterasjon. Påstander som «$a_n \le 2$ for alle $n$» og «$a_{n+1} \ge a_n$ for alle $n$» om en slik følge viser du med induksjon, fordi hvert ledd bare er definert ved det forrige.
+
+Grensen er bestemt av $g$. Hvis $x_n \to L$ og $g$ er kontinuerlig i $L$, gir reglene over
+
+$$
+L = \lim_{n\to\infty} x_{n+1} = \lim_{n\to\infty} g(x_n) = g\Bigl(\lim_{n\to\infty} x_n\Bigr) = g(L).
+$$
+
+Grensen er altså et fikspunkt for $g$, et tall med $g(L) = L$. Har ligningen $g(L) = L$ flere løsninger, velger du den som er forenlig med skrankene du har vist.
+
+<Steps>
+<Step title="Vis at følgen er begrenset">
+Bruk induksjon. Sjekk skranken for startverdien, anta at den gjelder for $a_k$, og vis at den da gjelder for $a_{k+1} = g(a_k)$. Når $g$ er voksende, holder det å sette inn skranken i $g$.
+</Step>
+<Step title="Vis at følgen er monoton">
+Enten med induksjon på $a_{k+1} \ge a_k$, eller direkte ved å se på fortegnet til $a_{n+1} - a_n$ og bruke skranken fra forrige trinn.
+</Step>
+<Step title="Konkluder at grensen finnes">
+Voksende og begrenset oppover, eller avtakende og begrenset nedover, gir konvergens.
+</Step>
+<Step title="Finn grensen som fikspunkt">
+Sett $L = g(L)$, løs ligningen og forkast løsningene som bryter skrankene.
+</Step>
+</Steps>
+
+<Example title="Følgen som tilnærmer $\sqrt 2$">
+La $x_0 = 2$ og $x_{n+1} = \frac12\left(x_n + \frac{2}{x_n}\right)$. Vis at følgen konvergerer, og finn grensen.
+
+<Solution>
+Med induksjon er $x_n > 0$ for alle $n$: $x_0 = 2 > 0$, og et positivt tall pluss $2$ delt på et positivt tall er positivt.
+
+Skranken nedover. For hver $n$ er
+
+$$
+x_{n+1} - \sqrt 2 = \frac{x_n^2 - 2\sqrt2\,x_n + 2}{2x_n} = \frac{(x_n - \sqrt2)^2}{2x_n} \ge 0,
+$$
+
+så $x_n \ge \sqrt 2$ for alle $n \ge 1$, og også for $n = 0$.
+
+Monotoni. Siden $x_n \ge \sqrt 2$, er $x_n^2 \ge 2$ og
+
+$$
+x_{n+1} - x_n = \frac{2 - x_n^2}{2x_n} \le 0.
+$$
+
+Følgen er avtakende og begrenset nedover av $\sqrt 2$, så den konvergerer mot en $L \ge \sqrt 2$. Funksjonen $g(x) = \frac12(x + \frac2x)$ er kontinuerlig for $x > 0$, så $L = \frac12(L + \frac2L)$. Det gir $2L^2 = L^2 + 2$, altså $L^2 = 2$, og $L = \sqrt 2$ fordi $L > 0$.
+
+<Answer>$\lim_{n\to\infty} x_n = \sqrt 2$</Answer>
+</Solution>
+</Example>
+
+<Example label="Eksamensoppgave" title="$a_{n+1} = \sqrt{2 + a_n}$">
+<ExamRef id="tma4400-h2025" task="7" />
+
+Lat følga $\{a_n\}_{n=0}^\infty$ vere gjeven ved
+
+$$
+a_{n+1} = \sqrt{2 + a_n}, \qquad a_0 = \sqrt 2.
+$$
+
+Vis at $a_{n+1} \geqslant a_n$ og $0 \leqslant a_n \leqslant 2$ for alle $n \geqslant 0$.
+
+Kvifor kan du no vere sikker på at $\lim_{n\to\infty} a_n$ eksisterer?
+
+Finn så $\lim_{n\to\infty} a_n$.
+
+*Vink:* Du kan få bruk for induksjon i denne oppgåva.
+
+<Solution>
+Funksjonen $g(x) = \sqrt{2 + x}$ er voksende og kontinuerlig for $x \ge -2$. Det brukes i hvert induksjonssteg.
+
+Skrankene. For $n = 0$ er $0 \le \sqrt 2 \le 2$. Anta $0 \le a_k \le 2$. Da er
+
+$$
+0 \le \sqrt{2 + a_k} = a_{k+1} \le \sqrt{2 + 2} = 2.
+$$
+
+Monotoni. For $n = 0$ er $a_1 = \sqrt{2 + \sqrt 2} \ge \sqrt 2 = a_0$, fordi $\sqrt 2 \ge 0$. Anta $a_k \ge a_{k-1}$. Siden $g$ er voksende, er
+
+$$
+a_{k+1} = \sqrt{2 + a_k} \ge \sqrt{2 + a_{k-1}} = a_k.
+$$
+
+Begge påstandene gjelder altså for alle $n \ge 0$.
+
+Følgen er voksende og begrenset oppover av $2$, og en voksende følge som er begrenset oppover, konvergerer. Kall grensen $a$. Kontinuiteten til $g$ gir
+
+$$
+a = \sqrt{2 + a} \ \Rightarrow\ a^2 - a - 2 = 0 \ \Rightarrow\ (a - 2)(a + 1) = 0.
+$$
+
+Siden $a_n \ge 0$ for alle $n$, er $a \ge 0$, så $a = -1$ forkastes.
+
+<Answer>$\lim_{n\to\infty} a_n = 2$</Answer>
+</Solution>
+</Example>
+
+Samme grep virker for en avtakende følge. Når $g$ er voksende, gir $a_{n+1} \le a_n$ at $a_{n+2} = g(a_{n+1}) \le g(a_n) = a_{n+1}$.
+
+<Example label="Eksamensoppgave" title="$a_{n+1} = 1/(3 - a_n)$">
+<ExamRef id="tma4100-k2023" task="8" />
+
+Følgen $\{a_n\}_{n=1}^\infty$ er gitt rekursivt som
+
+$$
+a_{n+1} = \frac{1}{3 - a_n}, \qquad \text{der } a_1 = 1.
+$$
+
+Vis at følgen er avtagende.
+
+Det oppgis som kjent at følgen er nedad begrenset av 0.
+
+Forklar hvorfor følgen konvergerer og regn ut $\lim_{n\to\infty} a_n$.
+
+<Solution>
+Funksjonen $g(x) = \frac{1}{3 - x}$ er voksende for $x < 3$. Først en skranke: $a_1 = 1$, og hvis $0 < a_k \le 1$, er $2 \le 3 - a_k < 3$, så $0 < a_{k+1} \le \frac12$. Alle leddene ligger altså i $(0, 1]$, der $g$ er voksende.
+
+Monotoni med induksjon. $a_2 = \frac12 \le 1 = a_1$. Anta $a_{k+1} \le a_k$. Siden $g$ er voksende, er
+
+$$
+a_{k+2} = \frac{1}{3 - a_{k+1}} \le \frac{1}{3 - a_k} = a_{k+1}.
+$$
+
+Følgen er avtagende og begrenset nedover av $0$, så den konvergerer mot en $L$. Fikspunktligningen er
+
+$$
+L = \frac{1}{3 - L} \ \Rightarrow\ L^2 - 3L + 1 = 0 \ \Rightarrow\ L = \frac{3 \pm \sqrt 5}{2}.
+$$
+
+Følgen er avtagende med $a_1 = 1$, så $L \le 1$, og $\frac{3 + \sqrt 5}{2} \approx 2{,}618$ forkastes.
+
+<Answer>$\lim_{n\to\infty} a_n = \dfrac{3 - \sqrt 5}{2} \approx 0{,}382$</Answer>
+</Solution>
+</Example>
+
+<SelfCheck question="En voksende følge har $a_n < 5$ for alle $n$. Må grensen være $5$?">
+Nei. Følgen konvergerer, men grensen er $\sup\{a_n\}$, som kan være mindre enn $5$. Følgen $a_n = 2 - \frac1n$ er voksende med $a_n < 5$, og grensen er $2$. Skranken $5$ sier bare at grensen ikke er større enn $5$.
+</SelfCheck>
+
+<Quiz
+  question="Hvilken påstand er sann?"
+  options={["En begrenset følge konvergerer alltid.", "En konvergent følge er alltid monoton.", "En avtakende følge som er begrenset nedover, konvergerer.", "Hvis $a_{n+1} - a_n \\to 0$, konvergerer følgen."]}
+  answer={2}
+  explanation={"$(-1)^n$ er begrenset og divergerer. $(-1)^n/n$ konvergerer mot $0$ uten å være monoton. Følgen $\\sqrt n$ har $a_{n+1} - a_n \\to 0$, men vokser forbi alle tall. Det tredje alternativet er teoremet om monotone, begrensede følger."}
+/>
+
+<KeyTakeaways>
+- $\lim a_n = L$ betyr at det for hver $\varepsilon > 0$ finnes en $N$ med $|a_n - L| < \varepsilon$ for alle $n > N$
+- $\sup M$ er den minste øvre skranken og $\inf M$ den største nedre skranken. Ingen av dem trenger å ligge i $M$
+- Kompletthetsegenskapen: hver ikke-tom mengde av reelle tall som er begrenset oppover, har et supremum. Den gjelder ikke i $\mathbb Q$
+- En monoton og begrenset følge konvergerer, men teoremet gir ikke grensen
+- For $x_{n+1} = g(x_n)$ med $g$ kontinuerlig er grensen et fikspunkt, $L = g(L)$. Bruk skrankene til å velge riktig løsning
+- Skranker og monotoni for rekursive følger vises med induksjon
+</KeyTakeaways>

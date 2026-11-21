@@ -1,0 +1,222 @@
+---
+order: 7
+title: Funksjonsdrøfting
+summary: Største og minste verdi, konveksitet og optimering, antideriverte, implisitt derivasjon av kurver og koblede hastigheter.
+importance: core
+part: "Del 2: Følger, kontinuitet og derivasjon"
+tag: "Uke 40"
+---
+
+<LearningGoals>
+- Finne lokale og globale ekstremalpunkter, og største og minste verdi på et lukket intervall
+- Avgjøre hvor en funksjon er konveks og konkav, og finne vendepunkter
+- Sette opp og løse et optimeringsproblem med én variabel
+- Finne antideriverte og bestemme konstanten fra en startbetingelse
+- Finne tangenten til en kurve gitt implisitt ved implisitt derivasjon
+- Løse oppgaver med koblede hastigheter
+</LearningGoals>
+
+Ta $f(x) = x^3 - 3x$ på intervallet $[-2, 3]$. Den deriverte $f'(x) = 3x^2 - 3$ er null i $x = -1$ og $x = 1$, der $f(-1) = 2$ og $f(1) = -2$. Det er fristende å si at $2$ er den største verdien. Men i endepunktet er $f(3) = 18$. Den største verdien ligger i et endepunkt, der $f'$ ikke er null. Funksjonsdrøfting handler om å vite hvilke punkter du må sjekke, og hvorfor.
+
+## Maksimum og minimum
+
+$f$ har et <Term name="Lokalt ekstremalpunkt">lokalt maksimum</Term> i $c$ hvis $f(c) \ge f(x)$ for alle $x$ i et intervall rundt $c$, og et globalt maksimum hvis ulikheten gjelder for alle $x$ i definisjonsmengden. Minimum defineres på samme måte. Hvis $f$ er deriverbar i et indre punkt $c$ med et lokalt ekstremum, er $f'(c) = 0$.
+
+Det omvendte gjelder ikke: $f(x) = x^3$ har $f'(0) = 0$, men er strengt voksende. Et lokalt ekstremalpunkt kan derfor bare ligge i tre typer punkter:
+
+- <Term name="Kritisk punkt">kritiske punkter</Term>, der $f'(c) = 0$
+- singulære punkter, der $f'(c)$ ikke finnes, for eksempel en knekk
+- endepunkter av definisjonsmengden
+
+<Steps>
+<Step title="Finn kandidatene">
+Løs $f'(x) = 0$, finn punktene der $f'$ ikke finnes, og ta med endepunktene.
+</Step>
+<Step title="Avgjør typen med fortegnet til $f'$">
+Bytter $f'$ fortegn fra $+$ til $-$ i $c$, er $c$ et lokalt maksimum. Fra $-$ til $+$ gir et lokalt minimum. Uten fortegnsskifte er $c$ ikke et ekstremalpunkt. Begrunnelsen er middelverdisetningen: fortegnet til $f'$ sier hvor $f$ vokser og avtar.
+</Step>
+<Step title="Finn største og minste verdi">
+På et lukket intervall $[a, b]$ med $f$ kontinuerlig garanterer ekstremalverdisetningen at begge finnes. Regn ut $f$ i alle kandidatene og velg den største og den minste. På et åpent eller ubegrenset intervall må du i tillegg se på grensene mot endepunktene.
+</Step>
+</Steps>
+
+For $f(x) = x^3 - 3x$ er $f' > 0$ for $|x| > 1$ og $f' < 0$ for $|x| < 1$. Altså er $x = -1$ et lokalt maksimum og $x = 1$ et lokalt minimum. Kandidatverdiene på $[-2, 3]$ er $f(-2) = -2$, $f(-1) = 2$, $f(1) = -2$ og $f(3) = 18$. Største verdi er $18$ i $x = 3$, og minste verdi er $-2$, som nås både i $x = -2$ og i $x = 1$.
+
+## Konveksitet
+
+Trekk sekanten mellom to punkter på grafen. Ligger grafen under sekanten for alle valg av punkter i et intervall, er $f$ <Term name="Konveks funksjon">konveks</Term> der. Ligger den over, er $f$ konkav. Grafen til en konveks funksjon krummer oppover, og stigningstallet $f'$ øker. Det gir testen:
+
+$$
+f''(x) \ge 0 \text{ på } I \ \Rightarrow\ f \text{ konveks på } I, \qquad f''(x) \le 0 \text{ på } I \ \Rightarrow\ f \text{ konkav på } I.
+$$
+
+Et <Term name="Vendepunkt">vendepunkt</Term> er et punkt der $f$ skifter mellom konveks og konkav. For $x^3 - 3x$ er $f''(x) = 6x$, så $f$ er konkav for $x < 0$, konveks for $x > 0$, og $(0, 0)$ er et vendepunkt. At $f''(c) = 0$ er ikke nok: $x^4$ har $f''(0) = 0$, men er konveks overalt.
+
+Andrederivert-testen bruker krumningen: er $f'(c) = 0$ og $f''(c) > 0$, er $c$ et lokalt minimum. Er $f''(c) < 0$, er det et lokalt maksimum. Er $f''(c) = 0$, sier testen ingenting.
+
+## Optimering
+
+En optimeringsoppgave beskriver noe du skal gjøre størst eller minst, og et krav som binder variablene sammen. Bruk kravet til å skrive størrelsen som en funksjon av én variabel, og drøft den funksjonen.
+
+<Example label="Eksamensoppgave" title="Boks med minst mogleg overflate">
+<ExamRef id="tma4400-k2026" task="6" />
+
+Eit firma skal lage sylinderforma boksar med ei sirkelskive med radius $r$ cm som grunnflate, og utan lokk. Sjå figuren til høgre.
+
+<Figure
+  src="/figures/07-boks.svg"
+  alt="Sylinder uten lokk med radius r og høyde h"
+  caption="Boksen fra oppgaveteksten, med radius $r$ og høyde $h$."
+  number={1}
+  width={240}
+  height={260}
+/>
+
+Volumet til boksen skal vere 1 l (= 1000 cm$^3$). For å bruke minst mogleg material skal overflata (dvs. sida pluss grunnflata) vere så liten som mogleg.
+
+Kva må høgda $h$ cm på boksane vere for å oppnå dette?
+
+<Solution>
+Volumkravet er $\pi r^2 h = 1000$, så $h = \frac{1000}{\pi r^2}$. Overflaten er bunnen pluss sida:
+
+$$
+O(r) = \pi r^2 + 2\pi r h = \pi r^2 + \frac{2000}{r}, \qquad r > 0.
+$$
+
+Deriver og sett lik null:
+
+$$
+O'(r) = 2\pi r - \frac{2000}{r^2} = 0 \ \Rightarrow\ r^3 = \frac{1000}{\pi} \ \Rightarrow\ r = \left(\frac{1000}{\pi}\right)^{1/3}.
+$$
+
+$O'(r) < 0$ for mindre $r$ og $O'(r) > 0$ for større $r$, så dette er et globalt minimum på $(0, \infty)$. Det ser du også av at $O(r) \to \infty$ både når $r \to 0^+$ og når $r \to \infty$. Høyden blir
+
+$$
+h = \frac{1000}{\pi r^2} = \frac{\pi r^3}{\pi r^2} = r.
+$$
+
+<Answer>$h = \left(\dfrac{1000}{\pi}\right)^{1/3} \approx 6{,}83$ cm, altså like stor som radien.</Answer>
+</Solution>
+</Example>
+
+## Antiderivasjon
+
+En <Term name="Antiderivert">antiderivert</Term> til $f$ er en funksjon $F$ med $F' = f$. Hvis $F$ og $G$ begge er antideriverte til $f$ på et intervall, er $(F - G)' = 0$, og middelverdisetningen gir at $F - G$ er konstant. Alle antideriverte er derfor
+
+$$
+\int f(x)\,dx = F(x) + C.
+$$
+
+Uttrykket kalles det ubestemte integralet. Hver derivasjonsregel gir en integrasjonsregel når du leser den baklengs:
+
+<Table
+  columns={["$f(x)$", "$\\int f(x)\\,dx$", "$f(x)$", "$\\int f(x)\\,dx$"]}
+  rows={[
+    ["$x^r$, $r \\ne -1$", "$\\frac{x^{r+1}}{r+1} + C$", "$\\frac1x$", "$\\ln\\lvert x\\rvert + C$"],
+    ["$e^{ax}$", "$\\frac1a e^{ax} + C$", "$\\sin(ax)$", "$-\\frac1a\\cos(ax) + C$"],
+    ["$\\cos(ax)$", "$\\frac1a\\sin(ax) + C$", "$\\frac{1}{1 + x^2}$", "$\\arctan x + C$"],
+  ]}
+/>
+
+En startbetingelse bestemmer $C$. Skal $F'(x) = 3x^2 + \cos x$ og $F(0) = 2$, er $F(x) = x^3 + \sin x + C$, og $F(0) = C = 2$.
+
+## Implisitt derivasjon
+
+Ligningen $y^3 - 2y^2 + 4y - x^3 + 5 = 0$ definerer en kurve, men du kan ikke enkelt løse den med hensyn på $y$. Nær et punkt på kurven er $y$ likevel en funksjon av $x$. Deriver hele ligningen med hensyn på $x$, og bruk kjerneregelen på hvert ledd som inneholder $y$: $\frac{d}{dx} y^3 = 3y^2 y'$. Det gir en ligning som er lineær i $y'$.
+
+<Steps>
+<Step title="Sjekk at punktet ligger på kurven">
+Sett inn koordinatene og kontroller at ligningen er oppfylt.
+</Step>
+<Step title="Deriver begge sider med hensyn på $x$">
+Behandle $y$ som $y(x)$. Et ledd $g(y)$ gir $g'(y)\,y'$, og et produkt $x\,g(y)$ krever produktregelen.
+</Step>
+<Step title="Sett inn punktet og løs for $y'$">
+Det er ofte enklest å sette inn tallene før du løser.
+</Step>
+<Step title="Skriv tangenten">
+$y - y_0 = y'(x_0)(x - x_0)$.
+</Step>
+</Steps>
+
+<Example label="Eksamensoppgave" title="Tangent til en implisitt kurve">
+<ExamRef id="tma4400-prove2025" task="2" />
+
+Vis at punktet $(2, 1)$ ligger på kurven $y = y(x)$ gitt ved
+
+$$
+y^3 - 2y^2 + 4y - x^3 + 5 = 0.
+$$
+
+Finn en ligning for tangenten til den gitte kurven i $(2, 1)$.
+
+<Solution>
+Innsatt: $1 - 2 + 4 - 8 + 5 = 0$, så punktet ligger på kurven. Implisitt derivasjon gir
+
+$$
+3y^2 y' - 4y\,y' + 4y' - 3x^2 = 0 \ \Rightarrow\ y' = \frac{3x^2}{3y^2 - 4y + 4}.
+$$
+
+I $(2, 1)$ er $y' = \frac{12}{3 - 4 + 4} = 4$. Tangenten er $y - 1 = 4(x - 2)$.
+
+<Answer>$y = 4x - 7$</Answer>
+</Solution>
+</Example>
+
+<Example label="Eksamensoppgave" title="Tangent i origo">
+<ExamRef id="tma4400-k2026" task="3" />
+
+Vis at punktet $(0, 0)$ ligg på kurva $y = y(x)$ gjeven ved
+
+$$
+y e^{\sin(x)} = x\cos(y).
+$$
+
+Finn ei likning for tangenten til den gjevne kurva i $(0, 0)$.
+
+<Solution>
+Innsatt: venstre side er $0 \cdot e^0 = 0$ og høyre side er $0 \cdot \cos 0 = 0$. Deriver begge sider med produkt- og kjerneregelen:
+
+$$
+y' e^{\sin x} + y e^{\sin x}\cos x = \cos y - x\sin(y)\, y'.
+$$
+
+Sett inn $x = 0$ og $y = 0$: $y' \cdot 1 + 0 = 1 - 0$, så $y'(0) = 1$. Tangenten er $y - 0 = 1 \cdot (x - 0)$.
+
+<Answer>$y = x$</Answer>
+</Solution>
+</Example>
+
+## Koblede hastigheter
+
+Når to størrelser er bundet sammen av en ligning og begge endrer seg med tiden, er også endringsratene bundet sammen. Deriver ligningen implisitt med hensyn på $t$, sett inn verdiene i det aktuelle øyeblikket, og løs for den ukjente raten. Sett inn tallene først etter at du har derivert. Ellers deriverer du konstanter.
+
+<Example title="Rakett og radar">
+En rakett skytes loddrett opp fra et punkt $3$ km fra en radarstasjon. I et gitt øyeblikk er avstanden fra raketten til stasjonen $5$ km, og den øker med $0{,}8$ km/s. Hvor fort stiger raketten i dette øyeblikket?
+
+<Solution>
+La $y(t)$ være høyden og $z(t)$ avstanden til stasjonen. Pytagoras gir $3^2 + y^2 = z^2$ for alle $t$. Deriver med hensyn på $t$:
+
+$$
+2y\frac{dy}{dt} = 2z\frac{dz}{dt} \ \Rightarrow\ \frac{dy}{dt} = \frac zy\frac{dz}{dt}.
+$$
+
+Når $z = 5$, er $y = \sqrt{25 - 9} = 4$. Innsatt: $\frac{dy}{dt} = \frac54 \cdot 0{,}8 = 1$.
+
+<Answer>Raketten stiger med $1$ km/s.</Answer>
+</Solution>
+</Example>
+
+<SelfCheck question="Hvorfor må du ta med endepunktene når du leter etter største verdi på $[a, b]$?">
+Fordi $f'$ ikke trenger å være null der. $f(x) = x$ på $[0, 1]$ har $f'(x) = 1$ overalt og ingen kritiske punkter, men største verdi $1$ i endepunktet $x = 1$. Setningen om at $f'(c) = 0$ i et ekstremalpunkt gjelder bare indre punkter.
+</SelfCheck>
+
+<KeyTakeaways>
+- Ekstremalpunkter kan bare ligge der $f' = 0$, der $f'$ ikke finnes, eller i endepunkter. $f'(c) = 0$ alene er ikke nok
+- Største og minste verdi på $[a, b]$: regn ut $f$ i alle kandidatene og sammenlign
+- $f'' \ge 0$ gir konveks, $f'' \le 0$ gir konkav. Et vendepunkt krever at $f''$ skifter fortegn
+- Optimering: bruk kravet til å få én variabel, deriver, og begrunn at punktet er et globalt ekstremum
+- Antideriverte til $f$ skiller seg med en konstant. En startbetingelse bestemmer konstanten
+- Implisitt derivasjon: deriver hele ligningen med $y = y(x)$, og bruk kjerneregelen på leddene med $y$
+- Koblede hastigheter: deriver sammenhengen med hensyn på $t$ før du setter inn tallene
+</KeyTakeaways>

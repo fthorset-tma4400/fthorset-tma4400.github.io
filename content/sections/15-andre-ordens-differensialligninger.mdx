@@ -1,0 +1,230 @@
+---
+order: 15
+title: Andre ordens lineære differensialligninger
+summary: Homogene ligninger ay'' + by' + cy = 0 løses med den karakteristiske ligningen og tre tilfeller, og inhomogene ligninger med en spesiell løsning funnet ved ubestemte koeffisienter.
+importance: core
+part: "Del 5: Differensialligninger og komplekse tall"
+tag: "Uke 45"
+---
+
+<LearningGoals>
+- Sette opp den karakteristiske ligningen og skrive den generelle løsningen av $ay'' + by' + cy = 0$ i hvert av de tre tilfellene
+- Bestemme konstantene fra initialkrav $y(0)$ og $y'(0)$
+- Forklare hvorfor den generelle løsningen av en inhomogen ligning er $y = y_h + y_s$
+- Finne en spesiell løsning med ubestemte koeffisienter, også når forslaget allerede løser den homogene ligningen
+</LearningGoals>
+
+En masse i en fjær med demping følger ligningen $my'' + \gamma y' + ky = 0$: akselerasjonen bestemmes av posisjonen og farten. Ligningen er av orden $2$, den er lineær, og koeffisientene er konstanter. Slike ligninger har alltid løsninger du kan skrive opp eksakt, og løsningene er eksponentialfunksjoner, eventuelt ganget med cosinus og sinus.
+
+## Homogene ligninger
+
+En andre ordens lineær ligning med konstante koeffisienter er
+
+$$
+ay'' + by' + cy = f(x), \qquad a, b, c \text{ reelle}, \quad a \neq 0.
+$$
+
+Den er homogen når $f(x) = 0$ og inhomogen ellers.
+
+Du leter etter en funksjon der $y$, $y'$ og $y''$ er like bortsett fra en faktor. Prøv $y = e^{rx}$. Da er $y' = re^{rx}$ og $y'' = r^2e^{rx}$, og innsatt gir den homogene ligningen
+
+$$
+e^{rx}\big(ar^2 + br + c\big) = 0.
+$$
+
+Siden $e^{rx} \neq 0$, er $e^{rx}$ en løsning nøyaktig når $r$ løser den <Term name="Karakteristisk ligning">karakteristiske ligningen</Term>
+
+<Formula tex="ar^2 + br + c = 0" caption="Den karakteristiske ligningen til $ay'' + by' + cy = 0$." onSheet={false} />
+
+Ligningen er lineær og homogen, så er $y_1$ og $y_2$ løsninger, er også $Ay_1 + By_2$ en løsning for alle konstanter $A$ og $B$. Med to løsninger som ikke er multipler av hverandre, får du den generelle løsningen. Hvilke to det blir, avhenger av røttene.
+
+<Statement kind="theorem" name="Generell løsning av ay'' + by' + cy = 0">
+Den generelle løsningen er $y = Ay_1 + By_2$, der $y_1$ og $y_2$ avhenger av røttene i den karakteristiske ligningen:
+
+<Table
+  columns={["Røtter", "Diskriminant", "$y_1$, $y_2$"]}
+  rows={[
+    ["to reelle, $r_1 \\neq r_2$", "$b^2 - 4ac > 0$", "$e^{r_1x}$, $e^{r_2x}$"],
+    ["én dobbel rot $r$", "$b^2 - 4ac = 0$", "$e^{rx}$, $xe^{rx}$"],
+    ["komplekse, $\\alpha \\pm \\beta i$", "$b^2 - 4ac < 0$", "$e^{\\alpha x}\\cos\\beta x$, $e^{\\alpha x}\\sin\\beta x$"]
+  ]}
+/>
+</Statement>
+
+Med to reelle røtter får du to eksponentialfunksjoner direkte. De to andre tilfellene trenger en begrunnelse hver.
+
+<Derivation title="Hvorfor $xe^{rx}$ når roten er dobbel">
+En dobbel rot $r$ oppfyller både $ar^2 + br + c = 0$ og $2ar + b = 0$, fordi $r = -b/(2a)$. Sett $y = xe^{rx}$. Da er $y' = e^{rx}(1 + rx)$ og $y'' = e^{rx}(2r + r^2x)$, og
+
+$$
+ay'' + by' + cy = e^{rx}\big[x(ar^2 + br + c) + (2ar + b)\big] = 0.
+$$
+</Derivation>
+
+Med komplekse røtter $\alpha \pm \beta i$ er $e^{(\alpha + \beta i)x} = e^{\alpha x}(\cos\beta x + i\sin\beta x)$ en kompleks løsning. Koeffisientene $a$, $b$, $c$ er reelle, så realdelen og imaginærdelen hver for seg løser ligningen. Det er $e^{\alpha x}\cos\beta x$ og $e^{\alpha x}\sin\beta x$.
+
+<Steps>
+<Step title="Løs den karakteristiske ligningen">
+Skriv opp $ar^2 + br + c = 0$ og finn røttene med andregradsformelen.
+</Step>
+<Step title="Skriv opp den generelle løsningen">
+Velg linjen i tabellen som passer, og skriv $y = Ay_1 + By_2$.
+</Step>
+<Step title="Bruk initialkravene">
+Deriver den generelle løsningen og sett inn $y(0)$ og $y'(0)$. Det gir to ligninger for $A$ og $B$.
+</Step>
+</Steps>
+
+<Example title="Komplekse røtter og dempet svingning">
+Løs $y'' + 2y' + 5y = 0$, $y(0) = 1$, $y'(0) = 1$.
+
+<Solution>
+Den karakteristiske ligningen $r^2 + 2r + 5 = 0$ gir
+
+$$
+r = \frac{-2 \pm \sqrt{4 - 20}}{2} = \frac{-2 \pm 4i}{2} = -1 \pm 2i,
+$$
+
+altså $\alpha = -1$ og $\beta = 2$. Den generelle løsningen er $y = e^{-x}(A\cos 2x + B\sin 2x)$.
+
+Initialkravene: $y(0) = A = 1$. Produktregelen gir
+
+$$
+y' = -e^{-x}(A\cos 2x + B\sin 2x) + e^{-x}(-2A\sin 2x + 2B\cos 2x),
+$$
+
+så $y'(0) = -A + 2B = 1$ og $B = 1$.
+
+<Answer>$y(x) = e^{-x}(\cos 2x + \sin 2x)$, en svingning der utslaget avtar som $e^{-x}$.</Answer>
+</Solution>
+</Example>
+
+<Example label="Eksamensoppgave" title="Dobbel rot">
+<ExamRef id="tma4400-h2025" task="2" />
+
+Finn løysinga $y = y(x)$ av differensiallikninga
+
+$$
+y''(x) + 6y'(x) + 9y(x) = 0
+$$
+
+som tilfredsstiller $y(0) = 1$ og $y'(0) = 1$.
+
+<Solution>
+Den karakteristiske ligningen er $r^2 + 6r + 9 = (r + 3)^2 = 0$, med dobbel rot $r = -3$. Den generelle løsningen er
+
+$$
+y = Ae^{-3x} + Bxe^{-3x}, \qquad y' = -3Ae^{-3x} + Be^{-3x} - 3Bxe^{-3x}.
+$$
+
+Initialkravene gir $y(0) = A = 1$ og $y'(0) = -3A + B = 1$, altså $B = 4$.
+
+<Answer>$y(x) = e^{-3x}(1 + 4x)$</Answer>
+</Solution>
+</Example>
+
+## Inhomogene ligninger
+
+La $y_s$ være én løsning av den inhomogene ligningen $ay'' + by' + cy = f(x)$, og la $y$ være en hvilken som helst annen. Differansen $y - y_s$ løser den homogene ligningen, fordi venstresiden er lineær:
+
+$$
+a(y - y_s)'' + b(y - y_s)' + c(y - y_s) = f(x) - f(x) = 0.
+$$
+
+Altså er $y - y_s = y_h$ for et valg av konstantene i den homogene løsningen.
+
+<Statement kind="theorem" name="Generell løsning av en inhomogen ligning">
+La $y_h$ være den generelle løsningen av $ay'' + by' + cy = 0$, og la $y_s$ være én løsning av $ay'' + by' + cy = f(x)$. Da er den generelle løsningen av den inhomogene ligningen
+
+$$
+y = y_h + y_s.
+$$
+</Statement>
+
+Indeksen $s$ står for spesiell løsning og $h$ for homogen. Initialkravene bruker du på hele $y = y_h + y_s$, til slutt. Å bestemme $A$ og $B$ i $y_h$ alene gir feil svar.
+
+<Term name="Ubestemte koeffisienter">Metoden med ubestemte koeffisienter</Term>, også kalt gjettemetoden, finner $y_s$ når $f$ er et polynom, en eksponentialfunksjon, cosinus eller sinus. Du foreslår en $y_s$ av samme type som $f$ med ukjente konstanter, setter inn i ligningen og sammenligner koeffisientene.
+
+<Table
+  columns={["$f(x)$", "forslag til $y_s$"]}
+  rows={[
+    ["polynom av grad $m$", "polynom av grad $m$: $Cx + D$, $Cx^2 + Dx + E$, …"],
+    ["$e^{kx}$", "$Ce^{kx}$"],
+    ["$\\cos\\omega x$ eller $\\sin\\omega x$", "$C\\cos\\omega x + D\\sin\\omega x$"]
+  ]}
+/>
+
+Ta alltid med både cosinus og sinus, selv om $f$ bare inneholder den ene. Er forslaget allerede en løsning av den homogene ligningen, gir innsetting $0$ på venstre side, og du kan ikke få $f$. Da ganger du forslaget med $x$. Er det fortsatt en homogen løsning, som skjer ved dobbel rot, ganger du med $x^2$.
+
+<Example title="En inhomogen ligning med cosinus">
+Finn den generelle løsningen av $y'' + 2y' + 5y = 10\cos x$.
+
+<Solution>
+Den homogene ligningen er løst over: $y_h = e^{-x}(A\cos 2x + B\sin 2x)$.
+
+Siden $f(x) = 10\cos x$ og $\cos x$ ikke løser den homogene ligningen, prøver du $y_s = C\cos x + D\sin x$. Da er $y_s' = -C\sin x + D\cos x$ og $y_s'' = -C\cos x - D\sin x$. Innsatt:
+
+$$
+(-C + 2D + 5C)\cos x + (-D - 2C + 5D)\sin x = (4C + 2D)\cos x + (-2C + 4D)\sin x = 10\cos x.
+$$
+
+Sammenlign koeffisientene: $4C + 2D = 10$ og $-2C + 4D = 0$. Den andre gir $C = 2D$, og den første gir $10D = 10$, så $D = 1$ og $C = 2$.
+
+<Answer>$y(x) = e^{-x}(A\cos 2x + B\sin 2x) + 2\cos x + \sin x$</Answer>
+</Solution>
+</Example>
+
+Når $x$ blir stor, går $y_h$ mot null, og det som blir igjen er $y_s = 2\cos x + \sin x$, en svingning med samme frekvens som $f$.
+
+<Example label="Eksamensoppgave" title="Når forslaget løser den homogene ligningen">
+<ExamRef id="tma4400-prove2025" task="5" />
+
+Bestem konstantene $A$ og $B$ slik at
+
+$$
+y_s(x) = Ax\cos(x) + Bx\sin(x)
+$$
+
+er en løsning av
+
+$$
+y''(x) + y(x) = \cos(x). \tag{1}
+$$
+
+Finn deretter løsningen $y(x) = y_h(x) + y_s(x)$ av (1) som tilfredsstilller $y(0) = 1$ og $y'(0) = 0$.
+
+<Solution>
+Her er $\cos x$ selv en løsning av $y'' + y = 0$, så forslaget er $C\cos x + D\sin x$ ganget med $x$. Deriver to ganger med produktregelen:
+
+$$
+\begin{aligned}
+y_s' &= A\cos x - Ax\sin x + B\sin x + Bx\cos x, \\
+y_s'' &= -2A\sin x - Ax\cos x + 2B\cos x - Bx\sin x.
+\end{aligned}
+$$
+
+Leddene med $x$ forsvinner i summen: $y_s'' + y_s = -2A\sin x + 2B\cos x$. Dette skal være lik $\cos x$, så $A = 0$ og $B = \tfrac12$, og $y_s = \tfrac12 x\sin x$.
+
+Den homogene ligningen har karakteristisk ligning $r^2 + 1 = 0$, med røttene $\pm i$, altså $\alpha = 0$ og $\beta = 1$. Da er $y_h = C\cos x + D\sin x$, og
+
+$$
+y = C\cos x + D\sin x + \tfrac12 x\sin x, \qquad y' = -C\sin x + D\cos x + \tfrac12\sin x + \tfrac12 x\cos x.
+$$
+
+Initialkravene gir $y(0) = C = 1$ og $y'(0) = D = 0$.
+
+<Answer>$A = 0$, $B = \tfrac12$ og $y(x) = \cos x + \tfrac12 x\sin x$.</Answer>
+</Solution>
+</Example>
+
+<SelfCheck question="Hvilket forslag til $y_s$ skal du bruke for $y'' - 4y' + 4y = e^{2x}$?">
+$y_s = Cx^2e^{2x}$. Den karakteristiske ligningen $(r - 2)^2 = 0$ har dobbel rot $2$, så både $e^{2x}$ og $xe^{2x}$ løser den homogene ligningen. Forslaget må ganges med $x^2$.
+</SelfCheck>
+
+<KeyTakeaways>
+- $e^{rx}$ løser $ay'' + by' + cy = 0$ nøyaktig når $ar^2 + br + c = 0$
+- To reelle røtter gir $Ae^{r_1x} + Be^{r_2x}$, en dobbel rot gir $(A + Bx)e^{rx}$, og komplekse røtter $\alpha \pm \beta i$ gir $e^{\alpha x}(A\cos\beta x + B\sin\beta x)$
+- Den inhomogene ligningen har generell løsning $y = y_h + y_s$, og initialkravene settes inn i hele $y$ til slutt
+- Med ubestemte koeffisienter foreslår du $y_s$ av samme type som $f$, med både cosinus og sinus når $f$ er trigonometrisk
+- Løser forslaget den homogene ligningen, ganger du med $x$, og ved dobbel rot eventuelt med $x^2$
+</KeyTakeaways>

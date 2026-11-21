@@ -1,0 +1,252 @@
+---
+order: 6
+title: Derivasjon
+summary: Den deriverte som grenseverdi, deriverbarhet for stykkevise funksjoner, regnereglene, lineær tilnærming, middelverdisetningen og numerisk derivasjon med differenskvotienter.
+importance: core
+part: "Del 2: Følger, kontinuitet og derivasjon"
+tag: "Uke 39"
+---
+
+<LearningGoals>
+- Regne ut en derivert fra definisjonen, og avgjøre om en stykkevis definert funksjon er deriverbar i skjøten
+- Vite at deriverbar gir kontinuerlig, men ikke omvendt
+- Bruke produkt-, brøk- og kjerneregelen og regelen for den deriverte av en invers funksjon
+- Sette opp den lineære tilnærmingen til en funksjon i et punkt
+- Formulere middelverdisetningen og bruke den til å vise at $f' > 0$ gir en strengt voksende funksjon
+- Tilnærme $f'(x)$ med fremover-, bakover- og sentraldifferanse
+</LearningGoals>
+
+Ta $f(x) = x^3$ og se på stigningstallet til sekanten mellom $x = 1$ og $x = 1 + h$:
+
+$$
+\frac{f(1 + h) - f(1)}{h} = \frac{(1 + h)^3 - 1}{h} = 3 + 3h + h^2.
+$$
+
+Med $h = 0{,}1$ er sekantstigningen $3{,}31$, med $h = 0{,}01$ er den $3{,}0301$. Når $h \to 0$, går den mot $3$. Tallet $3$ er stigningstallet til tangenten i $(1, 1)$, og det er den deriverte $f'(1)$. Du vet fra før hvordan du deriverer $x^3$. Det nye er at den deriverte er definert som en grenseverdi, og at grensen kan mangle.
+
+## Definisjonen og deriverbarhet
+
+<Statement kind="definition" name="Den deriverte">
+$f$ er <Term name="Deriverbar">deriverbar</Term> i $x$ hvis grenseverdien
+
+$$
+f'(x) = \lim_{h\to 0} \frac{f(x + h) - f(x)}{h}
+$$
+
+eksisterer. Tangenten til $y = f(x)$ i $(x_0, f(x_0))$ er linja gjennom punktet med stigningstall $f'(x_0)$.
+</Statement>
+
+Hvis $f$ er deriverbar i $x$, er den også kontinuerlig der:
+
+$$
+f(x + h) - f(x) = \frac{f(x + h) - f(x)}{h}\cdot h \to f'(x) \cdot 0 = 0 \quad\text{når } h \to 0.
+$$
+
+Det omvendte gjelder ikke. $f(x) = |x|$ er kontinuerlig i $0$, men differenskvotienten $|h|/h$ er $1$ for $h > 0$ og $-1$ for $h < 0$. De ensidige grensene er ulike, så $f'(0)$ finnes ikke. En knekk i grafen betyr altså at funksjonen ikke er deriverbar der, og et sprang betyr at den ikke engang er kontinuerlig.
+
+For en funksjon som er definert stykkevis, kan du derivere hver formel for seg inne i intervallene. I skjøten må du gå tilbake til definisjonen og regne ut grenseverdien med $f$ fra riktig formel på hver side.
+
+<Example label="Eksamensoppgave" title="Deriverbarhet fra en graf">
+<ExamRef id="tma4400-k2026" task="flervalg 1" />
+
+<Figure
+  src="/figures/06-graf-kont26.svg"
+  alt="Graf av en funksjon på [0, 5]: rette linjer med knekk i x = 1, sprang i x = 2, en glatt kurve fra x = 2 til x = 4 og en rett linje med en knekk i x = 4"
+  caption="Grafen til $f(x)$ for $0 \le x \le 5$."
+  number={1}
+  width={368}
+  height={358}
+/>
+
+<Quiz
+  question="Kva for alternativ stemmer for funksjonen $f(x)$ definert for $0 \leq x \leq 5$ gjeven under."
+  options={["$f(x)$ er ikkje deriverbar i $x = 1$, $x = 4$, men deriverbar elles.", "$f(x)$ er ikkje deriverbar i $x = 1$, $x = 2$ og $x = 4$, men deriverbar elles.", "$f(x)$ er deriverbar for alle $x \\in (0, 5)$.", "$f(x)$ er ikkje deriverbar i $x = 1$, $x = 2$, men deriverbar elles.", "$f(x)$ er ikkje deriverbar i $x = 2$, men deriverbar elles."]}
+  answer={1}
+  explanation={"I $x = 2$ har grafen et sprang, så $f$ er ikke kontinuerlig og dermed ikke deriverbar. I $x = 1$ og $x = 4$ har grafen knekker: stigningstallet fra venstre og fra høyre er ulike, så differenskvotienten har ulike ensidige grenser. Ellers er grafen glatt."}
+/>
+</Example>
+
+Hvis $f$ er gitt med en formel i hele intervallet rundt skjøten, er det ikke nok å se på grafen. Da regner du ut differenskvotienten.
+
+<Example label="Eksamensoppgave" title="$x\cos(1/x)$ i $x = 0$">
+<ExamRef id="tma4400-h2025" task="6" />
+
+Avgjer om følgande funksjon er deriverbar i $x = 0$:
+
+$$
+f(x) = \begin{cases} x\cos\left(\frac1x\right), & \text{for } x \ne 0, \\ 0, & \text{for } x = 0. \end{cases}
+$$
+
+<Solution>
+Bruk definisjonen med $f(0) = 0$:
+
+$$
+\frac{f(0 + h) - f(0)}{h} = \frac{h\cos(1/h)}{h} = \cos\left(\frac1h\right).
+$$
+
+Grensen av $\cos(1/h)$ når $h \to 0$ eksisterer ikke. Følgene $h_n = \frac{1}{2\pi n}$ og $k_n = \frac{1}{\pi + 2\pi n}$ går begge mot $0$, men $\cos(1/h_n) = 1$ og $\cos(1/k_n) = -1$ for alle $n$.
+
+Funksjonen er kontinuerlig i $0$, fordi $|x\cos(1/x)| \le |x| \to 0$, men grafen svinger mellom linjene $y = x$ og $y = -x$, så sekantene gjennom origo får ikke noe bestemt stigningstall.
+
+<Answer>$f$ er ikke deriverbar i $x = 0$.</Answer>
+</Solution>
+</Example>
+
+<Example title="$x^2\cos(1/x)$ i $x = 0$">
+La $g(x) = x^2\cos(1/x)$ for $x \ne 0$ og $g(0) = 0$. Er $g$ deriverbar i $0$?
+
+<Solution>
+Differenskvotienten er
+
+$$
+\frac{g(h) - g(0)}{h} = \frac{h^2\cos(1/h)}{h} = h\cos\left(\frac1h\right).
+$$
+
+Siden $|h\cos(1/h)| \le |h|$, gir skviseteoremet at kvotienten går mot $0$. Den ekstra faktoren $x$ demper svingningene nok til at grensen finnes.
+
+<Answer>$g$ er deriverbar i $0$, med $g'(0) = 0$.</Answer>
+</Solution>
+</Example>
+
+## Regneregler
+
+Du kjenner produkt-, brøk- og kjerneregelen fra før:
+
+$$
+(fg)' = f'g + fg', \qquad \left(\frac fg\right)' = \frac{f'g - fg'}{g^2}, \qquad \bigl(g(f(x))\bigr)' = g'(f(x))\, f'(x).
+$$
+
+Nytt er regelen for den deriverte av en invers funksjon. Hvis $f$ er injektiv og deriverbar med $f'(x) \ne 0$, gir kjerneregelen på $f^{-1}(f(x)) = x$ at $(f^{-1})'(f(x))\, f'(x) = 1$, altså
+
+<Formula tex="(f^{-1})'(f(x)) = \frac{1}{f'(x)}." />
+
+Med $f(x) = e^x$ og $y = e^x$ gir regelen $(\ln)'(y) = 1/e^x = 1/y$. Med $f(x) = \tan x$ og $y = \tan x$ er $f'(x) = 1 + \tan^2 x = 1 + y^2$, så $(\arctan)'(y) = \frac{1}{1 + y^2}$. På samme måte følger de andre radene i tabellen.
+
+<Table
+  columns={["$f(x)$", "$f'(x)$", "$f(x)$", "$f'(x)$"]}
+  rows={[
+    ["$x^r$", "$r x^{r-1}$", "$e^x$", "$e^x$"],
+    ["$\\sin x$", "$\\cos x$", "$a^x$", "$a^x \\ln a$"],
+    ["$\\cos x$", "$-\\sin x$", "$\\ln\\lvert x\\rvert$", "$1/x$"],
+    ["$\\tan x$", "$1 + \\tan^2 x = 1/\\cos^2 x$", "$\\arctan x$", "$1/(1 + x^2)$"],
+    ["$\\arcsin x$", "$1/\\sqrt{1 - x^2}$", "$\\arccos x$", "$-1/\\sqrt{1 - x^2}$"],
+  ]}
+/>
+
+## Lineær tilnærming
+
+Tangenten er den rette linja som ligger nærmest grafen nær punktet. Som funksjon heter den den <Term name="Lineær tilnærming">lineære tilnærmingen</Term>:
+
+<Formula tex="L(x) = f(x_0) + f'(x_0)(x - x_0)." />
+
+$L$ har samme verdi og samme deriverte som $f$ i $x_0$. For $f(x) = \sqrt x$ og $x_0 = 1$ er $f'(1) = \frac12$, så $\sqrt{1{,}1} \approx 1 + \frac12 \cdot 0{,}1 = 1{,}05$. Riktig verdi er $1{,}0488$. Hvor stor feilen kan bli, sier Taylors teorem.
+
+## Middelverdisetningen
+
+<Statement kind="theorem" name="Middelverdisetningen" id="teorem-middelverdisetningen">
+Hvis $f$ er kontinuerlig på $[a, b]$ og deriverbar på $(a, b)$, finnes det en $c \in (a, b)$ med
+
+$$
+f'(c) = \frac{f(b) - f(a)}{b - a}.
+$$
+</Statement>
+
+Setningen kalles også sekantsetningen. Et sted mellom $a$ og $b$ er tangenten parallell med sekanten gjennom endepunktene. Kjører du $100$ km på en time, har farten vært nøyaktig $100$ km/t i minst ett øyeblikk.
+
+<Derivation title="Bevis via Rolles teorem">
+Hvis $f$ har et lokalt maksimum eller minimum i et indre punkt $c$ der $f$ er deriverbar, er $f'(c) = 0$: differenskvotienten er $\le 0$ på den ene siden og $\ge 0$ på den andre.
+
+Rolles teorem: er $f$ kontinuerlig på $[a, b]$, deriverbar på $(a, b)$ og $f(a) = f(b)$, finnes $c \in (a, b)$ med $f'(c) = 0$. Ekstremalverdisetningen gir et maksimum og et minimum på $[a, b]$. Ligger begge i endepunktene, er $f$ konstant og $f' = 0$ overalt. Ellers ligger ett av dem i et indre punkt $c$, og der er $f'(c) = 0$.
+
+Middelverdisetningen følger ved å trekke fra sekanten. Sett
+
+$$
+g(x) = f(x) - f(a) - \frac{f(b) - f(a)}{b - a}(x - a).
+$$
+
+Da er $g(a) = g(b) = 0$, og Rolle gir $c$ med $0 = g'(c) = f'(c) - \frac{f(b) - f(a)}{b - a}$.
+</Derivation>
+
+Middelverdisetningen er grunnen til at fortegnet til $f'$ forteller hvordan $f$ oppfører seg. Ta $x_1 < x_2$ i et intervall der $f' > 0$. Setningen gir en $c$ mellom dem med
+
+$$
+f(x_2) - f(x_1) = f'(c)(x_2 - x_1) > 0.
+$$
+
+Altså gjelder:
+
+- $f'(x) > 0$ på et intervall gir $f$ strengt voksende der, og $f'(x) < 0$ gir strengt avtakende
+- $f'(x) = 0$ på et intervall gir $f$ konstant der
+- $f' = g'$ på et intervall gir $f - g$ konstant der
+
+Det omvendte av den første påstanden gjelder ikke helt: $x^3$ er strengt voksende, men $f'(0) = 0$.
+
+<Example label="Eksamensoppgave" title="Hva sier $f'$ om $f$?">
+<ExamRef id="tma4400-prove2025" task="flervalg 5" />
+
+<Quiz
+  question="Anta at $f(x)$ og $f'(x)$ er kontinuerlige på $(a, b)$. Hvilket utsagn nedenfor er alltid korrekt?"
+  options={["Dersom $f(x)$ er strengt voksende på intervallet $(a, b)$, så er $f'(x) < 0$ for alle $x \\in (a, b)$.", "Dersom $f'(x) > 0$ for alle $x \\in (a, b)$, så er $f(x)$ strengt voksende på $(a, b)$.", "Dersom $f'(c) = 0$ for en $c \\in (a, b)$, så er $f''(c) \\neq 0$.", "Dersom $f'(c) = 0$ for en $c \\in (a, b)$, så må $f(c)$ være en maksimums- eller minimumsverdi for $f(x)$.", "Dersom $f'(c) = 0$ for en $c \\in (a, b)$, så er også $f''(c) = 0$."]}
+  answer={1}
+  explanation={"Alternativ 2 følger av middelverdisetningen. $f(x) = x^3$ med $c = 0$ motbeviser alternativ 3 og 4: $f'(0) = f''(0) = 0$, og $0$ er verken maksimum eller minimum. $f(x) = x^2$ motbeviser alternativ 5, siden $f''(0) = 2$. Alternativ 1 har feil fortegn."}
+/>
+</Example>
+
+## Numerisk derivasjon
+
+Når $f$ bare er kjent i noen punkter, eller formelen er tung å derivere, tilnærmer du $f'(x)$ med en differenskvotient med liten, fast $h$. Det er definisjonen av den deriverte uten grenseovergangen:
+
+<Formula tex="f'(x) \approx \frac{f(x + h) - f(x)}{h}" caption="Fremoverdifferanse" />
+
+<Formula tex="f'(x) \approx \frac{f(x) - f(x - h)}{h}" caption="Bakoverdifferanse" />
+
+<Formula tex="f'(x) \approx \frac{f(x + h) - f(x - h)}{2h}" caption="Sentraldifferanse" />
+
+De tre heter <Term name="Fremoverdifferanse">fremoverdifferanse</Term>, bakoverdifferanse og <Term name="Sentraldifferanse">sentraldifferanse</Term>. Sentraldifferansen er stigningstallet til sekanten gjennom $x - h$ og $x + h$, som ligger symmetrisk om $x$.
+
+```python
+import numpy as np
+
+def f(x):
+    return np.tan(x)
+
+x, h = np.pi/4, 0.1
+fremover = (f(x + h) - f(x)) / h
+sentral = (f(x + h) - f(x - h)) / (2*h)
+```
+
+<Example title="Tre differenskvotienter for $\tan x$">
+Tilnærm $f'(\pi/4)$ for $f(x) = \tan x$ med $h = 0{,}1$ og $h = 0{,}01$, og sammenlign med den eksakte verdien.
+
+<Solution>
+Den eksakte verdien er $f'(\pi/4) = 1/\cos^2(\pi/4) = 2$. Innsatt i formlene:
+
+<Table
+  columns={["$h$", "Fremover", "Bakover", "Sentral", "Feil fremover", "Feil sentral"]}
+  rows={[
+    ["$0{,}1$", "$2{,}2305$", "$1{,}8237$", "$2{,}0271$", "$0{,}2305$", "$0{,}0271$"],
+    ["$0{,}01$", "$2{,}0203$", "$1{,}9803$", "$2{,}0003$", "$0{,}0203$", "$0{,}00027$"],
+  ]}
+/>
+
+Når $h$ blir ti ganger mindre, blir feilen i fremoverdifferansen omtrent ti ganger mindre, og feilen i sentraldifferansen omtrent hundre ganger mindre.
+
+<Answer>Sentraldifferansen er klart best: $2{,}0271$ og $2{,}0003$ mot den eksakte verdien $2$.</Answer>
+</Solution>
+</Example>
+
+Feilen i fremoverdifferansen oppfører seg som $h$, og feilen i sentraldifferansen som $h^2$. Hvorfor, og hvor stor feilen kan bli, viser Taylors teorem.
+
+<SelfCheck question="$f'(x) = 0$ for alle $x \ne 0$, men $f$ er ikke konstant. Hvordan er det mulig?">
+Det er bare mulig hvis $f$ ikke er deriverbar i $0$. Var den det, ville $f' = 0$ på hele $\mathbb R$, og middelverdisetningen ville gi at $f$ er konstant. Funksjonen $f(x) = 1$ for $x > 0$ og $f(x) = 0$ for $x \le 0$ har $f' = 0$ utenfor $0$, men den er ikke deriverbar i $0$, og middelverdisetningen kan ikke brukes på et intervall som inneholder $0$.
+</SelfCheck>
+
+<KeyTakeaways>
+- $f'(x) = \lim_{h\to0} \frac{f(x+h) - f(x)}{h}$. Finnes ikke grensen, er $f$ ikke deriverbar i $x$
+- Deriverbar gir kontinuerlig. $|x|$ i $0$ viser at det omvendte ikke gjelder
+- I skjøten til en stykkevis funksjon bruker du definisjonen. $x\cos(1/x)$ er ikke deriverbar i $0$, men $x^2\cos(1/x)$ er det
+- $(f^{-1})'(f(x)) = 1/f'(x)$ gir de deriverte av $\ln x$, $\arctan x$ og $\arcsin x$
+- Lineær tilnærming: $L(x) = f(x_0) + f'(x_0)(x - x_0)$
+- Middelverdisetningen: $f'(c) = \frac{f(b) - f(a)}{b - a}$ for en $c \in (a, b)$. Den gir at $f' > 0$ betyr strengt voksende
+- Sentraldifferansen $\frac{f(x+h) - f(x-h)}{2h}$ er mye mer nøyaktig enn fremover- og bakoverdifferansen
+</KeyTakeaways>

@@ -1,0 +1,218 @@
+---
+order: 13
+title: Første ordens differensialligninger
+summary: Slik løser du separable ligninger ved å separere og integrere, lineære ligninger med integrerende faktor, og hvordan du setter opp modeller som blandetanker og logistisk vekst.
+importance: core
+part: "Del 5: Differensialligninger og komplekse tall"
+tag: "Uke 44"
+---
+
+<LearningGoals>
+- Kjenne igjen en separabel ligning og løse den ved å separere og integrere
+- Løse en lineær første ordens ligning $y' + p(x)y = q(x)$ med integrerende faktor
+- Bestemme integrasjonskonstanten fra et initialkrav, og kontrollere en løsning ved innsetting
+- Sette opp en differensialligning fra en tekst, særlig blandetanker og logistisk vekst
+</LearningGoals>
+
+En kopp kaffe på $60\,^\circ\mathrm C$ står i et rom på $20\,^\circ\mathrm C$. Newtons avkjølingslov sier at temperaturen endrer seg med en rate som er proporsjonal med forskjellen mellom temperaturen i koppen og i rommet:
+
+$$
+T'(t) = c\,\big(T(t) - 20\big), \qquad c < 0.
+$$
+
+Den ukjente er her en funksjon $T(t)$, og ligningen sier noe om den deriverte. En <Term name="Differensialligning">differensialligning</Term> er en ligning der den ukjente er en funksjon og der deriverte av funksjonen inngår. Ordenen er ordenen til den høyeste deriverte, så avkjølingsloven har orden 1.
+
+En løsning er en funksjon som oppfyller ligningen for alle $t$ i et intervall. Funksjonen $y = Ce^{5t}$ løser $y' = 5y$ for hver konstant $C$, fordi $y' = 5Ce^{5t} = 5y$. Alle løsningene samlet kalles den generelle løsningen. Et <Term name="Initialverdiproblem">initialverdiproblem</Term> er en differensialligning sammen med et initialkrav, for eksempel $y(0) = 3$. Kravet bestemmer konstanten: $y(0) = C = 3$, så $y = 3e^{5t}$.
+
+## Separable ligninger
+
+En første ordens ligning er <Term name="Separabel differensialligning">separabel</Term> hvis den kan skrives
+
+$$
+p(y)\,y' = q(x),
+$$
+
+med alt som inneholder $y$ på venstre side og alt som inneholder $x$ på høyre. La $P$ være en antiderivert til $p$. Kjerneregelen gir $\frac{d}{dx}P\big(y(x)\big) = p\big(y(x)\big)\,y'(x)$, så ligningen sier at $\frac{d}{dx}P(y) = q(x)$. Integrer begge sider:
+
+<Formula tex="p(y)\,y' = q(x) \quad\Longrightarrow\quad \int p(y)\,dy = \int q(x)\,dx" caption="Separasjon av variable. Én integrasjonskonstant på høyre side er nok." onSheet={false} />
+
+Deretter løser du for $y$ hvis det går, og setter inn initialkravet til slutt.
+
+<Example title="En separabel ligning med initialkrav">
+Løs $y' = y\cos t$, $y(0) = 1$.
+
+<Solution>
+For $y \neq 0$ kan du dele på $y$: $\frac1y\,y' = \cos t$. Integrer begge sider:
+
+$$
+\int \frac1y\,dy = \int \cos t\,dt \quad\Longrightarrow\quad \ln|y| = \sin t + C \quad\Longrightarrow\quad |y| = e^C e^{\sin t}.
+$$
+
+Altså er $y = Ae^{\sin t}$ med $A = \pm e^C$. Også $y = 0$ er en løsning, som svarer til $A = 0$, så den generelle løsningen er $y = Ae^{\sin t}$ for $A \in \mathbb R$. Initialkravet gir $y(0) = Ae^0 = A = 1$.
+
+Kontroll: $y = e^{\sin t}$ gir $y' = e^{\sin t}\cos t = y\cos t$, og $y(0) = 1$.
+
+<Answer>$y(t) = e^{\sin t}$</Answer>
+</Solution>
+</Example>
+
+Å dele på $y$ krever $y \neq 0$. Konstante løsninger, der høyresiden er null, må du derfor sjekke for seg. En separabel løsning kan dessuten slutte å eksistere: $y' = y^2$, $y(0) = 1$ gir $-1/y = t - 1$, altså $y = 1/(1 - t)$, som går mot uendelig når $t \to 1^-$.
+
+## Lineære ligninger og integrerende faktor
+
+En lineær første ordens ligning har formen
+
+$$
+y' + p(x)\,y = q(x).
+$$
+
+Den er sjelden separabel. Ideen er å gange med en funksjon $\rho(x)$ slik at venstresiden blir den deriverte av et produkt. Produktregelen gir $(\rho y)' = \rho y' + \rho' y$, og dette er lik $\rho y' + \rho p y$ når $\rho' = p\rho$. Den ligningen er separabel og har løsningen $\rho = e^{\int p(x)\,dx}$, som kalles den <Term name="Integrerende faktor">integrerende faktoren</Term>. Da er
+
+$$
+\big(\rho(x)\,y\big)' = \rho(x)\,q(x),
+$$
+
+og du integrerer begge sider.
+
+<Formula tex="\rho(x) = e^{\int p(x)\,dx}, \qquad \rho(x)\,y = \int \rho(x)\,q(x)\,dx + C" caption="Integrerende faktor for $y' + p(x)y = q(x)$." onSheet={false} />
+
+<Steps>
+<Step title="Skriv ligningen på standardform">
+Få $y' + p(x)y = q(x)$, med koeffisient $1$ foran $y'$. Del på koeffisienten hvis den ikke er $1$.
+</Step>
+<Step title="Finn den integrerende faktoren">
+Regn ut $\rho = e^{\int p\,dx}$. Du trenger ingen konstant her, én antiderivert holder.
+</Step>
+<Step title="Gang med $\rho$ og integrer">
+Venstresiden blir $(\rho y)'$. Integrer begge sider, og husk konstanten $C$ på høyre side.
+</Step>
+<Step title="Løs for $y$ og bruk initialkravet">
+Del på $\rho$, og bestem $C$ fra initialkravet.
+</Step>
+</Steps>
+
+<Example label="Eksamensoppgave" title="Lineær ligning med initialkrav">
+<ExamRef id="tma4400-k2026" task="5" />
+
+Finn funksjonen $y(x)$ som oppfyller
+
+$$
+\begin{cases} y'(x) = 2xe^{-\frac12 x^2} - xy(x), & \text{for } x > 1, \\ y(1) = \frac{1}{\sqrt e}. \end{cases}
+$$
+
+<Solution>
+Standardform: $y' + xy = 2xe^{-x^2/2}$, så $p(x) = x$. Den integrerende faktoren er $\rho = e^{\int x\,dx} = e^{x^2/2}$. Gang med $\rho$:
+
+$$
+\big(e^{x^2/2}\,y\big)' = 2xe^{-x^2/2}e^{x^2/2} = 2x.
+$$
+
+Integrasjon gir $e^{x^2/2}y = x^2 + C$, altså $y = (x^2 + C)e^{-x^2/2}$.
+
+Initialkravet: $y(1) = (1 + C)e^{-1/2} = \frac{1}{\sqrt e} = e^{-1/2}$ gir $C = 0$.
+
+<Answer>$y(x) = x^2e^{-\frac12 x^2}$</Answer>
+</Solution>
+</Example>
+
+En ligning som $y' = 1 - \tfrac{1}{20}y$ er både separabel og lineær. Da kan du velge metode.
+
+## Modellering
+
+Mange modeller sier hvordan en mengde endrer seg: endringsrate er det som kommer inn minus det som går ut. Skriv opp hva hvert ledd er per tidsenhet, med enheter, så faller ligningen ut.
+
+I en blandetank kommer stoff inn med konsentrasjonen i det som strømmer inn ganger strømningsraten. Stoff går ut med konsentrasjonen i tanken ganger strømningsraten ut, og konsentrasjonen i tanken er mengden $y$ delt på volumet $V$.
+
+<Example label="Eksamensoppgave" title="Saltlake i en tank">
+<ExamRef id="tma4100-k2020" task="10" />
+
+Ein tank ved tid $t = 0$ inneheld 100 liter med saltlake, med saltkonsentrasjon 0.25 kg salt per liter. Saltlake som inneheld 0.2 kg salt per liter strøymer inn i tanken med ei hastigheit på 5 liter per minutt, og blandinga (som blir halden uniform ved å røre om) strøymer ut med same hastigheit.
+
+La $y(t)$ vere antall kg salt i tanken ved tid $t$ minutt etter at man har begynt å røre om. Forklar kvifor
+
+$$
+y'(t) = 1 - \frac{1}{20}y(t), \qquad y(0) = 25.
+$$
+
+Grunngi svaret.
+
+Kor mange kg salt er det i tanken etter 60 minutt?
+
+<Solution>
+Salt inn: $0{,}2\ \mathrm{kg/L} \cdot 5\ \mathrm{L/min} = 1\ \mathrm{kg/min}$. Volumet holder seg på $100$ liter, fordi det strømmer like mye inn som ut. Konsentrasjonen i tanken er derfor $y/100$ kg per liter, og salt ut er $\tfrac{y}{100} \cdot 5 = \tfrac{y}{20}$ kg per minutt. Endringsraten er inn minus ut, $y' = 1 - y/20$. Ved start er det $0{,}25 \cdot 100 = 25$ kg salt, så $y(0) = 25$.
+
+Ligningen er lineær: $y' + \tfrac{1}{20}y = 1$, med integrerende faktor $e^{t/20}$. Da er
+
+$$
+\big(e^{t/20}y\big)' = e^{t/20} \quad\Longrightarrow\quad e^{t/20}y = 20e^{t/20} + C \quad\Longrightarrow\quad y = 20 + Ce^{-t/20}.
+$$
+
+Initialkravet gir $25 = 20 + C$, altså $C = 5$, og $y(t) = 20 + 5e^{-t/20}$. Etter 60 minutter er $y(60) = 20 + 5e^{-3}$.
+
+<Answer>$y(60) = 20 + 5e^{-3} \approx 20{,}25$ kg salt.</Answer>
+</Solution>
+</Example>
+
+Løsningen $y = 20 + 5e^{-t/20}$ går mot $20$ kg, som er mengden der det går like mye salt ut som inn: $y/20 = 1$.
+
+### Logistisk vekst
+
+Eksponentiell vekst $y' = ky$ kan ikke vare evig. I <Term name="Logistisk vekst">logistisk vekst</Term> blir vekstraten mindre jo nærmere bærekapasiteten $K$ populasjonen kommer:
+
+$$
+y' = k\,y\Big(1 - \frac yK\Big).
+$$
+
+Når $y$ er liten, er faktoren i parentesen nær $1$, og veksten er nesten eksponentiell. Når $y$ nærmer seg $K$, går faktoren mot null. Ligningen er separabel og ikke lineær. Med delbrøkoppspalting $\frac{K}{y(K - y)} = \frac1y + \frac{1}{K - y}$ gir separasjon $\ln\frac{y}{K - y} = kt + C$, og når du løser for $y$, får du
+
+<Formula tex="y(t) = \frac{K}{1 + Ce^{-kt}}, \qquad C = \frac{K - y_0}{y_0}" caption="Løsningen av den logistiske ligningen med $y(0) = y_0$. Den går mot $K$ når $t \to \infty$." onSheet={false} />
+
+Samme ligning beskriver smittespredning. Hvis smitten går ved kontakt mellom smittede og friske, er antall mulige kontakter proporsjonalt med produktet av antall smittede og antall friske.
+
+<Example label="Eksamensoppgave" title="Smittespredning i en by">
+<ExamRef id="tma4100-h2022" task="6" />
+
+Det har brote ut ein ulækjeleg sjukdom i ein avsidesliggande by med totalt 5000 innbyggarar. Endringsraten for talet på smitta innbyggarar i byen er proporsjonal (med proporsjonalitetskonstant $a$) med produktet av dei som er smitta og dei som ikkje er smitta.
+
+La $S(t)$ vere talet på innbyggarar i byen som er smitta ved tid $t$ dagar etter at smitta braut ut.
+
+Forklar kvifor
+
+$$
+\frac{dS}{dt} = aS(5000 - S).
+$$
+
+Ved utbrotet av sjukdommen er det 250 innbyggarar som har fått påvist smitte. Etter 7 dagar er det 1250 innbyggarar som har fått påvist smitte. Kor mange dagar vil det ta før 80 % av innbyggarane i byen er smitta?
+
+<Solution>
+Endringsraten er $dS/dt$. Antall smittede er $S$ og antall friske er $5000 - S$, og raten er proporsjonal med produktet. Det gir $dS/dt = aS(5000 - S)$.
+
+Dette er den logistiske ligningen med $K = 5000$ og $k = 5000a$. Løsningen er
+
+$$
+S(t) = \frac{5000}{1 + Ce^{-kt}}, \qquad C = \frac{5000 - 250}{250} = 19.
+$$
+
+Etter 7 dager: $S(7) = 1250$ gir $1 + 19e^{-7k} = 4$, altså $e^{-7k} = \tfrac{3}{19}$ og $k = \tfrac17\ln\tfrac{19}{3}$.
+
+$80\,\%$ av innbyggerne er $4000$. Da er $1 + 19e^{-kt} = \tfrac54$, altså $e^{-kt} = \tfrac{1}{76}$ og
+
+$$
+t = \frac{\ln 76}{k} = \frac{7\ln 76}{\ln(19/3)} \approx 16{,}4.
+$$
+
+<Answer>Det tar omtrent $16{,}4$ dager før $80\,\%$ er smittet.</Answer>
+</Solution>
+</Example>
+
+<SelfCheck question="Er $y' = xy + x$ separabel, lineær eller begge deler?">
+Begge deler. Den kan skrives $y' - xy = x$, som er lineær, og $y' = x(y + 1)$, som er separabel: $\frac{1}{y + 1}\,y' = x$.
+</SelfCheck>
+
+<KeyTakeaways>
+- En separabel ligning $p(y)\,y' = q(x)$ løser du med $\int p(y)\,dy = \int q(x)\,dx$; sjekk konstante løsninger du mistet da du delte
+- En lineær ligning $y' + p(x)y = q(x)$ ganger du med $\rho = e^{\int p\,dx}$, slik at venstresiden blir $(\rho y)'$, og integrerer
+- Initialkravet bestemmer integrasjonskonstanten; kontroller svaret ved å sette inn i ligningen
+- Modellering: endringsrate er inn minus ut, og i en blandetank er utstrømmen konsentrasjonen $y/V$ ganger strømningsraten
+- Logistisk vekst $y' = ky(1 - y/K)$ har løsningen $y = K/(1 + Ce^{-kt})$, som går mot bærekapasiteten $K$
+</KeyTakeaways>

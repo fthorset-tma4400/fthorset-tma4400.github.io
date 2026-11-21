@@ -1,0 +1,220 @@
+---
+order: 14
+title: Komplekse tall
+summary: Regning med komplekse tall, polar form og Eulers formel, n-te røtter av komplekse tall, og algebraens fundamentalteorem om antall løsninger av en polynomligning.
+importance: core
+part: "Del 5: Differensialligninger og komplekse tall"
+tag: "Uke 45"
+---
+
+<LearningGoals>
+- Regne med komplekse tall på formen $a + bi$, også dividere med den konjugerte
+- Skrive et komplekst tall på polar form $re^{i\theta}$ og bruke at multiplikasjon ganger absoluttverdiene og legger sammen argumentene
+- Finne alle løsningene av $z^n = w$ og tegne dem i det komplekse planet
+- Bruke algebraens fundamentalteorem til å avgjøre hvor mange løsninger en polynomligning har
+</LearningGoals>
+
+Ligningen $x^2 + 1 = 0$ har ingen reell løsning, fordi $x^2 \ge 0$ for alle reelle $x$. Det samme gjelder $x^2 - 4x + 5 = 0$, der diskriminanten er $16 - 20 = -4$. Innfører du et nytt tall $i$ med
+
+$$
+i^2 = -1,
+$$
+
+får begge ligningene løsninger, og alle regnereglene du kjenner, gjelder fortsatt.
+
+## Regning med komplekse tall
+
+Et <Term name="Komplekst tall">komplekst tall</Term> er et tall $z = a + bi$ med $a$ og $b$ reelle. Tallet $a = \operatorname{Re} z$ er realdelen og $b = \operatorname{Im} z$ er imaginærdelen. Begge er reelle tall: $\operatorname{Im}(-4i) = -4$. Mengden av komplekse tall skrives $\mathbb C$, og de reelle tallene er de komplekse tallene med $b = 0$.
+
+Du regner som med vanlige uttrykk og bytter ut $i^2$ med $-1$ når det dukker opp:
+
+$$
+(a + bi)(c + di) = ac + adi + bci + bd\,i^2 = (ac - bd) + (ad + bc)i.
+$$
+
+Potensene av $i$ går i ring: $i^2 = -1$, $i^3 = -i$, $i^4 = 1$, $i^5 = i$.
+
+Den <Term name="Konjugert">konjugerte</Term> til $z = a + bi$ er $\bar z = a - bi$. Produktet $z\bar z = a^2 - b^2i^2 = a^2 + b^2$ er reelt, og det brukes til å dividere. Gang teller og nevner med den konjugerte av nevneren, så blir nevneren reell:
+
+$$
+\frac{3 + i}{1 - i} = \frac{(3 + i)(1 + i)}{(1 - i)(1 + i)} = \frac{3 + 4i + i^2}{1 + 1} = \frac{2 + 4i}{2} = 1 + 2i.
+$$
+
+Andregradsformelen gjelder også når diskriminanten er negativ, med $\sqrt{-s} = i\sqrt s$ for $s > 0$:
+
+$$
+x^2 - 4x + 5 = 0 \quad\Longrightarrow\quad x = \frac{4 \pm \sqrt{-4}}{2} = \frac{4 \pm 2i}{2} = 2 \pm i.
+$$
+
+Løsningene $2 + i$ og $2 - i$ er konjugerte av hverandre. Det gjelder for alle andregradsligninger med reelle koeffisienter og negativ diskriminant. Regelen $\sqrt a\sqrt b = \sqrt{ab}$ gjelder ikke for negative tall: $\sqrt{-1}\sqrt{-1} = i^2 = -1$, men $\sqrt{(-1)(-1)} = 1$. Skriv derfor om til $i\sqrt s$ før du regner videre.
+
+## Polar form og Eulers formel
+
+Tallet $z = a + bi$ er punktet $(a, b)$ i det komplekse planet, med realdelen langs den vannrette aksen og imaginærdelen langs den loddrette. Den konjugerte er speilbildet om den reelle aksen.
+
+Avstanden fra origo er <Term name="Absoluttverdi av komplekst tall">absoluttverdien</Term> $|z| = \sqrt{a^2 + b^2}$, og $z\bar z = |z|^2$. Vinkelen $\theta$ fra den positive reelle aksen til $z$, mot klokka og i radianer, er et <Term name="Argument">argument</Term> til $z$. Med $r = |z|$ gir trekanten $a = r\cos\theta$ og $b = r\sin\theta$, altså
+
+$$
+z = r(\cos\theta + i\sin\theta).
+$$
+
+Du finner $\theta$ fra $\cos\theta = a/r$ og $\sin\theta = b/r$, og begge må stemme. Ligningen $\tan\theta = b/a$ alene holder ikke: $2 + 2i$ og $-2 - 2i$ har begge $b/a = 1$, men argumentene er $\pi/4$ og $5\pi/4$. Tegn en figur.
+
+<Formula tex="e^{i\theta} = \cos\theta + i\sin\theta" caption="Eulers formel. Tallet $e^{i\theta}$ ligger på enhetssirkelen med vinkel $\theta$." onSheet={false} />
+
+Med <Term name="Eulers formel" /> blir polar form $z = re^{i\theta}$. Noen verdier du bør kunne: $e^{i\pi/2} = i$, $e^{i\pi} = -1$ og $e^{2\pi i} = 1$. En hel runde endrer ingenting, så $e^{i(\theta + 2\pi k)} = e^{i\theta}$ for alle hele tall $k$, og et komplekst tall har uendelig mange argumenter som skiller seg med multipler av $2\pi$.
+
+Skrivemåten er valgt fordi den oppfører seg som en eksponentialfunksjon. Gang ut og bruk summeformlene for cosinus og sinus:
+
+$$
+e^{i\theta}e^{i\varphi} = (\cos\theta\cos\varphi - \sin\theta\sin\varphi) + i(\sin\theta\cos\varphi + \cos\theta\sin\varphi) = e^{i(\theta + \varphi)}.
+$$
+
+<Formula tex="re^{i\theta} \cdot se^{i\varphi} = rs\,e^{i(\theta + \varphi)}, \qquad \big(re^{i\theta}\big)^n = r^n e^{in\theta}" caption="Multiplikasjon ganger absoluttverdiene og legger sammen argumentene." onSheet={false} />
+
+Å gange med $i = e^{i\pi/2}$ dreier altså et tall $90^\circ$ mot klokka. Potenser blir enkle: $1 + i = \sqrt 2\,e^{i\pi/4}$, så $(1 + i)^8 = (\sqrt 2)^8 e^{i \cdot 8\pi/4} = 16e^{2\pi i} = 16$. For $z = a + bi$ definerer du $e^{a + bi} = e^a(\cos b + i\sin b)$, og da gjelder $e^{z + w} = e^z e^w$ også for komplekse tall.
+
+<Example label="Eksamensoppgave" title="En tredjepotens på polar form">
+<ExamRef id="tma4400-h2025" task="flervalg 2">TMA4400 høst 2025, flervalg 2</ExamRef>
+
+<Quiz
+  question={"Kva er $\\left(\\frac{1}{2} - \\frac{\\sqrt{3}}{2}i\\right)^3$?"}
+  options={["$-i$", "$i$", "$-1$", "$0$", "$1$"]}
+  answer={2}
+  explanation={"Absoluttverdien er $\\sqrt{\\tfrac14 + \\tfrac34} = 1$. Med $\\cos\\theta = \\tfrac12$ og $\\sin\\theta = -\\tfrac{\\sqrt3}{2}$ er $\\theta = -\\tfrac{\\pi}{3}$, så tallet er $e^{-i\\pi/3}$. Tredjepotensen er $e^{-i\\pi} = -1$."}
+/>
+</Example>
+
+## Røtter av komplekse tall
+
+Ligningen $z^3 = 8i$ har en løsning du kan gjette, $z = -2i$, fordi $(-2i)^3 = -8i^3 = 8i$. Den har to til. For å finne alle løsningene av $z^n = w$ skriver du begge sider på polar form, $z = re^{i\theta}$ og $w = se^{i\varphi}$. Ligningen blir
+
+$$
+r^n e^{in\theta} = s\,e^{i(\varphi + 2\pi k)},
+$$
+
+der du tar med alle argumentene til $w$. To komplekse tall er like når absoluttverdiene er like og argumentene skiller seg med et multiplum av $2\pi$. Derfor er $r^n = s$ og $n\theta = \varphi + 2\pi k$.
+
+<Statement kind="theorem" name="n-te røtter av et komplekst tall">
+La $w = se^{i\varphi}$ med $s > 0$, og la $n \ge 1$ være et helt tall. Ligningen $z^n = w$ har nøyaktig $n$ løsninger,
+
+$$
+z_k = \sqrt[n]{s}\; e^{i(\varphi + 2\pi k)/n}, \qquad k = 0, 1, \dots, n - 1.
+$$
+
+Løsningene ligger på en sirkel med radius $\sqrt[n]{s}$ om origo, med vinkelen $2\pi/n$ mellom naboer.
+</Statement>
+
+For $k = n$ blir argumentet $\varphi/n + 2\pi$, som gir samme tall som $k = 0$. Derfor er det nøyaktig $n$ forskjellige løsninger.
+
+<Steps>
+<Step title="Skriv $w$ på polar form">
+Finn $s = |w|$ og et argument $\varphi$. Tegn $w$ i planet.
+</Step>
+<Step title="Finn absoluttverdien og det første argumentet">
+Alle løsningene har absoluttverdi $\sqrt[n]{s}$. Den første har argument $\varphi/n$.
+</Step>
+<Step title="Gå rundt sirkelen">
+Legg til $2\pi/n$ i argumentet $n - 1$ ganger.
+</Step>
+<Step title="Skriv om til $a + bi$ hvis oppgaven ber om det">
+Bruk $e^{i\theta} = \cos\theta + i\sin\theta$ med kjente verdier.
+</Step>
+</Steps>
+
+<Example title="Tredjerøttene av $8i$">
+Løs $z^3 = 8i$ og skriv løsningene på formen $a + bi$.
+
+<Solution>
+Polar form: $8i = 8e^{i\pi/2}$, så $s = 8$ og $\varphi = \pi/2$. Absoluttverdien til løsningene er $\sqrt[3]{8} = 2$, og argumentene er
+
+$$
+\theta_k = \frac{\pi/2 + 2\pi k}{3} = \frac{\pi}{6} + \frac{2\pi k}{3}, \qquad k = 0, 1, 2,
+$$
+
+altså $\pi/6$, $5\pi/6$ og $3\pi/2$. Det gir
+
+$$
+z_0 = 2\Big(\tfrac{\sqrt3}{2} + \tfrac12 i\Big) = \sqrt3 + i, \quad
+z_1 = 2\Big({-\tfrac{\sqrt3}{2}} + \tfrac12 i\Big) = -\sqrt3 + i, \quad
+z_2 = 2(0 - i) = -2i.
+$$
+
+Kontroll: $z_k^3 = 8e^{i(\pi/2 + 2\pi k)} = 8i$ for alle tre.
+
+<Answer>$z = \sqrt3 + i$, $z = -\sqrt3 + i$ og $z = -2i$.</Answer>
+</Solution>
+</Example>
+
+<Example label="Eksamensoppgave" title="Fjerderøtter av $i$">
+<ExamRef id="tma4400-k2026" task="1" />
+
+Vis at
+
+$$
+\frac{2i - 3}{3i + 2} = i.
+$$
+
+Finn alle komplekse løysingar av likninga
+
+$$
+(3i + 2)z^4 = 2i - 3.
+$$
+
+Skisser løysingane i det komplekse planet.
+
+<Solution>
+Gang teller og nevner med den konjugerte av nevneren, $2 - 3i$:
+
+$$
+\frac{(2i - 3)(2 - 3i)}{(2 + 3i)(2 - 3i)} = \frac{4i - 6i^2 - 6 + 9i}{4 + 9} = \frac{13i}{13} = i.
+$$
+
+Del ligningen på $3i + 2$. Da står det $z^4 = i = e^{i\pi/2}$, så $s = 1$ og $\varphi = \pi/2$. Alle løsningene har absoluttverdi $1$, og argumentene er
+
+$$
+\theta_k = \frac{\pi/2 + 2\pi k}{4} = \frac{\pi}{8} + \frac{\pi k}{2}, \qquad k = 0, 1, 2, 3.
+$$
+
+Skissen: fire punkter på enhetssirkelen med vinklene $\pi/8$, $5\pi/8$, $9\pi/8$ og $13\pi/8$. De danner hjørnene i et kvadrat, og vinkelen mellom naboer er $\pi/2$.
+
+<Answer>$z = e^{i\pi/8}$, $e^{i5\pi/8}$, $e^{i9\pi/8}$ og $e^{i13\pi/8}$, jevnt fordelt på enhetssirkelen.</Answer>
+</Solution>
+</Example>
+
+## Algebraens fundamentalteorem
+
+Med komplekse tall har alle polynomligninger løsninger, og du vet på forhånd hvor mange.
+
+<Statement kind="theorem" name="Algebraens fundamentalteorem" id="teorem-algebraens-fundamentalteorem">
+Et polynom $p(z) = a_nz^n + \cdots + a_1z + a_0$ av grad $n \ge 1$, med reelle eller komplekse koeffisienter, har nøyaktig $n$ røtter $z_1, \dots, z_n$ i $\mathbb C$, regnet med multiplisitet, og
+
+$$
+p(z) = a_n(z - z_1)(z - z_2)\cdots(z - z_n).
+$$
+</Statement>
+
+«Regnet med multiplisitet» betyr at en rot kan telle flere ganger. Polynomet $z^2 - 2z + 1 = (z - 1)^2$ har grad $2$, men bare én forskjellig rot. Når koeffisientene er reelle, kommer de ikke-reelle røttene i konjugerte par: er $p(z) = 0$, er også $p(\bar z) = \overline{p(z)} = 0$. Et polynom med reelle koeffisienter og odde grad har derfor alltid minst én reell rot.
+
+<Example label="Eksamensoppgave" title="Antall løsninger av en tredjegradsligning">
+<ExamRef id="tma4400-prove2025" task="flervalg 1">TMA4400 prøveeksamen 2025, flervalg 1</ExamRef>
+
+<Quiz
+  question={"Hvor mange løsninger har ligningen $z^3 - z^2 + z = 0$?"}
+  options={["0", "1", "2", "3", "4"]}
+  answer={3}
+  explanation={"Faktoriser: $z(z^2 - z + 1) = 0$. Det gir $z = 0$ og $z = \\frac{1 \\pm \\sqrt{1 - 4}}{2} = \\frac12 \\pm \\frac{\\sqrt3}{2}i$. Tre forskjellige løsninger, som fundamentalteoremet sier for grad 3."}
+/>
+</Example>
+
+<SelfCheck question="Et polynom med reelle koeffisienter har grad 4, og $2 + i$ og $3i$ er røtter. Hva er de andre røttene?">
+$2 - i$ og $-3i$. Med reelle koeffisienter er de konjugerte også røtter, og grad 4 gir nøyaktig fire røtter.
+</SelfCheck>
+
+<KeyTakeaways>
+- $i^2 = -1$; regn som vanlig og bytt ut $i^2$ med $-1$, og divider ved å gange teller og nevner med den konjugerte av nevneren
+- $|z| = \sqrt{a^2 + b^2}$ og $z\bar z = |z|^2$; finn argumentet fra både $\cos\theta = a/r$ og $\sin\theta = b/r$, og tegn en figur
+- Eulers formel $e^{i\theta} = \cos\theta + i\sin\theta$ gir polar form $z = re^{i\theta}$, og $re^{i\theta} \cdot se^{i\varphi} = rs\,e^{i(\theta + \varphi)}$
+- $z^n = se^{i\varphi}$ har de $n$ løsningene $\sqrt[n]{s}\,e^{i(\varphi + 2\pi k)/n}$, $k = 0, \dots, n - 1$, jevnt fordelt på en sirkel
+- Et polynom av grad $n$ har nøyaktig $n$ komplekse røtter regnet med multiplisitet, og med reelle koeffisienter kommer de ikke-reelle røttene i konjugerte par
+</KeyTakeaways>

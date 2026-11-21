@@ -1,0 +1,275 @@
+---
+order: 2
+title: Matriser, inversmatriser og LU-faktorisering
+summary: Matrisemultiplikasjon og regneregler, inversmatrisen og når Ax = b har entydig løsning, og LU-faktorisering med delvis pivotering for å løse samme system for mange høyresider.
+importance: core
+part: "Del 1: Lineær algebra"
+tag: "Uke 35"
+---
+
+<LearningGoals>
+- Multiplisere matriser og bruke regnereglene, og vite at $AB \neq BA$ generelt
+- Finne inversmatrisen ved å radredusere $[A \mid I]$, og løse $A\mathbf x = \mathbf b$ med $\mathbf x = A^{-1}\mathbf b$
+- Skille mellom homogene og inhomogene systemer, og bruke at entydig løsning, lineært uavhengige søyler og inverterbarhet er det samme for en kvadratisk matrise
+- Finne LU-faktoriseringen til en matrise og løse $A\mathbf x = \mathbf b$ med forover- og bakover-innsetting
+- Forklare hvorfor en datamaskin bruker delvis pivotering, og utføre den for hånd
+</LearningGoals>
+
+Et lineært ligningssystem kan skrives kort som én matriseligning. Systemet
+
+$$
+\begin{cases} 2x + y + z = 7 \\ x - 7y + z = 3 \\ 3x + 4y + z = 11 \end{cases}
+\qquad\text{er}\qquad
+\underbrace{\begin{bmatrix} 2 & 1 & 1 \\ 1 & -7 & 1 \\ 3 & 4 & 1 \end{bmatrix}}_{A}
+\underbrace{\begin{bmatrix} x \\ y \\ z \end{bmatrix}}_{\mathbf x}
+=
+\underbrace{\begin{bmatrix} 7 \\ 3 \\ 11 \end{bmatrix}}_{\mathbf b},
+$$
+
+forutsatt at produktet $A\mathbf x$ betyr «rad i $A$ ganget med $\mathbf x$, ledd for ledd, og summert». Den samme regelen, brukt søyle for søyle, gir produktet av to matriser. Med matriseprodukt og inversmatrise kan du løse $A\mathbf x = \mathbf b$ på samme måte som du løser $ax = b$ for tall, men med noen forbehold som tallene ikke har.
+
+## Matrisemultiplikasjon
+
+<Statement kind="definition" name="Matriseprodukt">
+La $A$ være en $m \times n$-matrise og $B$ en $n \times p$-matrise. Produktet $AB$ er $m \times p$-matrisen med elementene
+
+$$
+(AB)_{ij} = a_{i1}b_{1j} + a_{i2}b_{2j} + \cdots + a_{in}b_{nj}.
+$$
+
+Produktet er bare definert når antall søyler i $A$ er lik antall rader i $B$.
+</Statement>
+
+Element $(i, j)$ er altså rad $i$ i $A$ ganget med søyle $j$ i $B$. Ta
+
+$$
+A = \begin{bmatrix} 2 & 1 & 0 \\ 1 & 0 & 1 \end{bmatrix}, \quad
+B = \begin{bmatrix} 1 & 1 \\ 0 & 2 \\ 3 & 1 \end{bmatrix}.
+$$
+
+Da er $AB$ en $2 \times 2$-matrise og $BA$ en $3 \times 3$-matrise:
+
+$$
+AB = \begin{bmatrix} 2 & 4 \\ 4 & 2 \end{bmatrix}, \qquad
+BA = \begin{bmatrix} 3 & 1 & 1 \\ 2 & 0 & 2 \\ 7 & 3 & 1 \end{bmatrix}.
+$$
+
+Rekkefølgen betyr noe. Matrisemultiplikasjon er ikke kommutativ: også for to kvadratiske matriser er $AB \neq BA$ i de fleste tilfeller. En $m \times n$-matrise er en lineær avbildning $\mathbf v \mapsto A\mathbf v$ fra $\mathbb R^n$ til $\mathbb R^m$, og $AB$ er sammensetningen «gjør $B$ først, så $A$». Å rotere $90^\circ$ og så speile om $x$-aksen gir et annet resultat enn å speile først.
+
+Resten av regnereglene er som for tall, så lenge formatene passer:
+
+$$
+A(B + C) = AB + AC, \quad (A + B)C = AC + BC, \quad (AB)C = A(BC), \quad A(aB) = a(AB).
+$$
+
+For en kvadratisk matrise er $A^2 = AA$, $A^3 = A^2A$ og så videre.
+
+## Inversmatriser
+
+Identitetsmatrisen $I$ har enere på diagonalen og nuller ellers, og $AI = IA = A$. Den spiller samme rolle som tallet $1$.
+
+<Statement kind="definition" name="Inversmatrise">
+En $n \times n$-matrise $A$ er <Term name="Inverterbar matrise">inverterbar</Term> hvis det finnes en $n \times n$-matrise $A^{-1}$ slik at
+
+$$
+AA^{-1} = I \quad\text{og}\quad A^{-1}A = I.
+$$
+
+Matrisen $A^{-1}$ kalles den inverse til $A$, og den er entydig når den finnes.
+</Statement>
+
+Hvis $A$ er inverterbar, gang $A\mathbf x = \mathbf b$ med $A^{-1}$ fra venstre på begge sider. Da blir venstresiden $A^{-1}A\mathbf x = I\mathbf x = \mathbf x$, så
+
+<Formula tex="A\mathbf x = \mathbf b \quad\Longrightarrow\quad \mathbf x = A^{-1}\mathbf b" caption="Den entydige løsningen når $A$ er inverterbar. Gang fra venstre: $\mathbf b A^{-1}$ er ikke definert." onSheet={false} />
+
+Den inverse til et produkt er produktet av de inverse i motsatt rekkefølge, $(AB)^{-1} = B^{-1}A^{-1}$, fordi $(AB)(B^{-1}A^{-1}) = A(BB^{-1})A^{-1} = AA^{-1} = I$.
+
+For å finne $A^{-1}$ setter du $A$ og $I$ ved siden av hverandre og radreduserer hele den doble matrisen til venstre del er $I$. Da står $A^{-1}$ til høyre. Metoden virker fordi søyle $j$ i $A^{-1}$ er løsningen av $A\mathbf x = \mathbf e_j$, der $\mathbf e_j$ er søyle $j$ i $I$, og radreduksjonen løser alle $n$ systemene på én gang. Får du en nullrad på venstre side underveis, er $A$ ikke inverterbar.
+
+<Example title="Inversmatrise ved radreduksjon">
+Finn den inverse til $A = \begin{bmatrix} 1 & 0 & 2 \\ 2 & 0 & -1 \\ 0 & 1 & 1 \end{bmatrix}$.
+
+<Solution>
+Trekk $2$ ganger rad I fra rad II, og bytt så rad II og rad III:
+
+$$
+\left[\begin{array}{ccc|ccc} 1 & 0 & 2 & 1 & 0 & 0 \\ 2 & 0 & -1 & 0 & 1 & 0 \\ 0 & 1 & 1 & 0 & 0 & 1 \end{array}\right]
+\sim
+\left[\begin{array}{ccc|ccc} 1 & 0 & 2 & 1 & 0 & 0 \\ 0 & 1 & 1 & 0 & 0 & 1 \\ 0 & 0 & -5 & -2 & 1 & 0 \end{array}\right]
+$$
+
+Gang rad III med $-\tfrac15$. Trekk så $2$ ganger rad III fra rad I og rad III fra rad II:
+
+$$
+\sim
+\left[\begin{array}{ccc|ccc} 1 & 0 & 2 & 1 & 0 & 0 \\ 0 & 1 & 1 & 0 & 0 & 1 \\ 0 & 0 & 1 & \tfrac25 & -\tfrac15 & 0 \end{array}\right]
+\sim
+\left[\begin{array}{ccc|ccc} 1 & 0 & 0 & \tfrac15 & \tfrac25 & 0 \\ 0 & 1 & 0 & -\tfrac25 & \tfrac15 & 1 \\ 0 & 0 & 1 & \tfrac25 & -\tfrac15 & 0 \end{array}\right]
+$$
+
+Kontroller med én rad: rad I i $A$ ganget med søyle 1 i svaret er $1 \cdot \tfrac15 + 0 + 2 \cdot \tfrac25 = 1$.
+
+<Answer>$A^{-1} = \dfrac15\begin{bmatrix} 1 & 2 & 0 \\ -2 & 1 & 5 \\ 2 & -1 & 0 \end{bmatrix}$</Answer>
+</Solution>
+</Example>
+
+## Homogene og inhomogene systemer
+
+Systemet $A\mathbf x = \mathbf 0$ kalles et <Term name="Homogent ligningssystem">homogent ligningssystem</Term>, og $A\mathbf x = \mathbf b$ med $\mathbf b \neq \mathbf 0$ kalles inhomogent. Det homogene systemet har alltid den trivielle løsningen $\mathbf x = \mathbf 0$, og spørsmålet er bare om den er den eneste.
+
+To løsninger $\mathbf x_1$ og $\mathbf x_2$ av det inhomogene systemet har differanse som løser det homogene, fordi $A(\mathbf x_1 - \mathbf x_2) = \mathbf b - \mathbf b = \mathbf 0$. Den generelle løsningen av $A\mathbf x = \mathbf b$ er derfor én løsning pluss alle løsningene av $A\mathbf x = \mathbf 0$. Systemet $x + y + 3z = 7$, $2x + y + 2z = 5$, $3x + 2y + 5z = 12$ har løsningen $(-2 + t,\; 9 - 4t,\; t)$, som kan skrives $(-2, 9, 0) + t(1, -4, 1)$, og $t(1, -4, 1)$ er nettopp løsningene av det tilhørende homogene systemet.
+
+Skriver du $A\mathbf x = \mathbf 0$ ut søyle for søyle, får du
+
+$$
+x_1\mathbf a_1 + x_2\mathbf a_2 + \cdots + x_n\mathbf a_n = \mathbf 0,
+$$
+
+der $\mathbf a_j$ er søyle $j$ i $A$. Det er ligningen fra definisjonen av <Term name="Lineært uavhengig">lineær uavhengighet</Term>. For en kvadratisk matrise henger dermed tre spørsmål sammen.
+
+<Statement kind="theorem" name="Eksistens og entydighet for kvadratiske systemer">
+For en $n \times n$-matrise $A$ er disse påstandene ekvivalente:
+
+1. $A\mathbf x = \mathbf b$ har nøyaktig én løsning for hver $\mathbf b$.
+2. $A\mathbf x = \mathbf 0$ har bare den trivielle løsningen.
+3. Søylene i $A$ er lineært uavhengige.
+4. $A$ er inverterbar, og løsningen er $\mathbf x = A^{-1}\mathbf b$.
+
+Er påstandene usanne, har $A\mathbf x = \mathbf b$ enten ingen løsning eller uendelig mange, avhengig av $\mathbf b$. Hvilket av de to, avgjør du med Gauss-eliminasjon.
+</Statement>
+
+Alle fire påstandene sier at radreduksjon av $A$ gir et pivotelement i hver søyle.
+
+## LU-faktorisering
+
+Ofte skal du løse $A\mathbf x = \mathbf b$ for mange høyresider med samme $A$. Radreduserer du hele den utvidede matrisen hver gang, gjentar du det samme arbeidet på $A$ hver gang. <Term name="LU-faktorisering" /> gjør jobben på $A$ én gang:
+
+$$
+A = LU,
+$$
+
+der $L$ er <Term name="Triangulær matrise">nedre triangulær</Term> med enere på diagonalen og $U$ er øvre triangulær. Da er $A\mathbf x = L(U\mathbf x) = \mathbf b$, og du løser i to raske steg:
+
+<Formula tex="L\mathbf y = \mathbf b \;\text{(forover-innsetting)}, \qquad U\mathbf x = \mathbf y \;\text{(bakover-innsetting)}" caption="Løsning av $A\mathbf x = \mathbf b$ når $A = LU$." onSheet={false} />
+
+Et triangulært system løses én ukjent om gangen. I $L\mathbf y = \mathbf b$ gir første rad $y_1$ direkte, andre rad gir $y_2$ og så videre nedover. I $U\mathbf x = \mathbf y$ starter du nederst.
+
+Matrisen $U$ er det du får når du radreduserer $A$ til trappeform uten å bytte rader og uten å skalere pivotelementene til $1$. Underveis trekker du $l_{ij}$ ganger rad $j$ fra rad $i$ for å skaffe null i posisjon $(i, j)$, og tallet $l_{ij} = a_{ij}/a_{jj}$ kalles multiplikatoren. Den skriver du inn på plass $(i, j)$ i $L$.
+
+<Steps>
+<Step title="Radreduser $A$ til $U$">
+Bruk bare operasjonen «trekk $l_{ij}$ ganger rad $j$ fra rad $i$», søyle for søyle fra venstre. Pivotelementene beholder sin verdi.
+</Step>
+<Step title="Bygg $L$">
+Sett enere på diagonalen og multiplikatoren $l_{ij}$ på plass $(i, j)$ under diagonalen.
+</Step>
+<Step title="Kontroller">
+Gang ut $LU$ og sjekk at du får $A$ tilbake.
+</Step>
+<Step title="Løs for hver $\mathbf b$">
+Løs $L\mathbf y = \mathbf b$ ovenfra og ned, deretter $U\mathbf x = \mathbf y$ nedenfra og opp.
+</Step>
+</Steps>
+
+Fortegnet er den vanligste feilkilden. Trakk du $-1$ ganger rad I fra rad II, det vil si la til rad I, er $l_{21} = -1$.
+
+<Example label="Eksamensoppgave" title="LU-faktorisering og løsning">
+<ExamRef id="tma4400-prove2025" task="1" />
+
+La
+
+$$
+M = \begin{bmatrix} 1 & 2 & -1 \\ -1 & 0 & -2 \\ -2 & -2 & -2 \end{bmatrix}.
+$$
+
+Finn $LU$-faktoriseringen til $M$.
+
+Løs ligningssystemet
+
+$$
+M\mathbf x = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}.
+$$
+
+*Vink:* Det er mulig å løse ligningssystemet uten å finne $LU$-faktoriseringen.
+
+<Solution>
+Søyle 1 har pivotelement $1$. Multiplikatorene er $l_{21} = -1/1 = -1$ og $l_{31} = -2/1 = -2$, så du legger rad I til rad II og legger $2$ ganger rad I til rad III:
+
+$$
+\begin{bmatrix} 1 & 2 & -1 \\ -1 & 0 & -2 \\ -2 & -2 & -2 \end{bmatrix}
+\sim
+\begin{bmatrix} 1 & 2 & -1 \\ 0 & 2 & -3 \\ 0 & 2 & -4 \end{bmatrix}
+$$
+
+Søyle 2 har pivotelement $2$, og $l_{32} = 2/2 = 1$. Trekk rad II fra rad III:
+
+$$
+\sim
+\begin{bmatrix} 1 & 2 & -1 \\ 0 & 2 & -3 \\ 0 & 0 & -1 \end{bmatrix} = U,
+\qquad
+L = \begin{bmatrix} 1 & 0 & 0 \\ -1 & 1 & 0 \\ -2 & 1 & 1 \end{bmatrix}.
+$$
+
+Forover-innsetting i $L\mathbf y = (1, 0, 0)$: $y_1 = 1$, så $-y_1 + y_2 = 0$ gir $y_2 = 1$, og $-2y_1 + y_2 + y_3 = 0$ gir $y_3 = 2 - 1 = 1$.
+
+Bakover-innsetting i $U\mathbf x = (1, 1, 1)$: $-x_3 = 1$ gir $x_3 = -1$. Så gir $2x_2 - 3x_3 = 1$ at $x_2 = (1 - 3)/2 = -1$, og $x_1 + 2x_2 - x_3 = 1$ gir $x_1 = 1 + 2 - 1 = 2$.
+
+<Answer>$L = \begin{bmatrix} 1 & 0 & 0 \\ -1 & 1 & 0 \\ -2 & 1 & 1 \end{bmatrix}$, $U = \begin{bmatrix} 1 & 2 & -1 \\ 0 & 2 & -3 \\ 0 & 0 & -1 \end{bmatrix}$ og $\mathbf x = \begin{bmatrix} 2 \\ -1 \\ -1 \end{bmatrix}$.</Answer>
+</Solution>
+</Example>
+
+## Delvis pivotering
+
+Gauss-eliminasjon er riktig i teorien, men en datamaskin regner med et begrenset antall siffer. Se på systemet
+
+$$
+\left[\begin{array}{cc|c} 10^{-20} & 1 & 1 \\ 1 & 2 & 4 \end{array}\right],
+$$
+
+som har løsning nær $(2, 1)$. Med $10^{-20}$ som pivotelement blir multiplikatoren $10^{20}$, og rad II blir $\left[\begin{array}{cc|c} 0 & 2 - 10^{20} & 4 - 10^{20} \end{array}\right]$. Maskinen runder begge tallene til $-10^{20}$, og da gir bakover-innsetting $x_2 = 1$ og $x_1 = 0$. Informasjonen i rad II er druknet i de store tallene. Bytter du radene først, blir multiplikatoren $10^{-20}$, ingenting viktig rundes bort, og du får $x_2 = 1$, $x_1 = 2$.
+
+<Statement kind="principle" name="Delvis pivotering" id="regel-delvis-pivotering">
+Før du eliminerer i en søyle, finner du raden (blant de gjenværende) med størst tallverdi i den søylen, og bytter den opp til pivotplassen. Da får alle multiplikatorene tallverdi høyst $1$.
+</Statement>
+
+<Term name="Delvis pivotering" /> fjerner også problemet med pivotelementer som er nøyaktig null. Brukt på LU-faktorisering lagres radbyttene i en permutasjonsmatrise $P$, og faktoriseringen blir $PA = LU$. Numeriske biblioteker gjør dette automatisk. For hånd trenger du det bare når oppgaven ber om det.
+
+<Example title="Gauss-eliminasjon med delvis pivotering">
+Løs $x_1 - x_2 + 3x_3 = -3$, $-x_1 - 2x_3 = 1$, $2x_1 + 2x_2 + 4x_3 = 0$ med delvis pivotering.
+
+<Solution>
+I søyle 1 er $|2|$ størst, så bytt rad I og rad III. Multiplikatorene blir $-\tfrac12$ og $\tfrac12$:
+
+$$
+\left[\begin{array}{ccc|c} 2 & 2 & 4 & 0 \\ -1 & 0 & -2 & 1 \\ 1 & -1 & 3 & -3 \end{array}\right]
+\sim
+\left[\begin{array}{ccc|c} 2 & 2 & 4 & 0 \\ 0 & 1 & 0 & 1 \\ 0 & -2 & 1 & -3 \end{array}\right]
+$$
+
+I søyle 2 er $|-2| > |1|$, så bytt rad II og rad III. Multiplikatoren blir $-\tfrac12$:
+
+$$
+\sim
+\left[\begin{array}{ccc|c} 2 & 2 & 4 & 0 \\ 0 & -2 & 1 & -3 \\ 0 & 1 & 0 & 1 \end{array}\right]
+\sim
+\left[\begin{array}{ccc|c} 2 & 2 & 4 & 0 \\ 0 & -2 & 1 & -3 \\ 0 & 0 & \tfrac12 & -\tfrac12 \end{array}\right]
+$$
+
+Bakover-innsetting: $x_3 = -1$, så $-2x_2 - 1 = -3$ gir $x_2 = 1$, og $2x_1 + 2 - 4 = 0$ gir $x_1 = 1$.
+
+<Answer>$(x_1, x_2, x_3) = (1, 1, -1)$</Answer>
+</Solution>
+</Example>
+
+<SelfCheck question="Du har funnet $A = LU$ og skal løse $A\mathbf x = \mathbf b$ for ti ulike $\mathbf b$. Hvor mange ganger må du radredusere $A$?">
+Én gang, for å finne $L$ og $U$. For hver $\mathbf b$ gjør du bare forover-innsetting i $L\mathbf y = \mathbf b$ og bakover-innsetting i $U\mathbf x = \mathbf y$.
+</SelfCheck>
+
+<KeyTakeaways>
+- $(AB)_{ij}$ er rad $i$ i $A$ ganget med søyle $j$ i $B$; produktet krever at antall søyler i $A$ er lik antall rader i $B$, og $AB \neq BA$ generelt
+- $A^{-1}$ finner du ved å radredusere $[A \mid I]$ til $[I \mid A^{-1}]$; en nullrad til venstre betyr at $A$ ikke er inverterbar
+- For en kvadratisk $A$ er entydig løsning for alle $\mathbf b$, bare triviell løsning av $A\mathbf x = \mathbf 0$, lineært uavhengige søyler og inverterbarhet det samme
+- Den generelle løsningen av $A\mathbf x = \mathbf b$ er én løsning pluss alle løsningene av $A\mathbf x = \mathbf 0$
+- I $A = LU$ er $U$ trappeformen uten radbytter og skalering, og $L$ har enere på diagonalen og multiplikatorene under; løs $L\mathbf y = \mathbf b$ og så $U\mathbf x = \mathbf y$
+- Delvis pivotering bytter opp raden med størst tallverdi i søylen, slik at alle multiplikatorer har tallverdi høyst $1$
+</KeyTakeaways>

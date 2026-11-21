@@ -1,0 +1,315 @@
+---
+order: 12
+title: Numerisk ligningsløsning med fikspunktiterasjon og Newtons metode
+summary: Når en fikspunktiterasjon konvergerer, hvor mange steg du trenger, hva konvergensorden er, og hvorfor Newtons metode har orden 2 og når den feiler.
+importance: core
+part: "Del 4: Numeriske metoder"
+tag: "Uke 43–44"
+---
+
+<LearningGoals>
+- Skrive en ligning $f(x) = 0$ som $x = g(x)$ og vise at fikspunktiterasjonen konvergerer med kravet $|g'(x)| \le L < 1$
+- Bruke feilestimatet $|x_n - r| \le L^n|x_0 - r|$ til å finne hvor mange iterasjoner som trengs
+- Bestemme konvergensordenen fra definisjonen, og fra $g'(r)$ og $g''(r)$
+- Utlede Newtons metode fra tangenten, vise at den har orden 2, og forklare når den feiler
+</LearningGoals>
+
+Du skal regne ut $\sqrt 2$ og har bare de fire regneartene. Tre omskrivinger av $x^2 = 2$ har alle $\sqrt 2$ som løsning:
+
+$$
+x = g_1(x) = x - \frac{x^2 - 2}{4}, \qquad x = h(x) = \frac12\Big(x + \frac2x\Big), \qquad x = g_2(x) = \frac2x.
+$$
+
+Start i $x_0 = 1$ og sett tallet du får inn igjen: $x_{n+1} = g(x_n)$. Med $g_2$ hopper følgen mellom $1$ og $2$ for alltid. De to andre kommer fram, men i svært ulikt tempo:
+
+<Table
+  columns={["$n$", "feil med $g_1$", "feil med $h$"]}
+  rows={[
+    ["$1$", "$1{,}6 \\cdot 10^{-1}$", "$8{,}6 \\cdot 10^{-2}$"],
+    ["$2$", "$5{,}5 \\cdot 10^{-2}$", "$2{,}5 \\cdot 10^{-3}$"],
+    ["$3$", "$1{,}7 \\cdot 10^{-2}$", "$2{,}1 \\cdot 10^{-6}$"],
+    ["$4$", "$5{,}0 \\cdot 10^{-3}$", "$1{,}6 \\cdot 10^{-12}$"]
+  ]}
+/>
+
+Med $g_1$ blir feilen omtrent tre ganger mindre per steg. Med $h$ dobles antall riktige desimaler per steg. Begge forskjellene forklares av den deriverte til $g$ i løsningen.
+
+## Fikspunktiterasjon
+
+Et tall $r$ med $g(r) = r$ er et fikspunkt for $g$. For å løse $f(x) = 0$ skriver du ligningen om til $x = g(x)$, velger en startverdi $x_0$ og regner ut $x_{n+1} = g(x_n)$. Er $g$ kontinuerlig og følgen konvergerer, er grensen et fikspunkt, og dermed en løsning av $f(x) = 0$.
+
+Det som avgjør om følgen konvergerer, ser du ved å trekke $r = g(r)$ fra $x_{n+1} = g(x_n)$. Middelverdisetningen gir en $c_n$ mellom $x_n$ og $r$ slik at
+
+$$
+x_{n+1} - r = g(x_n) - g(r) = g'(c_n)\,(x_n - r).
+$$
+
+Feilen ganges altså med $g'(c_n)$ i hvert steg. For $g_1$ er $g_1'(\sqrt 2) = 1 - \tfrac{\sqrt 2}{2} \approx 0{,}29$, og for $g_2$ er $g_2'(\sqrt 2) = -1$: feilen skifter fortegn, men krymper ikke.
+
+<Statement kind="theorem" name="Konvergens av fikspunktiterasjon">
+Anta at $g$ er deriverbar på et lukket intervall $I$, at $g(x) \in I$ for alle $x \in I$, og at det finnes et tall $L < 1$ med
+
+$$
+|g'(x)| \le L \quad\text{for alle } x \in I.
+$$
+
+Da har $g$ nøyaktig ett fikspunkt $r$ i $I$, og for hver startverdi $x_0 \in I$ konvergerer $x_{n+1} = g(x_n)$ mot $r$ med
+
+$$
+|x_n - r| \le L^n\,|x_0 - r|.
+$$
+</Statement>
+
+Kravet $g(I) \subseteq I$ sørger for at alle $x_n$ og alle $c_n$ ligger i $I$. Da gir ligningen over $|x_{n+1} - r| \le L|x_n - r|$, og etter $n$ steg står $L^n|x_0 - r|$ igjen. Fikspunktet finnes fordi $g(x) - x$ er $\ge 0$ i venstre endepunkt og $\le 0$ i høyre, og det er bare ett, fordi to fikspunkter $r \neq s$ ville gitt $|r - s| = |g(r) - g(s)| \le L|r - s| < |r - s|$.
+
+Du kjenner ikke $r$, men både $x_0$ og $r$ ligger i $I = [a, b]$, så $|x_0 - r| \le b - a$. Det gir et feilestimat du kan regne ut før du starter:
+
+<Formula tex="|x_n - r| \le L^n\,|x_0 - r| \le L^n\,(b - a)" caption="Feilestimat for fikspunktiterasjon på $I = [a, b]$ med $|g'| \le L < 1$." onSheet={false} />
+
+<Steps>
+<Step title="Skriv om ligningen">
+Vis at $f(x) = 0$ og $x = g(x)$ har de samme løsningene i $I$.
+</Step>
+<Step title="Vis at $g$ sender $I$ inn i seg selv">
+Finn største og minste verdi av $g$ på $I$, gjerne ved å se at $g$ er monoton.
+</Step>
+<Step title="Finn $L$">
+Deriver $g$ og begrens $|g'(x)|$ ovenfra på $I$. Du trenger bare en øvre grense $L < 1$, ikke den beste.
+</Step>
+<Step title="Finn antall iterasjoner">
+Løs $L^n(b - a) < \varepsilon$ for $n$.
+</Step>
+</Steps>
+
+<Example label="Eksamensoppgave" title="Fikspunktiterasjon med feilgrense">
+<ExamRef id="tma4400-k2026" task="7" />
+
+Vis at $f(x) = x^3 + 4x^2 - 10$ har nøyaktig eitt nullpunkt for $x \in [1, 2]$.
+
+Vis at $f(x) = 0$ kan skrivast som $x = g(x)$ med $g(x) = \sqrt{\frac{10}{4 + x}}$.
+
+Vis at $1 \leqslant g(x) \leqslant 2$ og finn $K < 1$ slik at $|g'(x)| \leqslant K$ når $x \in [1, 2]$.
+
+Sjå no på fikspunktiterasjonen $x_{n+1} = g(x_n)$.
+
+Finn talet på iterasjonen $n$ som sikrar at $|x_n - r| < 10^{-3}$, der $r = g(r)$ og $x_0 \in [1, 2]$.
+
+*Vink:* Ein mogleg verdi for $K$ er $1/5$.
+
+<Solution>
+Nullpunkt: $f(1) = -5 < 0$ og $f(2) = 14 > 0$, og $f$ er kontinuerlig, så skjæringssetningen gir minst ett nullpunkt i $(1, 2)$. Siden $f'(x) = 3x^2 + 8x > 0$ på $[1, 2]$, er $f$ strengt voksende, og nullpunktet er det eneste.
+
+Omskriving: for $x \in [1, 2]$ er begge sider positive, så
+
+$$
+x = \sqrt{\frac{10}{4 + x}} \iff x^2 = \frac{10}{4 + x} \iff x^3 + 4x^2 - 10 = 0.
+$$
+
+Grenser for $g$: $g$ er avtagende, så på $[1, 2]$ er $g(2) = \sqrt{10/6} \approx 1{,}29$ minst og $g(1) = \sqrt 2 \approx 1{,}41$ størst. Altså er $1 \le g(x) \le 2$.
+
+Grense for $g'$: $g(x) = \sqrt{10}\,(4 + x)^{-1/2}$ gir
+
+$$
+|g'(x)| = \frac{\sqrt{10}}{2}(4 + x)^{-3/2} \le \frac{\sqrt{10}}{2} \cdot 5^{-3/2} = \frac{\sqrt 2}{10} \approx 0{,}14 \le \frac15,
+$$
+
+der den største verdien er i $x = 1$. Ta $K = 1/5$.
+
+Antall iterasjoner: $g$ sender $[1, 2]$ inn i seg selv og $|g'| \le 1/5$, så teoremet gir $|x_n - r| \le 5^{-n}|x_0 - r| \le 5^{-n}$, fordi både $x_0$ og $r$ ligger i $[1, 2]$. Kravet $5^{-n} < 10^{-3}$ betyr $5^n > 1000$. Siden $5^4 = 625$ og $5^5 = 3125$, holder $n = 5$.
+
+<Answer>$K = 1/5$, og $n = 5$ iterasjoner sikrer $|x_n - r| < 10^{-3}$.</Answer>
+</Solution>
+</Example>
+
+## Konvergensorden
+
+Tabellen i starten viser to typer fart. For $g_1$ er ny feil omtrent $0{,}29$ ganger gammel feil. For $h$ er ny feil omtrent $0{,}35$ ganger gammel feil i andre. Med $e_n = |x_n - r|$ blir dette en definisjon.
+
+<Statement kind="definition" name="Konvergensorden" id="definisjon-konvergensorden">
+En følge $x_n \to r$ med feil $e_n = |x_n - r|$ har <Term name="Konvergensorden">konvergensorden</Term> $q$ hvis
+
+$$
+\lim_{n \to \infty} \frac{e_{n+1}}{e_n^{\,q}} = C, \qquad 0 < C < \infty.
+$$
+
+Orden $1$ kalles lineær konvergens, orden $2$ kvadratisk.
+</Statement>
+
+For en fikspunktiterasjon finner du ordenen med Taylors teorem om $r$. Det gir en $\xi_n$ mellom $x_n$ og $r$ med
+
+$$
+x_{n+1} - r = g(x_n) - g(r) = g'(r)(x_n - r) + \tfrac12 g''(\xi_n)(x_n - r)^2.
+$$
+
+Hvis $g'(r) \neq 0$, dominerer det første leddet når $x_n$ er nær $r$, og $e_{n+1}/e_n \to |g'(r)|$. Ordenen er $1$. Hvis $g'(r) = 0$, står bare det andre leddet igjen, og $e_{n+1}/e_n^2 \to \tfrac12|g''(r)|$. Ordenen er $2$ når $g''(r) \neq 0$.
+
+<Formula tex="g'(r) \neq 0: \;\; \frac{e_{n+1}}{e_n} \to |g'(r)|, \qquad g'(r) = 0: \;\; \frac{e_{n+1}}{e_n^2} \to \tfrac12|g''(r)|" caption="Konvergensorden for fikspunktiterasjon." onSheet={false} />
+
+For $h(x) = \tfrac12(x + 2/x)$ er $h'(x) = \tfrac12 - 1/x^2$ og $h''(x) = 2/x^3$. I $r = \sqrt 2$ er $h'(r) = 0$ og $\tfrac12 h''(r) = 1/(2\sqrt 2) \approx 0{,}35$, som er tallet i tabellen.
+
+<Example label="Eksamensoppgave" title="Konvergensorden fra definisjonen">
+<ExamRef id="tma4400-prove2025" task="8" />
+
+La følgen $\{a_n\}_{n=0}^\infty$ være gitt som
+
+$$
+a_n = \sqrt{\frac{1}{1 + n}}, \qquad n \geqslant 0.
+$$
+
+Vis at for $q = 1$ vil grenseverdien
+
+$$
+\lim_{n \to \infty} \frac{a_{n+1}}{(a_n)^q}
+$$
+
+eksistere og være forskjellig fra 0.
+
+Hva er grenseverdien når $0 < q < 1$?
+
+<Solution>
+For $q = 1$:
+
+$$
+\frac{a_{n+1}}{a_n} = \sqrt{\frac{1 + n}{2 + n}} = \sqrt{\frac{1 + 1/n}{1 + 2/n}} \;\longrightarrow\; \sqrt 1 = 1 \neq 0,
+$$
+
+der du bruker at $\sqrt x$ er kontinuerlig. Følgen konvergerer altså mot $0$ med orden $1$.
+
+For $0 < q < 1$, skriv $(a_n)^q = a_n \cdot a_n^{\,q - 1}$:
+
+$$
+\frac{a_{n+1}}{(a_n)^q} = \frac{a_{n+1}}{a_n} \cdot a_n^{\,1 - q} = \frac{a_{n+1}}{a_n} \cdot (1 + n)^{-\frac{1 - q}{2}}.
+$$
+
+Den første faktoren går mot $1$. Eksponenten $-\tfrac{1 - q}{2}$ er negativ, så den andre faktoren går mot $0$.
+
+<Answer>For $q = 1$ er grenseverdien $1$. For $0 < q < 1$ er den $0$.</Answer>
+</Solution>
+</Example>
+
+## Newtons metode
+
+En fikspunktiterasjon med $g'(r) = 0$ har orden 2. Newtons metode lager en slik $g$ for en hvilken som helst ligning $f(x) = 0$. Ideen er å bytte ut $f$ med tangenten i $x_n$,
+
+$$
+f(x) \approx f(x_n) + f'(x_n)(x - x_n),
+$$
+
+og la nullpunktet til tangenten være neste tilnærming. Settes høyresiden lik null og løses for $x$, får du <Term name="Newtons metode" />:
+
+<Formula tex="x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}, \qquad f'(x_n) \neq 0" caption="Newtons metode: nullpunktet til tangenten i $x_n$." onSheet={false} />
+
+Dette er fikspunktiterasjon med $g(x) = x - f(x)/f'(x)$, og når $f'(r) \neq 0$ er $g(r) = r$ nøyaktig når $f(r) = 0$. Kvotientregelen gir
+
+$$
+g'(x) = 1 - \frac{f'(x)^2 - f(x)f''(x)}{f'(x)^2} = \frac{f(x)\,f''(x)}{f'(x)^2},
+$$
+
+så $g'(r) = 0$ fordi $f(r) = 0$. Deriverer du én gang til og setter inn $f(r) = 0$, blir $g''(r) = f''(r)/f'(r)$.
+
+<Statement kind="theorem" name="Newtons metode har orden 2">
+Anta at $f$, $f'$ og $f''$ er kontinuerlige nær $r$, og at $f(r) = 0$, $f'(r) \neq 0$ og $f''(r) \neq 0$. Da konvergerer Newtons metode mot $r$ for alle startverdier nær nok $r$, og
+
+$$
+\lim_{n \to \infty} \frac{e_{n+1}}{e_n^2} = \frac{|f''(r)|}{2\,|f'(r)|}.
+$$
+</Statement>
+
+For $f(x) = x^2 - 2$ er $f'(x) = 2x$, og Newtons metode blir $x_{n+1} = x_n - \tfrac{x_n^2 - 2}{2x_n} = \tfrac12(x_n + 2/x_n)$. Det er nettopp $h$ fra starten.
+
+<Example title="Fikspunktiterasjon mot Newton for $x = \cos x$">
+Ligningen $x = \cos x$ har løsningen $r \approx 0{,}7391$. Sammenlign $x_{n+1} = \cos x_n$ med Newtons metode, begge med $x_0 = 1$.
+
+<Solution>
+Fikspunktiterasjon: $g(x) = \cos x$ gir $|g'(r)| = \sin r \approx 0{,}67$. Ordenen er $1$, og feilen ganges med omtrent $0{,}67$ per steg. Det tar $67$ steg før feilen er under $10^{-12}$.
+
+Newton: skriv ligningen som $f(x) = x - \cos x = 0$. Da er $f'(x) = 1 + \sin x$ og
+
+$$
+x_{n+1} = x_n - \frac{x_n - \cos x_n}{1 + \sin x_n}.
+$$
+
+Fra $x_0 = 1$ får du $x_1 \approx 0{,}75036$, $x_2 \approx 0{,}739113$ og $x_3 \approx 0{,}7390851334$. Feilene er omtrent $1{,}1 \cdot 10^{-2}$, $2{,}8 \cdot 10^{-5}$ og $1{,}7 \cdot 10^{-10}$, og etter fire steg er feilen under $10^{-12}$.
+
+<Answer>Fikspunktiterasjonen bruker $67$ steg, Newton $4$, for å komme under $10^{-12}$.</Answer>
+</Solution>
+</Example>
+
+<Example label="Eksamensoppgave" title="Newtons metode for $x^3 = 9$">
+<ExamRef id="tma4400-prove2025" task="flervalg 3">TMA4400 prøveeksamen 2025, flervalg 3</ExamRef>
+
+<Quiz
+  question={"Hvilket svaralternativ angir Newtons metode for å finne nullpunktet til $x^3 = 9$?"}
+  options={[
+    "$x_{n+1} = 9 - x_n^3$",
+    "$x_{n+1} = -\\frac{1}{3}x_n$",
+    "$x_{n+1} = \\frac{2}{3}x_n$",
+    "$x_{n+1} = 9 - x_n^3 - x_n$",
+    "$x_{n+1} = \\frac{2}{3}x_n + \\frac{3}{x_n^2}$"
+  ]}
+  answer={4}
+  explanation={"Med $f(x) = x^3 - 9$ og $f'(x) = 3x^2$ blir $x_{n+1} = x_n - \\frac{x_n^3 - 9}{3x_n^2} = x_n - \\frac13 x_n + \\frac{3}{x_n^2} = \\frac23 x_n + \\frac{3}{x_n^2}$."}
+/>
+</Example>
+
+## Når Newtons metode feiler
+
+Teoremet lover bare konvergens når $x_0$ er nær nok $r$. Simuleringen bruker $f(x) = (x + 1)(x^2 - 3)$, som har nullpunktene $-\sqrt 3$, $-1$ og $\sqrt 3$.
+
+<Simulation
+  src="/sims/12-newton.js"
+  host="dom"
+  title="Newtons metode steg for steg"
+  caption="Velg startverdi $x_0$ og antall steg. Hvert steg følger tangenten ned til $x$-aksen. Nær $x_0 \approx 0{,}72$ er tangenten nesten vannrett, og neste tilnærming havner langt unna."
+  height={340}
+/>
+
+Det kan gå galt på tre måter:
+
+- $f'(x_n) = 0$. Da er tangenten vannrett og har ikke noe nullpunkt. Er $f'(x_n)$ bare nær null, havner $x_{n+1}$ langt unna, kanskje nær et annet nullpunkt enn det du ville finne.
+- Følgen hopper fram og tilbake uten å konvergere.
+- Startverdien er for langt fra $r$. Da konvergerer metoden kanskje mot et annet nullpunkt, eller ikke i det hele tatt.
+
+En praktisk implementasjon stopper derfor når $|f(x_n)|$ er liten nok, eller etter et fast antall steg.
+
+<Example label="Eksamensoppgave" title="Når Newton ikke finner nullpunktet">
+<ExamRef id="tma4100-k2023" task="9" />
+
+La
+
+$$
+f(x) = \sqrt{|x|} = \begin{cases} \sqrt x & x \geqslant 0, \\ \sqrt{-x} & x < 0. \end{cases}
+$$
+
+Lag en skisse av grafen til $f(x)$.
+
+Ligningen $f(x) = 0$ har nøyaktig én løsning: $x = 0$ (du trenger ikke vise dette).
+
+Forklar hvorfor Newtons metode ikke vil kunne hjelpe oss med å finne dette nullpunktet for $f(x)$.
+
+<Solution>
+Grafen er symmetrisk om $y$-aksen: $\sqrt x$ for $x \ge 0$ og speilbildet for $x < 0$, med en spiss i origo der grafen står loddrett.
+
+For $x_0 > 0$ er $f'(x_0) = \frac{1}{2\sqrt{x_0}}$, og Newtons metode gir
+
+$$
+x_1 = x_0 - \frac{\sqrt{x_0}}{1/(2\sqrt{x_0})} = x_0 - 2x_0 = -x_0.
+$$
+
+For $x < 0$ er $f'(x) = -\frac{1}{2\sqrt{-x}}$, og samme regning gir $x_2 = -x_1 = x_0$. Følgen veksler mellom $x_0$ og $-x_0$ og kommer aldri nærmere $0$. I selve nullpunktet er $f$ ikke deriverbar, så kravene i teoremet er ikke oppfylt.
+
+<Answer>For hver $x_0 \neq 0$ gir Newtons metode $x_{n+1} = -x_n$, så følgen hopper mellom $x_0$ og $-x_0$ og konvergerer ikke.</Answer>
+</Solution>
+</Example>
+
+<SelfCheck question="En fikspunktiterasjon har $g'(r) = 0{,}5$. Omtrent hvor mange steg trengs for å få tre nye riktige desimaler?">
+Feilen halveres per steg. Tre desimaler er en faktor $1000 \approx 2^{10}$, så omtrent $10$ steg. Med orden $2$ dobles i stedet antall riktige desimaler per steg.
+</SelfCheck>
+
+<KeyTakeaways>
+- Fikspunktiterasjon: skriv $f(x) = 0$ som $x = g(x)$ og regn $x_{n+1} = g(x_n)$; middelverdisetningen gir $x_{n+1} - r = g'(c_n)(x_n - r)$
+- Sender $g$ intervallet $I = [a, b]$ inn i seg selv og $|g'(x)| \le L < 1$ på $I$, konvergerer iterasjonen mot det eneste fikspunktet, og $|x_n - r| \le L^n(b - a)$
+- Konvergensorden $q$: $e_{n+1}/e_n^{\,q} \to C$ med $0 < C < \infty$; orden $1$ når $g'(r) \neq 0$, orden $2$ når $g'(r) = 0$ og $g''(r) \neq 0$
+- Newtons metode $x_{n+1} = x_n - f(x_n)/f'(x_n)$ følger tangenten ned til $x$-aksen, har $g'(r) = 0$ og derfor orden $2$ når $f'(r) \neq 0$
+- Newton krever en startverdi nær nok roten og feiler når $f'(x_n)$ er null eller nær null, eller når følgen hopper fram og tilbake
+</KeyTakeaways>

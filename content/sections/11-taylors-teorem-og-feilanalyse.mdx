@@ -1,0 +1,322 @@
+---
+order: 11
+title: Taylors teorem og feilanalyse
+summary: Taylorpolynomer med restledd, grenseverdier med Taylorpolynomer, og feilskranker for numerisk derivasjon og for trapes- og midtpunktmetoden.
+importance: core
+part: "Del 4: Numeriske metoder"
+tag: "Uke 43"
+---
+
+<LearningGoals>
+- Sette opp Taylorpolynomet $T_n$ til en funksjon og skrive restleddet $R_n$
+- Bruke restleddet til å finne en øvre skranke for feilen i en tilnærming
+- Regne ut grenseverdier ved å bytte funksjoner med Taylorpolynomer
+- Utlede feilen i en differensformel for $f'$ eller $f''$ med Taylors teorem
+- Bruke feilskrankene for trapes- og midtpunktmetoden til å velge antall delintervaller
+</LearningGoals>
+
+Den lineære tilnærmingen til $\sqrt x$ i $x = 1$ gir $\sqrt{1{,}1} \approx 1{,}05$. Riktig verdi er $1{,}04881$, så feilen er $0{,}00119$. På eksamen har du ikke fasiten, og du må likevel kunne si hvor stor feilen høyst er. Taylors teorem gir et uttrykk for feilen. Det samme uttrykket forklarer hvorfor sentraldifferansen er mer nøyaktig enn fremoverdifferansen, og hvorfor feilen i trapesmetoden blir en firedel når du dobler antall delintervaller.
+
+## Taylorpolynomer og restledd
+
+Den lineære tilnærmingen har samme verdi og samme deriverte som $f$ i $a$. Et polynom av grad $n$ kan i tillegg treffe de $n$ første deriverte. Skal $p(x) = \sum_k c_k (x - a)^k$ ha $p^{(k)}(a) = f^{(k)}(a)$, må $k!\,c_k = f^{(k)}(a)$, fordi $k$ derivasjoner av $(x - a)^k$ gir $k!$ og fjerner alle lavere ledd. Det gir <Term name="Taylorpolynom">Taylorpolynomet</Term> av grad $n$ om $a$:
+
+$$
+T_n(x) = f(a) + f'(a)(x - a) + \frac{f''(a)}{2!}(x - a)^2 + \dots + \frac{f^{(n)}(a)}{n!}(x - a)^n.
+$$
+
+<Statement kind="theorem" name="Taylors teorem">
+La $f$ være $n + 1$ ganger deriverbar med kontinuerlige deriverte på et åpent intervall som inneholder $a$ og $x$. Da er $f(x) = T_n(x) + R_n(x)$, der restleddet er
+
+$$
+R_n(x) = \frac{f^{(n+1)}(c)}{(n+1)!}(x - a)^{n+1}
+$$
+
+for en $c$ mellom $a$ og $x$.
+</Statement>
+
+For $n = 0$ er dette middelverdisetningen: $f(x) = f(a) + f'(c)(x - a)$. Tallet $c$ er ukjent, men hvis du vet at $|f^{(n+1)}| \le M$ mellom $a$ og $x$, får du en skranke:
+
+<Formula tex="|R_n(x)| \le \frac{M}{(n+1)!}\,|x - a|^{n+1}." />
+
+Taylorpolynomene om $a = 0$ til de vanligste funksjonene er
+
+$$
+e^x \approx 1 + x + \frac{x^2}{2!} + \dots + \frac{x^n}{n!}, \qquad \sin x \approx x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots, \qquad \cos x \approx 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \dots,
+$$
+
+og $\ln(1 + x) \approx x - \frac{x^2}{2} + \frac{x^3}{3} - \dots$. Restleddet sier hvor god tilnærmingen er.
+
+<Example title="Hvor stor er feilen i $\sqrt{1{,}1} \approx 1{,}05$?">
+Finn en øvre skranke for feilen når $\sqrt{1{,}1}$ tilnærmes med $T_1$ om $a = 1$.
+
+<Solution>
+Med $f(x) = \sqrt x$ er $f''(x) = -\frac14 x^{-3/2}$. For $c$ mellom $1$ og $1{,}1$ er $|f''(c)| \le \frac14$, fordi $x^{-3/2}$ er avtakende. Restleddet med $n = 1$ gir
+
+$$
+|R_1(1{,}1)| = \frac{|f''(c)|}{2!}(0{,}1)^2 \le \frac{1/4}{2}\cdot 0{,}01 = 0{,}00125.
+$$
+
+Den faktiske feilen $0{,}00119$ ligger under skranken. Siden $f'' < 0$, er $R_1 < 0$, så $1{,}05$ er for stort.
+
+<Answer>$|R_1| \le 0{,}00125$, og tilnærmingen er for stor.</Answer>
+</Solution>
+</Example>
+
+## Grenseverdier med Taylorpolynomer
+
+En grense av typen $\frac00$ kan du ofte regne ut ved å bytte funksjonene med Taylorpolynomer og restledd. Restleddet er en begrenset faktor ganger en potens av $x$, så det forsvinner i grensen.
+
+<Example title="$\lim_{x\to 0}\frac{1 - \cos x}{x^2}$">
+Finn grensen.
+
+<Solution>
+Taylorpolynomet av grad $3$ til $\cos x$ om $0$ er $1 - \frac{x^2}{2}$, fordi leddet med $x^3$ har koeffisient $-\sin 0/3! = 0$. Restleddet er $R_3(x) = \frac{\cos c}{4!}x^4$. Dermed er
+
+$$
+\frac{1 - \cos x}{x^2} = \frac{\frac{x^2}{2} - \frac{\cos c}{24}x^4}{x^2} = \frac12 - \frac{\cos c}{24}x^2.
+$$
+
+Siden $|\cos c| \le 1$, går det siste leddet mot $0$.
+
+<Answer>$\dfrac12$</Answer>
+</Solution>
+</Example>
+
+Ta med nok ledd til at noe overlever etter at de laveste leddene i telleren og nevneren er forkortet bort. For $\frac{x - \sin x}{x^3}$ trenger du leddet $\frac{x^3}{6}$ i $\sin x$, og grensen blir $\frac16$.
+
+## Feilanalyse for numerisk derivasjon
+
+Skriv Taylorutviklingen av $f(x + h)$ om $x$ og løs for $f'(x)$:
+
+$$
+f(x + h) = f(x) + hf'(x) + \frac{h^2}{2}f''(c) \ \Rightarrow\ \frac{f(x + h) - f(x)}{h} - f'(x) = \frac h2 f''(c).
+$$
+
+Feilen i fremoverdifferansen er høyst $\frac{Mh}{2}$ når $|f''| \le M$. For sentraldifferansen utvikler du både $f(x + h)$ og $f(x - h)$ til tredje orden. Leddene med $f''$ har samme fortegn og forsvinner i differansen:
+
+$$
+\frac{f(x + h) - f(x - h)}{2h} - f'(x) = \frac{h^2}{12}\bigl(f'''(c_1) + f'''(c_2)\bigr).
+$$
+
+Feilen er høyst $\frac{Mh^2}{6}$ når $|f'''| \le M$. Det forklarer tabellen for $\tan x$: feilen i fremoverdifferansen er proporsjonal med $h$, og feilen i sentraldifferansen med $h^2$.
+
+Framgangsmåten er den samme for hver differensformel:
+
+<Steps>
+<Step title="Utvikle hvert funksjonsuttrykk om $x_0$">
+Ta med ledd til og med den deriverte du vil at feilen skal uttrykkes ved, og skriv det siste leddet med restleddets ukjente punkt.
+</Step>
+<Step title="Sett inn i formelen">
+Leddene før restleddet skal summere seg til den deriverte du tilnærmer. Det er en kontroll på at formelen er riktig.
+</Step>
+<Step title="Begrens restleddene">
+Bruk trekantulikheten og at $|f^{(k)}(c_i)| \le \max_i |f^{(k)}(c_i)|$. Den største verdien er $|f^{(k)}(\xi)|$ for en $\xi$ i intervallet.
+</Step>
+</Steps>
+
+<Example label="Eksamensoppgave" title="Sentraldifferanse for $f''$">
+<ExamRef id="tma4400-h2025" task="4" />
+
+Lat $f(x) = \sqrt{x^3 + e^x}$. Bruk approksimasjonen
+
+$$
+f''(x_0) \approx \frac{1}{h^2}\bigl(f(x_0 + h) - 2f(x_0) + f(x_0 - h)\bigr)
+$$
+
+med $h = 0.1$ og $x_0 = 1$ til å rekne ut ein tilnærmingsverdi til $f''(1)$.
+
+Vis deretter at feilen i denne approksimasjonen er avgrensa av
+
+$$
+\frac{h^2}{12}|f^{(4)}(\xi)|, \qquad \text{for } \xi \in (x_0 - h, x_0 + h).
+$$
+
+*Vink:* Du kan gå ut i frå at $f^{(k)}(x)$ for $k = 1, 2, 3, 4$ alle er kontinuerlege på intervallet $[x_0 - h, x_0 + h]$, men du treng ikkje å rekne ut desse.
+
+Taylors teorem er gjeve som
+
+$$
+f(x_0 + h) = f(x_0) + hf'(x_0) + \frac{1}{2!}h^2 f''(x_0) + \frac{1}{3!}h^3 f'''(x_0) + \frac{1}{4!}h^4 f^{(4)}(c), \quad \text{for } c \text{ mellom } x_0 \text{ og } x_0 + h.
+$$
+
+<Solution>
+Tilnærmingen:
+
+$$
+f''(1) \approx \frac{1}{0{,}01}\left(\sqrt{1{,}1^3 + e^{1{,}1}} - 2\sqrt{1 + e} + \sqrt{0{,}9^3 + e^{0{,}9}}\right) = 100\,(2{,}08211 - 3{,}85657 + 1{,}78567) \approx 1{,}1203.
+$$
+
+Feilen. Taylors teorem med $h$ og med $-h$ gir
+
+$$
+f(x_0 \pm h) = f(x_0) \pm hf'(x_0) + \frac{h^2}{2}f''(x_0) \pm \frac{h^3}{6}f'''(x_0) + \frac{h^4}{24}f^{(4)}(c_\pm),
+$$
+
+med $c_+ \in (x_0, x_0 + h)$ og $c_- \in (x_0 - h, x_0)$. Legg sammen. Leddene med $f'$ og $f'''$ forsvinner:
+
+$$
+f(x_0 + h) - 2f(x_0) + f(x_0 - h) = h^2 f''(x_0) + \frac{h^4}{24}\bigl(f^{(4)}(c_+) + f^{(4)}(c_-)\bigr).
+$$
+
+Del på $h^2$. Feilen er
+
+$$
+\left|\frac{h^2}{24}\bigl(f^{(4)}(c_+) + f^{(4)}(c_-)\bigr)\right| \le \frac{h^2}{24}\cdot 2\max\bigl(|f^{(4)}(c_+)|, |f^{(4)}(c_-)|\bigr) = \frac{h^2}{12}|f^{(4)}(\xi)|,
+$$
+
+der $\xi$ er den av $c_+$ og $c_-$ som gir størst verdi. Begge ligger i $(x_0 - h, x_0 + h)$.
+
+<Answer>$f''(1) \approx 1{,}1203$, og feilen er høyst $\frac{h^2}{12}|f^{(4)}(\xi)|$.</Answer>
+</Solution>
+</Example>
+
+<Example label="Eksamensoppgave" title="En ensidig formel for $f'$">
+<ExamRef id="tma4400-prove2025" task="6" />
+
+La $f(x) = \sqrt{x + e^{\cos(x^2)}}$. Bruk approksimasjonen
+
+$$
+f'(x_0) \approx \frac{1}{2h}\bigl(4f(x_0 + h) - 3f(x_0) - f(x_0 + 2h)\bigr)
+$$
+
+med $h = 0.1$ og $x_0 = 0$ til å regne ut en tilnærmingsverdi til $f'(0)$.
+
+Vis deretter at feilen i denne approksimasjonen er begrenset av
+
+$$
+h^2|f'''(\xi)|, \qquad \text{for } \xi \in (x_0, x_0 + 2h).
+$$
+
+*Vink:* Du kan anta at $f^{(k)}(x)$ for $k = 1, 2, 3$ alle er kontinuerlige på intervallet $[x_0, x_0 + 2h]$, men du trenger ikke å regne ut disse.
+
+Taylors teorem er gitt som
+
+$$
+f(x_0 + h) = f(x_0) + hf'(x_0) + \frac{1}{2!}h^2 f''(x_0) + \frac{1}{3!}h^3 f'''(c), \quad \text{for } c \in (x_0, x_0 + h).
+$$
+
+<Solution>
+Tilnærmingen:
+
+$$
+f'(0) \approx \frac{1}{0{,}2}\left(4\sqrt{0{,}1 + e^{\cos 0{,}01}} - 3\sqrt{e} - \sqrt{0{,}2 + e^{\cos 0{,}04}}\right) = 5\,(6{,}71493 - 4{,}94616 - 1{,}70766) \approx 0{,}3055.
+$$
+
+Feilen. Bruk Taylors teorem med steg $h$ og med steg $2h$:
+
+$$
+4f(x_0 + h) = 4f(x_0) + 4hf'(x_0) + 2h^2 f''(x_0) + \frac{4h^3}{6}f'''(c_1),
+$$
+
+$$
+f(x_0 + 2h) = f(x_0) + 2hf'(x_0) + 2h^2 f''(x_0) + \frac{8h^3}{6}f'''(c_2),
+$$
+
+med $c_1 \in (x_0, x_0 + h)$ og $c_2 \in (x_0, x_0 + 2h)$. Trekk fra, og trekk fra $3f(x_0)$. Leddene med $f$ og $f''$ forsvinner:
+
+$$
+4f(x_0 + h) - 3f(x_0) - f(x_0 + 2h) = 2hf'(x_0) + \frac{2h^3}{3}f'''(c_1) - \frac{4h^3}{3}f'''(c_2).
+$$
+
+Del på $2h$. Feilen er
+
+$$
+\left|\frac{h^2}{3}f'''(c_1) - \frac{2h^2}{3}f'''(c_2)\right| \le \frac{h^2}{3}\bigl(|f'''(c_1)| + 2|f'''(c_2)|\bigr) \le h^2|f'''(\xi)|,
+$$
+
+der $\xi \in (x_0, x_0 + 2h)$ er den av $c_1$ og $c_2$ som gir størst verdi.
+
+<Answer>$f'(0) \approx 0{,}3055$, og feilen er høyst $h^2|f'''(\xi)|$.</Answer>
+</Solution>
+</Example>
+
+## Feilskranker for trapes- og midtpunktmetoden
+
+Med $n$ delintervaller av lengde $h = \frac{b-a}{n}$ og $|f''(x)| \le K$ på $[a, b]$ gjelder
+
+<Formula tex="|E_M| \le \frac{(b-a)^3 K}{24 n^2}, \qquad |E_T| \le \frac{(b-a)^3 K}{12 n^2}." />
+
+Begge skrankene er proporsjonale med $h^2 = \frac{(b-a)^2}{n^2}$, så dobbelt så mange delintervaller gir en firedel av skranken. Er $f$ et polynom av grad høyst $1$, er $f'' = 0$, og begge metodene gir eksakt svar.
+
+<Derivation title="Utledning for midtpunktmetoden">
+La $m$ være midtpunktet i et delintervall $[m - \frac h2, m + \frac h2]$. Taylors teorem om $m$ gir
+
+$$
+f(x) = f(m) + f'(m)(x - m) + \frac{f''(c_x)}{2}(x - m)^2.
+$$
+
+Integrer over delintervallet. Det lineære leddet gir null, fordi intervallet er symmetrisk om $m$:
+
+$$
+\left|\int_{m - h/2}^{m + h/2} f(x)\,dx - hf(m)\right| \le \frac K2\int_{m - h/2}^{m + h/2}(x - m)^2\,dx = \frac K2\cdot\frac{h^3}{12} = \frac{Kh^3}{24}.
+$$
+
+Summen over de $n$ delintervallene gir $|E_M| \le \frac{nKh^3}{24} = \frac{(b-a)Kh^2}{24} = \frac{(b-a)^3 K}{24n^2}$.
+
+For trapesmetoden viser en tilsvarende, men lengre, regning at feilen på ett delintervall er $\frac{h^3}{12}f''(c)$. Summen gir skranken med $12$ i nevneren.
+</Derivation>
+
+<Example label="Eksamensoppgave" title="Hvor mange delintervaller?">
+<ExamRef id="tma4400-h2025" task="5" />
+
+Lat $f(x) = xe^{-x}$. Rekn ut
+
+$$
+I = \int_0^2 f(x)\,dx.
+$$
+
+Du kan tilnærme integralet $I$ numerisk ved midtpunktmetoden med $n$ delintervall. Feilen er då avgrensa av
+
+$$
+\frac{2^3 K}{24n^2}, \qquad \text{der } |f''(x)| \leqslant K \text{ for alle } x \in [0, 2].
+$$
+
+Vis at $|f''(x)| \leqslant 2$ for alle $x \in [0, 2]$. Finn $n$ som gjev ein feil mindre enn $10^{-2}$.
+
+<Solution>
+Delvis integrasjon med $g = x$ og $f' = e^{-x}$:
+
+$$
+I = \Bigl[-xe^{-x}\Bigr]_0^2 + \int_0^2 e^{-x}\,dx = -2e^{-2} + \Bigl[-e^{-x}\Bigr]_0^2 = -2e^{-2} - e^{-2} + 1 = 1 - 3e^{-2}.
+$$
+
+Deriver to ganger:
+
+$$
+f'(x) = (1 - x)e^{-x}, \qquad f''(x) = -e^{-x} - (1 - x)e^{-x} = (x - 2)e^{-x}.
+$$
+
+For $x \in [0, 2]$ er $0 \le 2 - x \le 2$ og $0 < e^{-x} \le 1$, så $|f''(x)| = (2 - x)e^{-x} \le 2$. Med $K = 2$ krever feilkravet
+
+$$
+\frac{2^3 \cdot 2}{24 n^2} < \frac{1}{100} \ \Rightarrow\ n^2 > \frac{1600}{24} = \frac{200}{3} \approx 66{,}7 \ \Rightarrow\ n > 8{,}16.
+$$
+
+<Answer>$I = 1 - 3e^{-2} \approx 0{,}594$, og $n \ge 9$ gir feil mindre enn $10^{-2}$.</Answer>
+</Solution>
+</Example>
+
+<Example label="Eksamensoppgave" title="Når er trapesmetoden eksakt?">
+<ExamRef id="tma4400-k2026" task="flervalg 3" />
+
+<Quiz
+  question="For kva funksjon $f(x)$ vil trapesmetoden brukt på $\int_1^{10} f(x)\,dx$ alltid gje eit eksakt svar?"
+  options={["$f(x) = 2x + 3$", "$f(x) = e^x$", "$f(x) = 5x^2 + 7x + 9$", "$f(x) = \\sin(x)$", "$f(x) = \\ln(x)$"]}
+  answer={0}
+  explanation={"Feilskranken $\\frac{(b-a)^3K}{12n^2}$ er null når $f'' = 0$, og av alternativene er det bare $2x + 3$ som har $f'' = 0$. Trapesmetoden erstatter grafen med rette linjestykker, og for en rett linje er det ingen feil. De andre funksjonene har $f'' \\ne 0$ og krummer, så trapesene treffer ikke arealet eksakt."}
+/>
+</Example>
+
+<SelfCheck question="Trapesmetoden med $n = 10$ gir en feil på omtrent $4 \cdot 10^{-4}$. Omtrent hvor stor blir feilen med $n = 20$?">
+Omtrent $10^{-4}$. Feilen er proporsjonal med $\frac{1}{n^2}$, så dobbelt så mange delintervaller gir en firedel av feilen.
+</SelfCheck>
+
+<KeyTakeaways>
+- $T_n(x) = \sum_{k=0}^n \frac{f^{(k)}(a)}{k!}(x - a)^k$ og $R_n(x) = \frac{f^{(n+1)}(c)}{(n+1)!}(x - a)^{n+1}$ for en $c$ mellom $a$ og $x$
+- Med $|f^{(n+1)}| \le M$ er $|R_n(x)| \le \frac{M}{(n+1)!}|x - a|^{n+1}$
+- Grenser av typen $\frac00$: bytt med Taylorpolynom pluss restledd, forkort, og la restleddet gå mot null
+- Fremoverdifferansen har feil $\frac h2|f''(c)|$, sentraldifferansen $\frac{h^2}{12}|f'''(c_1) + f'''(c_2)|$
+- For en differensformel: utvikle hvert ledd med Taylor, sett inn, og begrens restleddene med den største av dem
+- $|E_M| \le \frac{(b-a)^3K}{24n^2}$ og $|E_T| \le \frac{(b-a)^3K}{12n^2}$ med $|f''| \le K$. Løs ulikheten for $n$ og rund opp
+</KeyTakeaways>

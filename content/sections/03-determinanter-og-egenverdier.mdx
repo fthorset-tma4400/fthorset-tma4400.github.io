@@ -1,0 +1,291 @@
+---
+order: 3
+title: Determinanter, egenverdier og diagonalisering
+summary: Determinanten avgjør om et kvadratisk system har entydig løsning, egenverdiene finner du fra det(M − λI) = 0, og diagonalisering gjør det enkelt å regne ut matrisepotenser i overgangsmatriser.
+importance: core
+part: "Del 1: Lineær algebra"
+tag: "Uke 36"
+---
+
+<LearningGoals>
+- Regne ut determinanter ved oppløsning etter en rad eller søyle, og ved radreduksjon
+- Bruke at et kvadratisk system har entydig løsning nøyaktig når determinanten er forskjellig fra null
+- Finne egenverdier fra $\det(M - \lambda I) = 0$ og tilhørende egenvektorer fra et homogent system
+- Diagonalisere en matrise som $M = PDP^{-1}$ og bruke det til å regne ut $M^k$
+- Sette opp en overgangsmatrise og finne tilstanden i det lange løp
+</LearningGoals>
+
+Systemet $ax + y = 2$, $x + ay = 2$ har nøyaktig én løsning for nesten alle $a$. For $a = 1$ blir de to ligningene like, og du får uendelig mange løsninger. For $a = -1$ gir summen av ligningene $0 = 4$, og du får ingen. Ett enkelt tall regnet ut fra koeffisientene, determinanten $a \cdot a - 1 \cdot 1 = (a - 1)(a + 1)$, er null nøyaktig for disse to verdiene. Determinanten er også verktøyet du trenger for å finne egenverdier.
+
+## Determinanten
+
+For en $2 \times 2$-matrise er
+
+$$
+\det\begin{bmatrix} a & b \\ c & d \end{bmatrix} = \begin{vmatrix} a & b \\ c & d \end{vmatrix} = ad - bc.
+$$
+
+Tallverdien $|ad - bc|$ er arealet av parallellogrammet som søylene $(a, c)$ og $(b, d)$ utspenner. Determinanten er null nøyaktig når søylene er parallelle, altså lineært avhengige.
+
+For en $3 \times 3$-matrise løser du opp etter første rad. Hvert tall i raden ganges med underdeterminanten du får ved å stryke raden og søylen tallet står i, og fortegnene veksler $+\,-\,+$:
+
+<Formula tex="\begin{vmatrix} a & b & c \\ d & e & f \\ g & h & i \end{vmatrix} = a\begin{vmatrix} e & f \\ h & i \end{vmatrix} - b\begin{vmatrix} d & f \\ g & i \end{vmatrix} + c\begin{vmatrix} d & e \\ g & h \end{vmatrix}" caption="Oppløsning etter første rad." onSheet={false} />
+
+Det samme gjelder for $n \times n$-matriser. Du kan løse opp etter hvilken som helst rad eller søyle og får samme svar, så velg den med flest nuller. Fortegnet til plass $(i, j)$ er $(-1)^{i+j}$, et sjakkbrettmønster som starter med $+$ øverst til venstre.
+
+To fakta gjør regningen mye kortere:
+
+- Determinanten til en <Term name="Triangulær matrise">triangulær matrise</Term> er produktet av diagonalelementene. Løser du opp etter første søyle, står bare det øverste leddet igjen, og resten er en mindre triangulær matrise.
+- Radoperasjonene virker slik: å bytte to rader skifter fortegn, å gange en rad med $k$ ganger determinanten med $k$, og å legge et multiplum av en rad til en annen endrer ingenting.
+
+Du kan derfor radredusere til triangulær form og lese av diagonalen. For en $20 \times 20$-matrise krever gjentatt oppløsning omtrent $20! \approx 2{,}4 \cdot 10^{18}$ operasjoner, mens radreduksjon krever noen få tusen.
+
+<Example title="Determinant ved radreduksjon">
+Regn ut $\begin{vmatrix} 0 & 2 & 1 \\ 3 & 1 & -1 \\ 1 & 0 & 2 \end{vmatrix}$.
+
+<Solution>
+Bytt rad I og rad III. Det skifter fortegn:
+
+$$
+\begin{vmatrix} 0 & 2 & 1 \\ 3 & 1 & -1 \\ 1 & 0 & 2 \end{vmatrix}
+= -\begin{vmatrix} 1 & 0 & 2 \\ 3 & 1 & -1 \\ 0 & 2 & 1 \end{vmatrix}
+$$
+
+Trekk $3$ ganger rad I fra rad II, og så $2$ ganger rad II fra rad III. Ingen av disse endrer determinanten:
+
+$$
+= -\begin{vmatrix} 1 & 0 & 2 \\ 0 & 1 & -7 \\ 0 & 2 & 1 \end{vmatrix}
+= -\begin{vmatrix} 1 & 0 & 2 \\ 0 & 1 & -7 \\ 0 & 0 & 15 \end{vmatrix}
+= -(1 \cdot 1 \cdot 15)
+$$
+
+Kontroll ved oppløsning etter første rad: $0 - 2(6 + 1) + 1(0 - 1) = -15$.
+
+<Answer>$-15$</Answer>
+</Solution>
+</Example>
+
+<Statement kind="theorem" name="Determinanten og entydig løsning">
+For en $n \times n$-matrise $A$ er disse påstandene ekvivalente:
+
+- $\det A \neq 0$,
+- $A$ er inverterbar,
+- $A\mathbf x = \mathbf b$ har nøyaktig én løsning for hver $\mathbf b$.
+
+Er $\det A = 0$, har $A\mathbf x = \mathbf b$ enten ingen løsning eller uendelig mange. Hvilket av de to, må du avgjøre med Gauss-eliminasjon.
+</Statement>
+
+Begrunnelsen følger av radreduksjon. Har systemet entydig løsning, kan $A$ radreduseres til $I$, som har determinant $1$. Radoperasjonene gjør aldri en determinant som er null, til en som ikke er null, eller omvendt, så $\det A \neq 0$. Har systemet ikke entydig løsning, ender reduksjonen med en nullrad, og da er determinanten null.
+
+<Example label="Eksamensoppgave" title="Hva determinanten sier">
+<ExamRef id="tma4400-k2026" task="flervalg 5">TMA4400 kont 2026, flervalg 5</ExamRef>
+
+<Quiz
+  question={"I alternativa nedanfor er $A$ ei $n \\times n$ matrise, $\\mathbf{x} \\in \\mathbb{R}^n$ og $\\mathbf{b} \\in \\mathbb{R}^n$. Merk av det alternativet som alltid er sant."}
+  options={[
+    "Dersom $A$ er inverterbar, så er $\\det(A) = 0$.",
+    "Dersom $\\det(A) = 0$ og $\\mathbf{b} \\neq \\mathbf{0}$, har $A\\mathbf{x} = \\mathbf{b}$ inga løysing.",
+    "Dersom $\\det(A) \\neq 0$, har $A\\mathbf{x} = \\mathbf{b}$ eintydig løysing.",
+    "$A\\mathbf{x} = \\mathbf{0}$ har aldri eintydig løysing.",
+    "$A\\mathbf{x} = \\mathbf{0}$ har alltid uendeleg mange løysingar."
+  ]}
+  answer={2}
+  explanation={"$\\det(A) \\neq 0$ betyr at $A$ er inverterbar, og da er $\\mathbf x = A^{-1}\\mathbf b$ den eneste løsningen. Inverterbar gir $\\det(A) \\neq 0$, ikke $0$. Med $\\det(A) = 0$ kan systemet like gjerne ha uendelig mange løsninger. Og når $A$ er inverterbar, har $A\\mathbf x = \\mathbf 0$ bare løsningen $\\mathbf x = \\mathbf 0$, som er entydig."}
+/>
+</Example>
+
+## Egenverdier og egenvektorer
+
+Gang matrisen $M = \begin{bmatrix} 5 & 2 \\ 3 & 4 \end{bmatrix}$ med to vektorer:
+
+$$
+M\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 5 \\ 3 \end{bmatrix}, \qquad
+M\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 7 \\ 7 \end{bmatrix} = 7\begin{bmatrix} 1 \\ 1 \end{bmatrix}.
+$$
+
+Den første vektoren får ny retning. Den andre beholder retningen og blir bare strukket med faktoren $7$.
+
+<Statement kind="definition" name="Egenverdi og egenvektor">
+La $M$ være en $n \times n$-matrise. Et tall $\lambda$ er en <Term name="Egenverdi">egenverdi</Term> for $M$ hvis det finnes en vektor $\mathbf x \neq \mathbf 0$ med
+
+$$
+M\mathbf x = \lambda\mathbf x.
+$$
+
+En slik $\mathbf x$ kalles en egenvektor for $M$ med egenverdi $\lambda$.
+</Statement>
+
+Kravet $\mathbf x \neq \mathbf 0$ er nødvendig, fordi $M\mathbf 0 = \lambda\mathbf 0$ for alle $\lambda$. Er $\mathbf x$ en egenvektor, er også $c\,\mathbf x$ det for alle $c \neq 0$, så egenvektorene til én egenverdi fyller en hel linje gjennom origo.
+
+For å finne $\lambda$ skriver du $M\mathbf x = \lambda\mathbf x$ som $(M - \lambda I)\mathbf x = \mathbf 0$. Dette er et homogent system. Det har en løsning $\mathbf x \neq \mathbf 0$ nøyaktig når det ikke har entydig løsning, altså når determinanten er null:
+
+<Formula tex="\det(M - \lambda I) = 0" caption="Den karakteristiske ligningen. For en $n \times n$-matrise er venstresiden et polynom av grad $n$ i $\lambda$, så $M$ har høyst $n$ egenverdier." onSheet={false} />
+
+<Steps>
+<Step title="Finn egenverdiene">
+Regn ut $\det(M - \lambda I)$ og løs polynomligningen.
+</Step>
+<Step title="Finn egenvektorene">
+For hver egenverdi radreduserer du $M - \lambda I$ og løser $(M - \lambda I)\mathbf x = \mathbf 0$. Systemet har alltid minst én fri parameter, fordi $\lambda$ er valgt slik at determinanten er null.
+</Step>
+<Step title="Kontroller">
+Gang ut $M\mathbf x$ og sjekk at du får $\lambda\mathbf x$.
+</Step>
+</Steps>
+
+For $M = \begin{bmatrix} 5 & 2 \\ 3 & 4 \end{bmatrix}$ blir den karakteristiske ligningen $(5 - \lambda)(4 - \lambda) - 6 = \lambda^2 - 9\lambda + 14 = 0$, med løsningene $\lambda_1 = 7$ og $\lambda_2 = 2$. For $\lambda_2 = 2$ er $M - 2I = \begin{bmatrix} 3 & 2 \\ 3 & 2 \end{bmatrix}$, som gir $3x_1 + 2x_2 = 0$ og egenvektoren $(2, -3)$. Kontroll: $M(2, -3) = (4, -6) = 2\,(2, -3)$.
+
+<Simulation
+  src="/sims/03-egenvektorer.js"
+  host="dom"
+  title="Når peker $M\mathbf x$ samme vei som $\mathbf x$?"
+  caption="Vri $\mathbf x$ rundt enhetssirkelen. Den stiplede kurven er bildet av sirkelen. Når $M\mathbf x$ ligger på samme linje som $\mathbf x$, er $\mathbf x$ en egenvektor, og forholdet mellom lengdene er egenverdien."
+  height={340}
+/>
+
+Gang en egenvektor med $M$ flere ganger, og bytt ut $M\mathbf x$ med $\lambda\mathbf x$ hver gang: $M^2\mathbf x = M(\lambda\mathbf x) = \lambda M\mathbf x = \lambda^2\mathbf x$. Generelt er
+
+<Formula tex="M^k\mathbf x = \lambda^k\mathbf x" caption="for en egenvektor $\mathbf x$ med egenverdi $\lambda$." onSheet={false} />
+
+<Example label="Eksamensoppgave" title="Egenverdier til en 3 × 3-matrise">
+<ExamRef id="tma4400-k2026" task="2" />
+
+Lat
+
+$$
+M = \begin{bmatrix} 2 & 0 & 0 \\ 0 & 4 & -16 \\ 0 & -3 & 6 \end{bmatrix}.
+$$
+
+Finn eigenverdiane og eigenvektorane til $M$.
+
+Forklar kvifor $M$ er diagonaliserbar.
+
+<Solution>
+Løs opp etter første rad, der bare ett ledd er forskjellig fra null:
+
+$$
+\det(M - \lambda I) = (2 - \lambda)\big[(4 - \lambda)(6 - \lambda) - 48\big] = (2 - \lambda)(\lambda^2 - 10\lambda - 24).
+$$
+
+Andregradsligningen gir $\lambda = \tfrac{10 \pm \sqrt{100 + 96}}{2} = \tfrac{10 \pm 14}{2}$. Egenverdiene er $\lambda_1 = 2$, $\lambda_2 = 12$ og $\lambda_3 = -2$.
+
+For $\lambda_1 = 2$: $M - 2I$ har radene $(0, 0, 0)$, $(0, 2, -16)$ og $(0, -3, 4)$. De to siste gir $x_2 = 8x_3$ og $-24x_3 + 4x_3 = 0$, altså $x_2 = x_3 = 0$, mens $x_1$ er fri. Egenvektor: $(1, 0, 0)$.
+
+For $\lambda_2 = 12$: $M - 12I$ har radene $(-10, 0, 0)$, $(0, -8, -16)$ og $(0, -3, -6)$. Det gir $x_1 = 0$ og $x_2 = -2x_3$. Egenvektor: $(0, -2, 1)$.
+
+For $\lambda_3 = -2$: $M + 2I$ har radene $(4, 0, 0)$, $(0, 6, -16)$ og $(0, -3, 8)$. Det gir $x_1 = 0$ og $3x_2 = 8x_3$. Egenvektor: $(0, 8, 3)$.
+
+$M$ er diagonaliserbar fordi den har tre lineært uavhengige egenvektorer. Det følger av at de tre egenverdiene er forskjellige, og du kan også sjekke det direkte:
+
+$$
+\det P = \begin{vmatrix} 1 & 0 & 0 \\ 0 & -2 & 8 \\ 0 & 1 & 3 \end{vmatrix} = 1 \cdot (-6 - 8) = -14 \neq 0.
+$$
+
+<Answer>$\lambda = 2, 12, -2$ med egenvektorer $t(1, 0, 0)$, $t(0, -2, 1)$ og $t(0, 8, 3)$, $t \neq 0$. $M$ er diagonaliserbar fordi de tre egenvektorene er lineært uavhengige ($\det P = -14 \neq 0$).</Answer>
+</Solution>
+</Example>
+
+## Diagonalisering
+
+Sett egenvektorene $\mathbf v_1, \dots, \mathbf v_n$ inn som søyler i en matrise $P$, og egenverdiene på diagonalen i en matrise $D$. Søyle $j$ i $MP$ er $M\mathbf v_j = \lambda_j\mathbf v_j$, og det er også søyle $j$ i $PD$. Altså er $MP = PD$. Hvis $P$ er inverterbar, kan du gange med $P^{-1}$ fra høyre.
+
+<Statement kind="definition" name="Diagonaliserbar matrise">
+En $n \times n$-matrise $M$ er <Term name="Diagonaliserbar matrise">diagonaliserbar</Term> hvis det finnes en inverterbar matrise $P$ og en diagonalmatrise $D$ med
+
+$$
+M = PDP^{-1}.
+$$
+
+Søylene i $P$ er da egenvektorer, og diagonalen i $D$ er de tilhørende egenverdiene i samme rekkefølge. $M$ er diagonaliserbar nøyaktig når den har $n$ lineært uavhengige egenvektorer. Det er alltid tilfellet når $M$ har $n$ forskjellige egenverdier.
+</Statement>
+
+Gevinsten kommer når du skal regne ut potenser. I $M^2 = PDP^{-1}PDP^{-1}$ blir $P^{-1}P = I$ i midten, og slik fortsetter det:
+
+<Formula tex="M^k = PD^kP^{-1}, \qquad D^k = \begin{bmatrix} \lambda_1^k & & \\ & \ddots & \\ & & \lambda_n^k \end{bmatrix}" caption="Matrisepotens ved diagonalisering." onSheet={false} />
+
+<Example label="Eksamensoppgave" title="Diagonalisering av en 2 × 2-matrise">
+<ExamRef id="tma4400-h2025" task="3" />
+
+Finn eigenverdiane $\lambda_1, \lambda_2$ og tilhøyrande eigenvektorar $\mathbf v_1, \mathbf v_2$ til matrisa $M$ gjeven ved
+
+$$
+M = \begin{bmatrix} 4 & 2 \\ 1 & 3 \end{bmatrix}.
+$$
+
+Finn $P^{-1}$ og rekn ut $PDP^{-1}$, der matrisene $P$ og $D$ er gjevne ved
+
+$$
+P = [\mathbf v_1 \;\; \mathbf v_2] \qquad\text{og}\qquad D = \begin{bmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{bmatrix}.
+$$
+
+<Solution>
+Den karakteristiske ligningen er $(4 - \lambda)(3 - \lambda) - 2 = \lambda^2 - 7\lambda + 10 = (\lambda - 5)(\lambda - 2) = 0$, så $\lambda_1 = 5$ og $\lambda_2 = 2$.
+
+For $\lambda_1 = 5$ er $M - 5I = \begin{bmatrix} -1 & 2 \\ 1 & -2 \end{bmatrix}$, som gir $x_1 = 2x_2$ og $\mathbf v_1 = (2, 1)$. For $\lambda_2 = 2$ er $M - 2I = \begin{bmatrix} 2 & 2 \\ 1 & 1 \end{bmatrix}$, som gir $x_1 = -x_2$ og $\mathbf v_2 = (-1, 1)$.
+
+Radreduser $[P \mid I]$:
+
+$$
+\left[\begin{array}{cc|cc} 2 & -1 & 1 & 0 \\ 1 & 1 & 0 & 1 \end{array}\right]
+\sim
+\left[\begin{array}{cc|cc} 1 & 1 & 0 & 1 \\ 0 & -3 & 1 & -2 \end{array}\right]
+\sim
+\left[\begin{array}{cc|cc} 1 & 0 & \tfrac13 & \tfrac13 \\ 0 & 1 & -\tfrac13 & \tfrac23 \end{array}\right]
+$$
+
+Her byttet du radene, trakk $2$ ganger rad I fra rad II, delte rad II med $-3$ og trakk den fra rad I. Til slutt:
+
+$$
+PDP^{-1} = \frac13\begin{bmatrix} 2 & -1 \\ 1 & 1 \end{bmatrix}\begin{bmatrix} 5 & 0 \\ 0 & 2 \end{bmatrix}\begin{bmatrix} 1 & 1 \\ -1 & 2 \end{bmatrix}
+= \frac13\begin{bmatrix} 2 & -1 \\ 1 & 1 \end{bmatrix}\begin{bmatrix} 5 & 5 \\ -2 & 4 \end{bmatrix}
+= \frac13\begin{bmatrix} 12 & 6 \\ 3 & 9 \end{bmatrix}.
+$$
+
+<Answer>$\lambda_1 = 5$, $\mathbf v_1 = (2, 1)$; $\lambda_2 = 2$, $\mathbf v_2 = (-1, 1)$; $P^{-1} = \frac13\begin{bmatrix} 1 & 1 \\ -1 & 2 \end{bmatrix}$ og $PDP^{-1} = \begin{bmatrix} 4 & 2 \\ 1 & 3 \end{bmatrix} = M$.</Answer>
+</Solution>
+</Example>
+
+## Overgangsmatriser
+
+En <Term name="Overgangsmatrise" /> beskriver en prosess som går i steg, der tilstanden etter hvert steg er den samme matrisen ganget med tilstanden før: $\mathbf x_{k+1} = M\mathbf x_k$, og dermed $\mathbf x_k = M^k\mathbf x_0$. Når $M$ har egenvektorer $\mathbf v_1, \dots, \mathbf v_n$ som er lineært uavhengige, kan du skrive startvektoren som $\mathbf x_0 = c_1\mathbf v_1 + \cdots + c_n\mathbf v_n$. Da gir regelen $M^k\mathbf v_j = \lambda_j^k\mathbf v_j$ at
+
+<Formula tex="\mathbf x_k = M^k\mathbf x_0 = c_1\lambda_1^k\mathbf v_1 + \cdots + c_n\lambda_n^k\mathbf v_n" caption="Leddene med $|\lambda_j| < 1$ går mot null når $k \to \infty$." onSheet={false} />
+
+Det lange løp styres altså av egenverdiene med størst tallverdi.
+
+<Example title="El-sparkesykler mellom to steder">
+Sparkesykler hentes og leveres på sted A og sted B. Av syklene som hentes på A, leveres $80\,\%$ tilbake på A og $20\,\%$ på B. Av syklene som hentes på B, leveres $60\,\%$ på A og $40\,\%$ på B. Alle syklene står på A ved start. Hvordan fordeler de seg i det lange løp?
+
+<Solution>
+La $\mathbf x_k$ være andelene på A og B etter $k$ døgn. Andelen på A neste døgn er $0{,}8$ av andelen på A pluss $0{,}6$ av andelen på B, og tilsvarende for B:
+
+$$
+M = \begin{bmatrix} 0{,}8 & 0{,}6 \\ 0{,}2 & 0{,}4 \end{bmatrix}, \qquad \mathbf x_0 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}.
+$$
+
+Hver søyle summerer til $1$, fordi alle syklene havner et sted. Den karakteristiske ligningen er $(0{,}8 - \lambda)(0{,}4 - \lambda) - 0{,}12 = \lambda^2 - 1{,}2\lambda + 0{,}2 = 0$, med $\lambda_1 = 1$ og $\lambda_2 = 0{,}2$. Egenvektorene er $\mathbf v_1 = (3, 1)$ og $\mathbf v_2 = (1, -1)$.
+
+Startvektoren er $\mathbf x_0 = \tfrac14(3, 1) + \tfrac14(1, -1)$. Dermed er
+
+$$
+\mathbf x_k = \tfrac14 \cdot 1^k \begin{bmatrix} 3 \\ 1 \end{bmatrix} + \tfrac14 \cdot 0{,}2^k \begin{bmatrix} 1 \\ -1 \end{bmatrix} \;\longrightarrow\; \begin{bmatrix} 3/4 \\ 1/4 \end{bmatrix}, \quad k \to \infty.
+$$
+
+<Answer>I det lange løp står $\tfrac34$ av syklene på A og $\tfrac14$ på B.</Answer>
+</Solution>
+</Example>
+
+En overgangsmatrise der alle tallene er mellom $0$ og $1$ og hver søyle summerer til $1$, har alltid egenverdien $1$. Når grenseverdien finnes, er den en egenvektor for $\lambda = 1$, skalert slik at komponentene summerer til $1$.
+
+<SelfCheck question="En $3 \times 3$-matrise har determinant $0$. Hva vet du om egenverdiene?">
+Null er en egenverdi. Når $\lambda = 0$ settes inn, blir den karakteristiske ligningen $\det(M - 0 \cdot I) = \det M = 0$, som er oppfylt. Det betyr at $M\mathbf x = \mathbf 0$ har en løsning $\mathbf x \neq \mathbf 0$.
+</SelfCheck>
+
+<KeyTakeaways>
+- $\det\begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc$; større determinanter løser du opp etter en rad eller søyle med fortegn $(-1)^{i+j}$, eller radreduserer til triangulær form og ganger diagonalen
+- Radbytte skifter fortegn, å gange en rad med $k$ ganger determinanten med $k$, og å legge et multiplum av en rad til en annen endrer ingenting
+- $\det A \neq 0$ er det samme som at $A$ er inverterbar og at $A\mathbf x = \mathbf b$ har entydig løsning
+- Egenverdiene er løsningene av $\det(M - \lambda I) = 0$, og egenvektorene er løsningene $\mathbf x \neq \mathbf 0$ av $(M - \lambda I)\mathbf x = \mathbf 0$; kontroller med $M\mathbf x = \lambda\mathbf x$
+- $M = PDP^{-1}$ med egenvektorer i $P$ og egenverdier i $D$ krever $n$ lineært uavhengige egenvektorer, og gir $M^k = PD^kP^{-1}$
+- For en overgangsmatrise er $\mathbf x_k = c_1\lambda_1^k\mathbf v_1 + \cdots + c_n\lambda_n^k\mathbf v_n$, og leddene med $|\lambda| < 1$ forsvinner i det lange løp
+</KeyTakeaways>

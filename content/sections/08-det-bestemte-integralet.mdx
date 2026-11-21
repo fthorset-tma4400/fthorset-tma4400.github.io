@@ -1,0 +1,270 @@
+---
+order: 8
+title: Det bestemte integralet
+summary: Integralet som grense av Riemannsummer, egenskapene til integralet, middelverdisetningen for integraler, analysens fundamentalteorem, areal mellom kurver og trapes- og midtpunktmetoden.
+importance: core
+part: "Del 3: Integrasjon"
+tag: "Uke 41"
+---
+
+<LearningGoals>
+- Sette opp en Riemannsum og kjenne igjen en grense av en sum som et integral
+- Bruke egenskapene til integralet og middelverdisetningen for integraler
+- Bruke begge delene av analysens fundamentalteorem, også til å derivere $\int_a^{g(x)} f(t)\,dt$
+- Regne ut arealet mellom to kurver
+- Tilnærme et integral med venstre og høyre endepunkt, midtpunktmetoden og trapesmetoden
+</LearningGoals>
+
+Arealet under $y = x^2$ fra $x = 0$ til $x = 2$ kan tilnærmes med rektangler. Del intervallet i $n$ like deler med bredde $\frac2n$ og la høyden på rektangel nummer $i$ være funksjonsverdien i høyre endepunkt, $f\!\left(\frac{2i}{n}\right)$. Summen blir
+
+$$
+\sum_{i=1}^n \left(\frac{2i}{n}\right)^2 \frac2n = \frac{8}{n^3}\sum_{i=1}^n i^2 = \frac{8}{n^3}\cdot\frac{n(n+1)(2n+1)}{6} = \frac{4(n+1)(2n+1)}{3n^2}.
+$$
+
+Med $n = 4$ er summen $3{,}75$, med $n = 100$ er den $2{,}7068$. Når $n \to \infty$, går den mot $\frac{4 \cdot 2}{3} = \frac83$. Det tallet er integralet.
+
+## Riemannsummer og integralet
+
+En partisjon $P$ av $[a, b]$ er punkter $a = x_0 < x_1 < \dots < x_n = b$. Delintervallene har lengde $\Delta x_i = x_i - x_{i-1}$, og $\|P\|$ er den største av dem. Velg et punkt $x_i^*$ i hvert delintervall. Summen
+
+$$
+R(P, f) = \sum_{i=1}^n f(x_i^*)\,\Delta x_i
+$$
+
+er en <Term name="Riemannsum">Riemannsum</Term>.
+
+<Statement kind="definition" name="Det bestemte integralet">
+Hvis $R(P, f)$ går mot det samme tallet $I$ når $\|P\| \to 0$, uansett hvordan punktene $x_i^*$ velges, er $f$ integrerbar på $[a, b]$ og $\int_a^b f(x)\,dx = I$. Hver kontinuerlig funksjon på $[a, b]$ er integrerbar.
+</Statement>
+
+Når $f \ge 0$, er integralet arealet mellom grafen og $x$-aksen. Der $f < 0$, teller arealet negativt.
+
+Med like lange delintervaller er $h = \Delta x = \frac{b-a}{n}$ og $x_i = a + ih$. Velger du venstre endepunkt, $x_i^* = x_{i-1}$, eller høyre endepunkt, $x_i^* = x_i$, får du
+
+$$
+\int_a^b f(x)\,dx \approx h\sum_{i=0}^{n-1} f(x_i) \qquad\text{og}\qquad \int_a^b f(x)\,dx \approx h\sum_{i=1}^{n} f(x_i).
+$$
+
+Det går også motsatt vei. Står det en grense av en sum i oppgaven, kan du ofte kjenne den igjen som en Riemannsum og regne ut integralet i stedet.
+
+<Steps>
+<Step title="Trekk ut en faktor $\frac1n$">
+Skriv summen som $\frac1n\sum_i F\!\left(\frac in\right)$, der leddene bare avhenger av $i$ gjennom $\frac in$.
+</Step>
+<Step title="Les av intervall og funksjon">
+Med $x_i = \frac in$ og $\Delta x = \frac1n$ er intervallet $[0, 1]$ og funksjonen $F$. Går $i$ fra $0$ til $n - 1$, er det venstre endepunkt. Går $i$ fra $1$ til $n$, er det høyre.
+</Step>
+<Step title="Regn ut integralet">
+Grensen er $\int_0^1 F(x)\,dx$.
+</Step>
+</Steps>
+
+<Example label="Eksamensoppgave" title="Grense av en sum">
+<ExamRef id="tma4400-k2026" task="8" />
+
+Finn grenseverdien
+
+$$
+\lim_{n\to\infty} \sum_{i=0}^{n-1} \frac{2n}{(n + 2i)^2}.
+$$
+
+*Vink:* For integrerbare funksjonar $f(x)$, har vi
+
+$$
+\int_a^b f(x)\,dx \approx \sum_{i=0}^{n-1} f(x_i)\Delta x_i
+$$
+
+for passande punkt $x_i$ og maskevidder $\Delta x_i$.
+
+<Solution>
+Trekk $n^2$ ut av nevneren:
+
+$$
+\frac{2n}{(n + 2i)^2} = \frac{2n}{n^2\left(1 + 2\frac in\right)^2} = \frac1n\cdot\frac{2}{\left(1 + 2\frac in\right)^2}.
+$$
+
+Med $x_i = \frac in$ og $\Delta x_i = \frac1n$ for $i = 0, \dots, n-1$ er dette en venstre Riemannsum for $f(x) = \frac{2}{(1 + 2x)^2}$ på $[0, 1]$. En antiderivert er $-\frac{1}{1 + 2x}$, som du sjekker ved derivasjon. Dermed er
+
+$$
+\lim_{n\to\infty} \sum_{i=0}^{n-1} \frac{2n}{(n + 2i)^2} = \int_0^1 \frac{2}{(1 + 2x)^2}\,dx = \left[-\frac{1}{1 + 2x}\right]_0^1 = -\frac13 + 1.
+$$
+
+<Answer>$\dfrac23$</Answer>
+</Solution>
+</Example>
+
+## Egenskaper og middelverdisetningen for integraler
+
+Fra definisjonen følger reglene
+
+$$
+\int_a^b \bigl(Af(x) + Bg(x)\bigr)\,dx = A\int_a^b f(x)\,dx + B\int_a^b g(x)\,dx, \qquad \int_a^b f(x)\,dx = \int_a^c f(x)\,dx + \int_c^b f(x)\,dx,
+$$
+
+og $\int_b^a f(x)\,dx = -\int_a^b f(x)\,dx$. Hvis $a \le b$ og $f \le g$ på $[a, b]$, er $\int_a^b f \le \int_a^b g$, og spesielt er $\left|\int_a^b f\right| \le \int_a^b |f|$. For en odde funksjon er $\int_{-a}^a f(x)\,dx = 0$, og for en like funksjon er $\int_{-a}^a f(x)\,dx = 2\int_0^a f(x)\,dx$.
+
+<Statement kind="theorem" name="Middelverdisetningen for integraler">
+Hvis $f$ er kontinuerlig på $[a, b]$, finnes det en $c \in [a, b]$ med
+
+$$
+\int_a^b f(x)\,dx = f(c)(b - a).
+$$
+</Statement>
+
+Tallet $\frac{1}{b-a}\int_a^b f(x)\,dx$ er <Term name="Middelverdi">middelverdien</Term> til $f$ på $[a, b]$. Setningen sier at $f$ faktisk antar middelverdien sin et sted. Foilene kaller den middelverditeoremet for integraler.
+
+<Derivation title="Bevis">
+Ekstremalverdisetningen gir en minste verdi $m$ og en største verdi $M$ for $f$ på $[a, b]$. Siden $m \le f(x) \le M$, er
+
+$$
+m(b - a) \le \int_a^b f(x)\,dx \le M(b - a) \ \Rightarrow\ m \le \frac{1}{b-a}\int_a^b f(x)\,dx \le M.
+$$
+
+$f$ antar verdiene $m$ og $M$ i to punkter i $[a, b]$. Skjæringssetningen brukt på $f$ minus middelverdien, på intervallet mellom disse punktene, gir en $c$ der $f(c)$ er lik middelverdien.
+</Derivation>
+
+## Analysens fundamentalteorem
+
+<Statement kind="theorem" name="Analysens fundamentalteorem" id="teorem-analysens-fundamentalteorem">
+La $f$ være kontinuerlig på et intervall som inneholder $a$.
+
+1. Funksjonen $F(x) = \int_a^x f(t)\,dt$ er deriverbar med $F'(x) = f(x)$.
+2. Hvis $G$ er en antiderivert til $f$ på $[a, b]$, er $\int_a^b f(x)\,dx = G(b) - G(a)$.
+</Statement>
+
+<Derivation title="Bevis for del 1 og del 2">
+For $h \ne 0$ er
+
+$$
+\frac{F(x + h) - F(x)}{h} = \frac1h\int_x^{x+h} f(t)\,dt = f(c_h)
+$$
+
+for en $c_h$ mellom $x$ og $x + h$, etter middelverdisetningen for integraler. Når $h \to 0$, går $c_h \to x$, og kontinuiteten til $f$ gir $f(c_h) \to f(x)$.
+
+Del 2: $F$ og $G$ er begge antideriverte til $f$, så $G = F + C$. Da er $G(b) - G(a) = F(b) - F(a) = \int_a^b f(t)\,dt - 0$.
+</Derivation>
+
+Del 2 er grunnen til at du regner ut integraler med antideriverte: $\int_0^2 x^2\,dx = \left[\frac{x^3}{3}\right]_0^2 = \frac83$, samme svar som Riemannsummene ga. Del 1 sammen med kjerneregelen gir
+
+<Formula tex="\frac{d}{dx}\int_a^{g(x)} f(t)\,dt = f(g(x))\,g'(x)." />
+
+For eksempel er $\frac{d}{dx}\int_1^{x^2}\frac{\sin t}{t}\,dt = \frac{\sin(x^2)}{x^2}\cdot 2x$.
+
+## Areal mellom kurver
+
+Arealet mellom grafene til $f$ og $g$ for $a \le x \le b$ er
+
+<Formula tex="A = \int_a^b |f(x) - g(x)|\,dx." />
+
+Absoluttverdien betyr at du må finne skjæringspunktene og dele opp integralet der kurvene bytter plass.
+
+<Example title="Areal mellom $y = x$ og $y = x^2$ på $[0, 2]$">
+Finn arealet mellom grafene til $f(x) = x$ og $g(x) = x^2$ for $0 \le x \le 2$.
+
+<Solution>
+Grafene skjærer hverandre der $x = x^2$, altså i $x = 0$ og $x = 1$. På $(0, 1)$ er $x > x^2$, og på $(1, 2)$ er $x^2 > x$. Del opp:
+
+$$
+A = \int_0^1 (x - x^2)\,dx + \int_1^2 (x^2 - x)\,dx = \left[\frac{x^2}{2} - \frac{x^3}{3}\right]_0^1 + \left[\frac{x^3}{3} - \frac{x^2}{2}\right]_1^2 = \frac16 + \frac56.
+$$
+
+Uten oppdelingen hadde du fått $\int_0^2 (x - x^2)\,dx = 2 - \frac83 = -\frac23$, som ikke er et areal.
+
+<Answer>$A = 1$</Answer>
+</Solution>
+</Example>
+
+## Trapes- og midtpunktmetoden
+
+Mange integraler, som $\int_0^1 e^{-x^2}\,dx$, har ingen antiderivert du kan skrive opp. Da tilnærmer du integralet med en sum. Med $h = \frac{b-a}{n}$ og $x_i = a + ih$ bruker <Term name="Midtpunktmetoden">midtpunktmetoden</Term> funksjonsverdien midt i hvert delintervall, og <Term name="Trapesmetoden">trapesmetoden</Term> erstatter grafen med en rett linje mellom endepunktene i hvert delintervall. Arealet av trapeset over $[x_i, x_{i+1}]$ er $\frac h2\bigl(f(x_i) + f(x_{i+1})\bigr)$. Hvert indre punkt hører til to trapeser, og summen blir
+
+<Formula tex="M_n = h\sum_{i=0}^{n-1} f\!\left(\frac{x_i + x_{i+1}}{2}\right)" caption="Midtpunktmetoden" />
+
+<Formula tex="T_n = \frac h2\left(f(x_0) + 2\sum_{i=1}^{n-1} f(x_i) + f(x_n)\right)" caption="Trapesmetoden" />
+
+Trapesmetoden er gjennomsnittet av venstre og høyre endepunktsum.
+
+<Simulation
+  src="/sims/08-riemann.js"
+  host="dom"
+  title="Fire tilnærminger til $\int_0^2 x^2\,dx$"
+  caption="Velg metode og antall delintervaller $n$. For den konvekse funksjonen $x^2$ gir trapesmetoden for mye og midtpunktmetoden for lite, og feilen i midtpunktmetoden er omtrent halvparten så stor."
+  height={260}
+/>
+
+Med $n = 4$ gir venstre endepunkt $1{,}75$, høyre $3{,}75$, midtpunktmetoden $2{,}625$ og trapesmetoden $2{,}75$, mot den eksakte verdien $2{,}6667$. Dobler du $n$, blir feilen i endepunktmetodene omtrent halvert, mens feilen i trapes- og midtpunktmetoden blir omtrent en firedel. Feilskrankene som forklarer dette, kommer fra Taylors teorem.
+
+<Example label="Eksamensoppgave" title="Trapesmetoden på $\sin(x^2)$">
+<ExamRef id="tma4400-prove2025" task="3" />
+
+La
+
+$$
+I = \int_0^{\sqrt\pi} \sin(x^2)\,dx.
+$$
+
+Bruk trapesmetoden med fire delintervall til å finne en tilnærmingsverdi til $I$.
+
+*Vink:* Trapesmetoden er gitt ved
+
+$$
+\frac h2\left(f(x_0) + 2\sum_{i=1}^{n-1} f(x_i) + f(x_n)\right).
+$$
+
+<Solution>
+Her er $h = \frac{\sqrt\pi}{4}$ og $x_i = \frac{i\sqrt\pi}{4}$, så $x_i^2 = \frac{i^2\pi}{16}$. Funksjonsverdiene er
+
+$$
+f(x_0) = \sin 0 = 0,\quad f(x_1) = \sin\tfrac{\pi}{16},\quad f(x_2) = \sin\tfrac{\pi}{4} = \tfrac{\sqrt2}{2},\quad f(x_3) = \sin\tfrac{9\pi}{16},\quad f(x_4) = \sin\pi = 0.
+$$
+
+Innsatt:
+
+$$
+I \approx \frac{\sqrt\pi}{8}\cdot 2\left(\sin\frac{\pi}{16} + \frac{\sqrt2}{2} + \sin\frac{9\pi}{16}\right) = \frac{\sqrt\pi}{4}\left(0{,}1951 + 0{,}7071 + 0{,}9808\right).
+$$
+
+<Answer>$I \approx 0{,}8344$</Answer>
+</Solution>
+</Example>
+
+<Example label="Eksamensoppgave" title="Hvilken metode bruker koden?">
+<ExamRef id="tma4400-prove2025" task="flervalg 2" />
+
+Gitt følgende python-kode.
+
+```python
+import numpy as np
+
+def f(x):
+    return np.exp(-x**2)
+
+a = 0
+b = 1
+n = 10
+
+x_noder = np.linspace(a, b, n+1)
+h = (b-a)/n
+integral = h*(sum(f(x_noder[0:n])))
+```
+
+<Quiz
+  question="Hvordan approksimeres $\int_0^1 e^{-x^2}dx$ i den vedlagte koden?"
+  options={["$\\frac{1}{10}\\sum_{i=0}^{9} f(x_i)$", "$\\frac{1}{10}\\sum_{i=1}^{10} f(x_i)$", "$\\frac{1}{10}\\sum_{i=0}^{9} f\\left(\\frac{x_i + x_{i+1}}{2}\\right)$", "$\\frac{1}{20}\\left(f(x_0) + 2\\sum_{i=1}^{9} f(x_i) + f(x_n)\\right)$", "Annen måte"]}
+  answer={0}
+  explanation={"<code>np.linspace(0, 1, 11)</code> gir de elleve punktene $x_0 = 0, x_1 = 0{,}1, \\dots, x_{10} = 1$, og <code>x_noder[0:n]</code> er de ti første, $x_0, \\dots, x_9$. Med $h = \\frac{1}{10}$ er dette venstre endepunktsum."}
+/>
+</Example>
+
+<SelfCheck question="Er $\int_{-1}^{1} x^3 e^{x^2}\,dx$ positivt, negativt eller null?">
+Null. $x^3 e^{x^2}$ er odde, fordi $(-x)^3 e^{(-x)^2} = -x^3 e^{x^2}$, og intervallet er symmetrisk om $0$. Du trenger ingen antiderivert.
+</SelfCheck>
+
+<KeyTakeaways>
+- $\int_a^b f(x)\,dx$ er grensen av Riemannsummer $\sum f(x_i^*)\Delta x_i$ når $\|P\| \to 0$. Kontinuerlige funksjoner er integrerbare
+- En grense $\lim \frac1n\sum F(\frac in)$ er $\int_0^1 F(x)\,dx$
+- Middelverdisetningen for integraler: $\int_a^b f = f(c)(b - a)$ for en $c \in [a, b]$ når $f$ er kontinuerlig
+- Fundamentalteoremet: $\frac{d}{dx}\int_a^x f(t)\,dt = f(x)$ og $\int_a^b f = G(b) - G(a)$
+- Areal mellom kurver krever $|f - g|$: finn skjæringspunktene og del opp
+- Midtpunktmetoden: $h\sum f(\text{midtpunkt})$. Trapesmetoden: $\frac h2(f(x_0) + 2f(x_1) + \dots + 2f(x_{n-1}) + f(x_n))$
+</KeyTakeaways>

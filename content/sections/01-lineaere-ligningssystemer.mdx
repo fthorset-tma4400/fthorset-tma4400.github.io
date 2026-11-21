@@ -1,0 +1,301 @@
+---
+order: 1
+title: Lineære ligningssystemer og Gauss-eliminasjon
+summary: Slik løser du et lineært ligningssystem med Gauss-eliminasjon på den utvidede matrisen, avgjør om det har én, uendelig mange eller ingen løsninger, og sjekker om vektorer er lineært uavhengige.
+importance: core
+part: "Del 1: Lineær algebra"
+tag: "Uke 34"
+---
+
+<LearningGoals>
+- Sette opp den utvidede matrisen til et lineært ligningssystem og radredusere den med de tre radoperasjonene
+- Bringe en matrise på trappeform og redusert trappeform, og lese av pivotelementer og frie parametre
+- Avgjøre om et system har én, uendelig mange eller ingen løsninger, også når koeffisientene inneholder en parameter
+- Tolke løsningsmengden geometrisk som et punkt, en linje eller et plan
+- Avgjøre om en mengde vektorer er lineært uavhengig
+</LearningGoals>
+
+Se på de tre systemene under. De ser nesten like ut, men løsningsmengdene er helt forskjellige:
+
+$$
+\begin{cases} 2x + y + z = 7 \\ x - 7y + z = 3 \\ 3x + 4y + z = 11 \end{cases}
+\qquad
+\begin{cases} x + y + 3z = 7 \\ 2x + y + 2z = 5 \\ 3x + 2y + 5z = 12 \end{cases}
+\qquad
+\begin{cases} -x + y + 2z = 1 \\ x + y + z = 1 \\ 2x - z = 2 \end{cases}
+$$
+
+Det første har nøyaktig én løsning, $(x, y, z) = (4, 0, -1)$. Det andre har uendelig mange løsninger, som ligger på en rett linje. Det tredje har ingen. Innsettingsmetoden fra videregående finner dette til slutt, men den blir uoversiktlig så snart du har tre eller flere ukjente. Gauss-eliminasjon er en fast oppskrift som virker for et hvilket som helst antall ligninger og ukjente, og som samtidig forteller deg hvilket av de tre tilfellene du er i.
+
+## Den utvidede matrisen og radoperasjoner
+
+Et lineært ligningssystem med $m$ ligninger og $n$ ukjente har formen
+
+$$
+\begin{aligned}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n &= b_1 \\
+&\;\;\vdots \\
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n &= b_m
+\end{aligned}
+$$
+
+der $a_{ij}$ og $b_i$ er kjente tall. Navnene på de ukjente bærer ingen informasjon, så du kan like gjerne skrive bare tallene. Det gir den <Term name="Utvidet matrise">utvidede matrisen</Term> til systemet, der den loddrette streken står der likhetstegnene sto:
+
+$$
+\left[\begin{array}{ccc|c} 2 & 1 & 1 & 7 \\ 1 & -7 & 1 & 3 \\ 3 & 4 & 1 & 11 \end{array}\right]
+$$
+
+Hver rad er en ligning. Tre <Term name="Radoperasjon">radoperasjoner</Term> endrer matrisen uten å endre løsningsmengden:
+
+1. Bytte om to rader.
+2. Gange en rad med et tall forskjellig fra null.
+3. Legge et multiplum av en rad til en annen rad.
+
+De to første er åpenbart ufarlige. Den tredje er det samme som å legge like store tall til begge sider av en ligning: venstresiden og høyresiden i rad $j$ er like, så du legger det samme tallet til begge sider av rad $i$. Operasjonen kan dessuten reverseres ved å trekke fra det samme multiplumet igjen. Systemet du ender opp med, har derfor nøyaktig de samme løsningene som systemet du startet med.
+
+## Trappeform og redusert trappeform
+
+Målet med radoperasjonene er en matrise der du kan lese av løsningen direkte.
+
+<Statement kind="definition" name="Trappeform og pivotelement">
+En matrise er på <Term name="Trappeform">trappeform</Term> når
+
+- alle rader som bare består av nuller, står nederst,
+- det første tallet forskjellig fra null i hver av de andre radene er $1$; dette tallet kalles radens <Term name="Pivotelement">pivotelement</Term>,
+- pivotelementet i hver rad står lenger til høyre enn pivotelementet i raden over.
+
+Matrisen er på <Term name="Redusert trappeform">redusert trappeform</Term> når den i tillegg har bare nuller over og under hvert pivotelement.
+</Statement>
+
+En søyle som inneholder et pivotelement, kalles en pivotsøyle. De ukjente som hører til søyler uten pivotelement, kan du velge fritt. De kalles <Term name="Fri parameter">frie parametre</Term>, og antallet av dem er løsningsmengdens dimensjon.
+
+<Steps>
+<Step title="Sett opp den utvidede matrisen">
+Skriv koeffisientene rad for rad og høyresidene til høyre for streken.
+</Step>
+<Step title="Lag trappen nedover">
+Start i søylen lengst til venstre. Bytt om rader slik at det øverste tallet ikke er null, gjør det til $1$, og trekk multipler av raden fra radene under til det bare står nuller under pivotelementet. Gå så én rad ned og én søyle til høyre, og gjenta. En rad som blir bare nuller, flytter du nederst.
+</Step>
+<Step title="Skaff nuller over pivotelementene">
+Arbeid nedenfra og opp, og trekk multipler av hver pivotrad fra radene over. Da er matrisen på redusert trappeform.
+</Step>
+<Step title="Les av løsningen">
+Oversett tilbake til ligninger. Flytt de ukjente uten pivotelement over på høyre side og gi dem navn som $t$, $s$, $r$.
+</Step>
+</Steps>
+
+<Example title="Et system med uendelig mange løsninger">
+Løs systemet $x + y + 3z = 7$, $2x + y + 2z = 5$, $3x + 2y + 5z = 12$.
+
+<Solution>
+Trekk $2$ ganger rad I fra rad II og $3$ ganger rad I fra rad III:
+
+$$
+\left[\begin{array}{ccc|c} 1 & 1 & 3 & 7 \\ 2 & 1 & 2 & 5 \\ 3 & 2 & 5 & 12 \end{array}\right]
+\sim
+\left[\begin{array}{ccc|c} 1 & 1 & 3 & 7 \\ 0 & -1 & -4 & -9 \\ 0 & -1 & -4 & -9 \end{array}\right]
+$$
+
+Trekk rad II fra rad III, og gang rad II med $-1$:
+
+$$
+\sim
+\left[\begin{array}{ccc|c} 1 & 1 & 3 & 7 \\ 0 & 1 & 4 & 9 \\ 0 & 0 & 0 & 0 \end{array}\right]
+\sim
+\left[\begin{array}{ccc|c} 1 & 0 & -1 & -2 \\ 0 & 1 & 4 & 9 \\ 0 & 0 & 0 & 0 \end{array}\right]
+$$
+
+Det siste steget trakk rad II fra rad I. Søyle 3 har ikke noe pivotelement, så $z = t$ er en fri parameter. De to radene sier $x - z = -2$ og $y + 4z = 9$.
+
+<Answer>$x = -2 + t$, $y = 9 - 4t$, $z = t$ for $t \in \mathbb{R}$. Løsningsmengden er en linje, og dimensjonen er $1$.</Answer>
+</Solution>
+</Example>
+
+## Én, uendelig mange eller ingen løsninger
+
+Når matrisen er på trappeform, er det bare tre muligheter.
+
+<Statement kind="theorem" name="Antall løsninger av et lineært ligningssystem">
+Radreduser den utvidede matrisen til trappeform.
+
+- Hvis en rad blir $\left[\begin{array}{ccc|c} 0 & \cdots & 0 & c \end{array}\right]$ med $c \neq 0$, sier raden at $0 = c$. Systemet er selvmotsigende og har ingen løsning.
+- Ellers, hvis hver søyle til venstre for streken har et pivotelement, har systemet nøyaktig én løsning.
+- Ellers finnes minst én fri parameter, og systemet har uendelig mange løsninger.
+</Statement>
+
+Det tredje systemet i starten gir $\left[\begin{array}{ccc|c} 0 & 0 & 0 & 1 \end{array}\right]$ nederst etter reduksjon, og har derfor ingen løsning.
+
+To følger er verdt å merke seg. Har systemet færre ligninger enn ukjente, kan ikke alle søylene få et pivotelement, så det er enten ingen løsning eller uendelig mange. Et system der alle høyresidene er null, kalles homogent, og det har alltid løsningen $x_1 = \cdots = x_n = 0$. Et homogent system kan altså aldri være selvmotsigende.
+
+Når koeffisientene inneholder en parameter, radreduserer du som vanlig. Pass på at du aldri deler på et uttrykk som kan være null. Tilfellene der uttrykket er null, undersøker du hver for seg.
+
+<Example title="Et system med en parameter">
+For hvilke reelle tall $a$ har systemet
+
+$$
+\begin{cases} 2x + az = 6 \\ -ax - y = -4 \\ 4x + y + az = 10 \end{cases}
+$$
+
+ingen løsning, nøyaktig én løsning eller uendelig mange løsninger?
+
+<Solution>
+Legg $\tfrac a2$ ganger rad I til rad II, og trekk $2$ ganger rad I fra rad III. Legg så den nye rad II til rad III:
+
+$$
+\left[\begin{array}{ccc|c} 2 & 0 & a & 6 \\ -a & -1 & 0 & -4 \\ 4 & 1 & a & 10 \end{array}\right]
+\sim
+\left[\begin{array}{ccc|c} 2 & 0 & a & 6 \\ 0 & -1 & \tfrac{a^2}{2} & 3a - 4 \\ 0 & 1 & -a & -2 \end{array}\right]
+\sim
+\left[\begin{array}{ccc|c} 2 & 0 & a & 6 \\ 0 & -1 & \tfrac{a^2}{2} & 3a - 4 \\ 0 & 0 & \tfrac{a(a-2)}{2} & 3a - 6 \end{array}\right]
+$$
+
+Den siste raden sier $\tfrac{a(a-2)}{2}\,z = 3(a - 2)$.
+
+Hvis $a \neq 0$ og $a \neq 2$, kan du dele på $\tfrac{a(a-2)}{2}$ og får $z = 6/a$. Da har alle tre søylene pivotelement, og innsetting gir $x = 0$, $y = 4$.
+
+Hvis $a = 0$, blir raden $0 = -6$. Systemet er selvmotsigende.
+
+Hvis $a = 2$, blir raden $0 = 0$, og $z = r$ er en fri parameter. Systemet blir $2x + 2z = 6$ og $-y + 2z = -2$, altså $x = 3 - r$, $y = -2 + 2r$.
+
+<Answer>Ingen løsning for $a = 0$, uendelig mange for $a = 2$ og nøyaktig én, $(0, 4, 6/a)$, for alle andre $a$.</Answer>
+</Solution>
+</Example>
+
+## Geometrisk tolkning
+
+En lineær ligning i $x$ og $y$ er en linje i planet. En lineær ligning i $x$, $y$ og $z$, for eksempel $2x + y + z = 7$, er et plan i rommet. En løsning av et system med tre slike ligninger er et punkt som ligger i alle tre planene samtidig, og løsningsmengdens dimensjon forteller hvordan planene møtes:
+
+<Table
+  columns={["Løsningsmengde", "Dimensjon", "Planene"]}
+  rows={[
+    ["Ett punkt", "$0$", "skjærer hverandre i ett felles punkt"],
+    ["En linje", "$1$", "går gjennom en felles linje"],
+    ["Et plan", "$2$", "faller sammen"],
+    ["Tom", "ingen", "har ikke noe felles punkt, for eksempel fordi to av dem er parallelle"]
+  ]}
+/>
+
+De tre systemene i starten er nettopp de tre første typene, i tur og orden ett punkt, en linje og ingen felles punkt. Med fire eller flere ukjente har du ikke noe bilde å tegne, men regningen og begrepet dimensjon er de samme.
+
+<Example label="Eksamensoppgave" title="Ligningssystem fra en tekst">
+<ExamRef id="tma4400-prove2025" task="4" />
+
+I et stort emne på et universitet skal det arrangeres eksamen. Faglærerne ser for seg at det er aktuelt med flervalgsoppgaver, langsvaroppgaver og programmeringsoppgaver.
+
+De ønsker å gi 13 oppgaver totalt.
+
+Det stipuleres at det tar 8 minutter å svare på en flervalgsoppgave, 25 minutter å svare på en langsvaroppgave, og 40 minutter å svare på programmeringsoppgave. Eksamenen skal vare i totalt 240 minutter.
+
+Det skal gis 4 poeng for hver flervalgsoppgave, 10 poeng for hver langsvaroppgave, og 16 poeng for hver programmeringsoppgave. Totalt skal det bli 100 poeng.
+
+Sett opp et lineært ligningssystem som beskriver disse kravene. Skriv ligningssystemet på matriseform.
+
+Hvor mange oppgaver av hver type blir det?
+
+<Solution>
+La $x$, $y$ og $z$ være antall flervalgsoppgaver, langsvaroppgaver og programmeringsoppgaver. De tre kravene gir én ligning hver:
+
+$$
+\begin{aligned}
+x + y + z &= 13 && \text{(antall)} \\
+8x + 25y + 40z &= 240 && \text{(minutter)} \\
+4x + 10y + 16z &= 100 && \text{(poeng)}
+\end{aligned}
+\qquad\Longleftrightarrow\qquad
+\begin{bmatrix} 1 & 1 & 1 \\ 8 & 25 & 40 \\ 4 & 10 & 16 \end{bmatrix}
+\begin{bmatrix} x \\ y \\ z \end{bmatrix}
+=
+\begin{bmatrix} 13 \\ 240 \\ 100 \end{bmatrix}
+$$
+
+Trekk $8$ ganger rad I fra rad II og $4$ ganger rad I fra rad III. Del så den nye rad III med $6$:
+
+$$
+\left[\begin{array}{ccc|c} 1 & 1 & 1 & 13 \\ 8 & 25 & 40 & 240 \\ 4 & 10 & 16 & 100 \end{array}\right]
+\sim
+\left[\begin{array}{ccc|c} 1 & 1 & 1 & 13 \\ 0 & 17 & 32 & 136 \\ 0 & 6 & 12 & 48 \end{array}\right]
+\sim
+\left[\begin{array}{ccc|c} 1 & 1 & 1 & 13 \\ 0 & 17 & 32 & 136 \\ 0 & 1 & 2 & 8 \end{array}\right]
+$$
+
+Bytt rad II og rad III, og trekk $17$ ganger den nye rad II fra rad III:
+
+$$
+\sim
+\left[\begin{array}{ccc|c} 1 & 1 & 1 & 13 \\ 0 & 1 & 2 & 8 \\ 0 & 0 & -2 & 0 \end{array}\right]
+$$
+
+Bakover: $z = 0$, så $y = 8 - 2z = 8$ og $x = 13 - y - z = 5$.
+
+<Answer>$5$ flervalgsoppgaver, $8$ langsvaroppgaver og ingen programmeringsoppgaver.</Answer>
+</Solution>
+</Example>
+
+<Example label="Eksamensoppgave" title="Antall løsninger">
+<ExamRef id="tma4400-k2026" task="flervalg 4">TMA4400 kont 2026, flervalg 4</ExamRef>
+
+<Quiz
+  question={"Kor mange løysingar har følgande likningssystem: $x_1 + 2x_2 + 2x_3 = 3$, $2x_1 + 4x_2 + 4x_3 = -5$, $3x_1 - 2x_2 + 6x_3 = 7$."}
+  options={["Ei løysing", "Tre løysingar", "Inga løysing", "To løysingar", "Uendeleg mange løysingar"]}
+  answer={2}
+  explanation={"Trekk $2$ ganger rad I fra rad II. Venstresiden blir $0\\;0\\;0$, mens høyresiden blir $-5 - 6 = -11$. Raden sier $0 = -11$, så systemet er selvmotsigende. To løsninger er aldri mulig for et lineært system."}
+/>
+</Example>
+
+## Lineær uavhengighet
+
+Ta vektorene
+
+$$
+\mathbf u_1 = \begin{bmatrix} 1 \\ 1 \\ 2 \end{bmatrix}, \quad
+\mathbf u_2 = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}, \quad
+\mathbf u_3 = \begin{bmatrix} 3 \\ 2 \\ 5 \end{bmatrix}.
+$$
+
+Her er $\mathbf u_3 = 4\mathbf u_1 - \mathbf u_2$, altså $-4\mathbf u_1 + \mathbf u_2 + \mathbf u_3 = \mathbf 0$. Den tredje vektoren tilfører ingen ny retning, og de tre vektorene ligger i samme plan gjennom origo.
+
+<Statement kind="definition" name="Lineær uavhengighet">
+Vektorene $\mathbf v_1, \dots, \mathbf v_k$ er <Term name="Lineært uavhengig">lineært uavhengige</Term> hvis ligningen
+
+$$
+c_1\mathbf v_1 + c_2\mathbf v_2 + \cdots + c_k\mathbf v_k = \mathbf 0
+$$
+
+bare har løsningen $c_1 = c_2 = \cdots = c_k = 0$. Ellers er de lineært avhengige.
+</Statement>
+
+Ligningen i definisjonen er et homogent ligningssystem med $c_1, \dots, c_k$ som ukjente og vektorene som søyler i koeffisientmatrisen. Den trivielle løsningen finnes alltid. Spørsmålet er om den er den eneste, og det avgjør du med Gauss-eliminasjon: vektorene er uavhengige nøyaktig når hver søyle får et pivotelement.
+
+To snarveier sparer deg for regning:
+
+- En mengde som inneholder nullvektoren, er lineært avhengig, for $1 \cdot \mathbf 0 = \mathbf 0$.
+- Flere enn $n$ vektorer i $\mathbb{R}^n$ er lineært avhengige. Systemet har da flere ukjente enn ligninger og dermed en fri parameter.
+
+<Example label="Eksamensoppgave" title="Hvilken mengde er lineært uavhengig?">
+<ExamRef id="tma4400-h2025" task="flervalg 4">TMA4400 høst 2025, flervalg 4</ExamRef>
+
+<Quiz
+  question={"Nedanfor ser du fem mengder av vektorar i $\\mathbf{R}^3$. Merk av den mengda som er lineært <b>uavhengig</b>."}
+  options={[
+    "$\\left\\{ \\begin{bmatrix} 2 \\\\ 1 \\\\ -3 \\end{bmatrix}, \\begin{bmatrix} -5 \\\\ 4 \\\\ 2 \\end{bmatrix}, \\begin{bmatrix} 2 \\\\ -1 \\\\ -2 \\end{bmatrix}, \\begin{bmatrix} 1 \\\\ 2 \\\\ 3 \\end{bmatrix} \\right\\}$",
+    "$\\left\\{ \\begin{bmatrix} 1 \\\\ -2 \\\\ 2 \\end{bmatrix}, \\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\end{bmatrix} \\right\\}$",
+    "$\\left\\{ \\begin{bmatrix} 2 \\\\ 1 \\\\ -3 \\end{bmatrix}, \\begin{bmatrix} -5 \\\\ 4 \\\\ 2 \\end{bmatrix}, \\begin{bmatrix} 1 \\\\ -2 \\\\ 3 \\end{bmatrix} \\right\\}$",
+    "$\\left\\{ \\begin{bmatrix} 2 \\\\ -1 \\\\ 2 \\end{bmatrix}, \\begin{bmatrix} 4 \\\\ -2 \\\\ 4 \\end{bmatrix} \\right\\}$",
+    "$\\left\\{ \\begin{bmatrix} 2 \\\\ -1 \\\\ 2 \\end{bmatrix}, \\begin{bmatrix} -1 \\\\ 3 \\\\ -2 \\end{bmatrix}, \\begin{bmatrix} 0 \\\\ 0 \\\\ 0 \\end{bmatrix} \\right\\}$"
+  ]}
+  answer={2}
+  explanation={"Mengde 2 og 5 inneholder nullvektoren og er avhengige. I mengde 4 er den andre vektoren $2$ ganger den første. Mengde 1 har fire vektorer i $\\mathbf{R}^3$, så det homogene systemet har flere ukjente enn ligninger og en fri parameter. Da står bare mengde 3 igjen. Radreduserer du matrisen med de tre vektorene som søyler, får alle tre søylene pivotelement."}
+/>
+</Example>
+
+<SelfCheck question="Et homogent system har 3 ligninger og 5 ukjente. Hvor mange løsninger kan det ha?">
+Uendelig mange. Systemet er homogent, så det har minst løsningen der alle de ukjente er null. Med 5 søyler og høyst 3 pivotelementer blir minst 2 ukjente frie parametre.
+</SelfCheck>
+
+<KeyTakeaways>
+- De tre radoperasjonene (bytte rader, gange en rad med et tall forskjellig fra null, legge et multiplum av en rad til en annen) endrer ikke løsningsmengden
+- På trappeform leser du av antall løsninger: en rad $0 = c$ med $c \neq 0$ gir ingen, pivotelement i hver søyle gir én, ellers gir hver søyle uten pivotelement en fri parameter
+- Et homogent system har alltid den trivielle løsningen og er aldri selvmotsigende
+- Med en parameter i koeffisientene undersøker du verdiene som gjør et pivotelement til null, hver for seg
+- Vektorer er lineært uavhengige når $c_1\mathbf v_1 + \cdots + c_k\mathbf v_k = \mathbf 0$ bare har løsningen der alle $c_i = 0$; nullvektoren eller flere enn $n$ vektorer i $\mathbb{R}^n$ gir alltid avhengighet
+</KeyTakeaways>

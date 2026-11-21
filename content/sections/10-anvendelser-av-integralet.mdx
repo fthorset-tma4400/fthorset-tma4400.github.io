@@ -1,0 +1,172 @@
+---
+order: 10
+title: Anvendelser av integralet
+summary: Volum med tverrsnittmetoden, også omdreiningslegemer med skiver, buelengde av en graf og overflateareal av rotasjonsflater.
+importance: core
+part: "Del 3: Integrasjon"
+tag: "Uke 42"
+---
+
+<LearningGoals>
+- Sette opp volumet av et legeme som integralet av tverrsnittarealet
+- Finne volumet av et omdreiningslegeme med skiver, både om en vannrett og en loddrett akse
+- Utlede og bruke formelen for buelengden til en graf
+- Regne ut overflatearealet av en rotasjonsflate
+</LearningGoals>
+
+En skål har form som en halvkule med radius $10$ cm og er fylt med vann til $x$ cm over bunnen. Skålen er ikke en sylinder, så «grunnflate ganger høyde» gir ikke vannvolumet. Men hvert vannrett snitt gjennom vannet er en sirkel, og arealet av sirkelen kan du regne ut. Volumet er summen av mange tynne sirkelskiver, og i grensen er det et integral.
+
+## Tverrsnittmetoden
+
+Skjær legemet i tynne skiver vinkelrett på en akse. Skiven ved $x$ med tykkelse $\Delta x$ har volum omtrent $A(x)\,\Delta x$, der $A(x)$ er arealet av tverrsnittet. Summen av skivene er en Riemannsum, og når tykkelsen går mot null, får du <Term name="Tverrsnittmetoden">tverrsnittmetoden</Term>:
+
+<Formula tex="V = \int_a^b A(x)\,dx." />
+
+Arbeidet ligger i å finne $A(x)$. Tegn et typisk snitt, og uttrykk målene i snittet ved $x$.
+
+<Example label="Eksamensoppgave" title="Vann i en halvkuleformet skål">
+<ExamRef id="tma4400-h2025" task="8" />
+
+Ei skål har form som ei halvkule med radius 10 cm. Skåla er fylt med vatn til ei høgde $x$ cm over botnen. Sjå figuren under.
+
+Finn eit uttrykk for arealet av vassoverflata som funksjon av $x$.
+
+Set opp eit integral som gjev volumet av vatnet når det står $x$ cm over botnen, og rekn ut dette integralet.
+
+<Figure
+  src="/figures/10-skal.svg"
+  alt="Halvsirkel med radius 10 og bunn i origo, med en bølget vannlinje i høyden x"
+  caption="Tverrsnitt av skålen. Vannet står $x$ cm over bunnen."
+  number={1}
+  width={400}
+  height={260}
+/>
+
+<Solution>
+Sentrum i kula ligger i høyden $10$ over bunnen. Vannflaten i høyden $x$ er en sirkel med radius $r$. Den rettvinklede trekanten med hjørner i sentrum, i midten av vannflaten og på kanten av vannflaten har hypotenus $10$ og kateter $10 - x$ og $r$. Pytagoras gir
+
+$$
+(10 - x)^2 + r^2 = 10^2 \ \Rightarrow\ r^2 = 20x - x^2.
+$$
+
+Arealet av vannflaten er derfor $A(x) = \pi(20x - x^2)$.
+
+Snittet i høyden $t$, for $0 \le t \le x$, har areal $A(t)$. Tverrsnittmetoden gir
+
+$$
+V(x) = \int_0^x \pi(20t - t^2)\,dt = \pi\Bigl[10t^2 - \tfrac13 t^3\Bigr]_0^x = \pi\left(10x^2 - \tfrac13 x^3\right).
+$$
+
+Kontroll: full skål, $x = 10$, gir $\pi(1000 - \frac{1000}{3}) = \frac23\pi \cdot 10^3$, som er volumet av en halvkule.
+
+<Answer>$A(x) = \pi(20x - x^2)$ cm$^2$ og $V(x) = \pi\left(10x^2 - \dfrac{x^3}{3}\right)$ cm$^3$</Answer>
+</Solution>
+</Example>
+
+## Omdreiningslegemer med skiver
+
+Dreier du området under grafen til $f \ge 0$ for $a \le x \le b$ om $x$-aksen, er hvert snitt vinkelrett på $x$-aksen en sirkelskive med radius $f(x)$. Da er $A(x) = \pi f(x)^2$. Har området et hull, slik at det ligger mellom en ytre graf $R(x)$ og en indre graf $r(x)$, er snittet en ring:
+
+<Formula tex="V = \pi\int_a^b f(x)^2\,dx, \qquad V = \pi\int_a^b \bigl(R(x)^2 - r(x)^2\bigr)\,dx." />
+
+Ved dreiing om en annen vannrett linje $y = c$ er radien avstanden til linja, $|f(x) - c|$.
+
+Ved dreiing om $y$-aksen eller en annen loddrett linje står skivene vinkelrett på $y$-aksen. Da må du skrive radien som funksjon av $y$ og integrere over $y$. For området mellom $y = x^2$, $y = 1$ og $y$-aksen er radien i høyden $y$ lik $x = \sqrt y$, så volumet om $y$-aksen er $\pi\int_0^1 (\sqrt y)^2\,dy = \frac\pi2$.
+
+<Example title="Ring som tverrsnitt">
+Området mellom $g(x) = 2 - x^2$ og $f(x) = x^4$ for $0 \le x \le 1$ dreies om $x$-aksen. Finn volumet.
+
+<Solution>
+På $[0, 1]$ er $2 - x^2 \ge 1 \ge x^4$, så $g$ er ytre radius og $f$ indre. Tverrsnittet er en ring med areal $\pi(g^2 - f^2)$:
+
+$$
+V = \pi\int_0^1 \bigl((2 - x^2)^2 - x^8\bigr)\,dx = \pi\int_0^1 \left(4 - 4x^2 + x^4 - x^8\right)dx = \pi\left(4 - \frac43 + \frac15 - \frac19\right).
+$$
+
+Felles nevner $45$ gir $\pi\cdot\frac{180 - 60 + 9 - 5}{45}$.
+
+<Answer>$V = \dfrac{124\pi}{45} \approx 8{,}66$</Answer>
+</Solution>
+</Example>
+
+## Buelengde
+
+Del $[a, b]$ i små biter. Over biten fra $x_{i-1}$ til $x_i$ erstatter du grafen med et rett linjestykke. Lengden er
+
+$$
+\Delta s_i = \sqrt{(\Delta x_i)^2 + \bigl(f(x_i) - f(x_{i-1})\bigr)^2} = \sqrt{1 + \left(\frac{f(x_i) - f(x_{i-1})}{\Delta x_i}\right)^2}\ \Delta x_i.
+$$
+
+Middelverdisetningen erstatter brøken med $f'(c_i)$ for en $c_i$ i biten, og summen av $\Delta s_i$ blir en Riemannsum for $\sqrt{1 + f'(x)^2}$. Når $f'$ er kontinuerlig, er <Term name="Buelengde">buelengden</Term>
+
+<Formula tex="L = \int_a^b \sqrt{1 + f'(x)^2}\,dx." />
+
+Rota gjør at integralet sjelden har en antiderivert du kan skrive opp. Eksamensoppgaver er derfor laget slik at $1 + f'(x)^2$ blir et fullstendig kvadrat. Ellers setter du opp integralet og regner det ut numerisk, for eksempel med trapesmetoden.
+
+<Example label="Eksamensoppgave" title="Buelengde der rota går opp">
+<ExamRef id="tma4100-h2019" task="7" />
+
+Finn buelengden til kurven gitt som grafen til
+
+$$
+y = \frac{x^3}{3} + \frac{1}{4x}, \qquad 1 \leqslant x \leqslant 2.
+$$
+
+<Solution>
+Den deriverte er $y' = x^2 - \frac{1}{4x^2}$. Kvadrer og legg til $1$:
+
+$$
+1 + (y')^2 = 1 + x^4 - \frac12 + \frac{1}{16x^4} = x^4 + \frac12 + \frac{1}{16x^4} = \left(x^2 + \frac{1}{4x^2}\right)^2.
+$$
+
+Rota er $x^2 + \frac{1}{4x^2}$, som er positiv. Dermed er
+
+$$
+L = \int_1^2 \left(x^2 + \frac{1}{4x^2}\right)dx = \Bigl[\frac{x^3}{3} - \frac{1}{4x}\Bigr]_1^2 = \left(\frac83 - \frac18\right) - \left(\frac13 - \frac14\right) = \frac73 + \frac18.
+$$
+
+<Answer>$L = \dfrac{59}{24} \approx 2{,}458$</Answer>
+</Solution>
+</Example>
+
+## Overflateareal
+
+Dreier du grafen til $f$ om $x$-aksen, beskriver hvert lite linjestykke $\Delta s_i$ et bånd. Båndet er tilnærmet en avskåret kjegle med radius $|f(x)|$ og bredde $\Delta s_i$, og arealet er omkretsen ganger bredden, $2\pi|f(x)|\,\Delta s_i$. Det gir <Term name="Rotasjonsflate">overflatearealet</Term> av rotasjonsflaten:
+
+<Formula tex="S = 2\pi\int_a^b |f(x)|\sqrt{1 + f'(x)^2}\,dx." />
+
+Ved dreiing om $y = c$ bytter du radien $|f(x)|$ med avstanden $|f(x) - c|$.
+
+<Example label="Eksamensoppgave" title="Rotasjonsflate av $x^3$">
+<ExamRef id="tma4100-h2025" task="3" />
+
+La $f(x) = x^3$ for $0 \leqslant x \leqslant 2/3$. Finn arealet av rotasjonsflata som oppstår ved å dreie grafen til $f(x)$ om $x$-aksen.
+
+<Solution>
+Her er $f'(x) = 3x^2$ og $f(x) = x^3 \ge 0$, så
+
+$$
+S = 2\pi\int_0^{2/3} x^3\sqrt{1 + 9x^4}\,dx.
+$$
+
+Sett $u = 1 + 9x^4$, så $du = 36x^3\,dx$. Grensene blir $u(0) = 1$ og $u(\frac23) = 1 + 9\cdot\frac{16}{81} = \frac{25}{9}$:
+
+$$
+S = \frac{2\pi}{36}\int_1^{25/9} u^{1/2}\,du = \frac{\pi}{18}\cdot\frac23\Bigl[u^{3/2}\Bigr]_1^{25/9} = \frac{\pi}{27}\left(\frac{125}{27} - 1\right) = \frac{\pi}{27}\cdot\frac{98}{27}.
+$$
+
+<Answer>$S = \dfrac{98\pi}{729} \approx 0{,}422$</Answer>
+</Solution>
+</Example>
+
+<SelfCheck question="Grafen til $f(x) = \sqrt x$ for $0 \le x \le 4$ dreies om $y$-aksen. Hvordan setter du opp volumet med skiver?">
+Skivene står vinkelrett på $y$-aksen, så du integrerer over $y$ fra $0$ til $2$. Området mellom grafen og $y$-aksen har radius $x = y^2$ i høyden $y$, og volumet er $\pi\int_0^2 y^4\,dy = \frac{32\pi}{5}$. Mener oppgaven området mellom grafen og $x$-aksen, er snittet en ring med ytre radius $4$ og indre radius $y^2$.
+</SelfCheck>
+
+<KeyTakeaways>
+- Tverrsnittmetoden: $V = \int_a^b A(x)\,dx$, der $A(x)$ er arealet av snittet vinkelrett på aksen
+- Om $x$-aksen: skiver $\pi\int f^2\,dx$ eller ringer $\pi\int (R^2 - r^2)\,dx$. Om en loddrett akse: skriv radien som funksjon av $y$ og integrer over $y$
+- Buelengde: $L = \int_a^b \sqrt{1 + f'(x)^2}\,dx$, utledet med Pytagoras og middelverdisetningen
+- Overflateareal: $S = 2\pi\int_a^b |f(x)|\sqrt{1 + f'(x)^2}\,dx$, med radien byttet ut ved dreiing om en annen linje
+- Når rota ikke går opp, setter du opp integralet og regner ut numerisk
+</KeyTakeaways>

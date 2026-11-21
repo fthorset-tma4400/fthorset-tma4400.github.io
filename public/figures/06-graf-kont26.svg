@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 368 358" width="368" height="358" role="img" aria-label="Grafen til f(x) for 0 ≤ x ≤ 5">
+<rect width="368" height="358" fill="#ffffff"/>
+<line x1="104" y1="318" x2="104" y2="15.599999999999966" stroke="#d5d9de" stroke-width="1"/>
+<line x1="48" y1="262" x2="350.40000000000003" y2="262" stroke="#d5d9de" stroke-width="1"/>
+<text x="104" y="338" text-anchor="middle" font-family="serif" font-size="16" fill="#111">1</text>
+<text x="36" y="267" text-anchor="end" font-family="serif" font-size="16" fill="#111">1</text>
+<line x1="160" y1="318" x2="160" y2="15.599999999999966" stroke="#d5d9de" stroke-width="1"/>
+<line x1="48" y1="206" x2="350.40000000000003" y2="206" stroke="#d5d9de" stroke-width="1"/>
+<text x="160" y="338" text-anchor="middle" font-family="serif" font-size="16" fill="#111">2</text>
+<text x="36" y="211" text-anchor="end" font-family="serif" font-size="16" fill="#111">2</text>
+<line x1="216" y1="318" x2="216" y2="15.599999999999966" stroke="#d5d9de" stroke-width="1"/>
+<line x1="48" y1="150" x2="350.40000000000003" y2="150" stroke="#d5d9de" stroke-width="1"/>
+<text x="216" y="338" text-anchor="middle" font-family="serif" font-size="16" fill="#111">3</text>
+<text x="36" y="155" text-anchor="end" font-family="serif" font-size="16" fill="#111">3</text>
+<line x1="272" y1="318" x2="272" y2="15.599999999999966" stroke="#d5d9de" stroke-width="1"/>
+<line x1="48" y1="94" x2="350.40000000000003" y2="94" stroke="#d5d9de" stroke-width="1"/>
+<text x="272" y="338" text-anchor="middle" font-family="serif" font-size="16" fill="#111">4</text>
+<text x="36" y="99" text-anchor="end" font-family="serif" font-size="16" fill="#111">4</text>
+<line x1="328" y1="318" x2="328" y2="15.599999999999966" stroke="#d5d9de" stroke-width="1"/>
+<line x1="48" y1="38" x2="350.40000000000003" y2="38" stroke="#d5d9de" stroke-width="1"/>
+<text x="328" y="338" text-anchor="middle" font-family="serif" font-size="16" fill="#111">5</text>
+<text x="36" y="43" text-anchor="end" font-family="serif" font-size="16" fill="#111">5</text>
+<line x1="20.0" y1="318" x2="361.59999999999997" y2="318" stroke="#111" stroke-width="1.2"/>
+<line x1="48" y1="340.4" x2="48" y2="4.400000000000034" stroke="#111" stroke-width="1.2"/>
+<polygon points="361.59999999999997,318 353.59999999999997,314 353.59999999999997,322" fill="#111"/>
+<polygon points="48,4.400000000000034 44,12.400000000000034 52,12.400000000000034" fill="#111"/>
+<text x="356.0" y="308" font-family="serif" font-style="italic" font-size="17" fill="#111">x</text>
+<text x="56" y="21.19999999999999" font-family="serif" font-style="italic" font-size="17" fill="#111">f(x)</text>
+<path d="M48,150 L104,94 L160,150" fill="none" stroke="#111" stroke-width="2"/>
+<path d="M160.0,262.0 L160.9,265.6 L161.9,269.1 L162.8,272.4 L163.7,275.5 L164.7,278.5 L165.6,281.3 L166.5,283.9 L167.5,286.4 L168.4,288.8 L169.3,291.0 L170.3,293.1 L171.2,295.1 L172.1,296.9 L173.1,298.7 L174.0,300.3 L174.9,301.8 L175.9,303.2 L176.8,304.6 L177.7,305.8 L178.7,306.9 L179.6,308.0 L180.5,309.0 L181.5,309.9 L182.4,310.7 L183.3,311.5 L184.3,312.2 L185.2,312.9 L186.1,313.5 L187.1,314.0 L188.0,314.5 L188.9,314.9 L189.9,315.3 L190.8,315.7 L191.7,316.0 L192.7,316.3 L193.6,316.6 L194.5,316.8 L195.5,317.0 L196.4,317.2 L197.3,317.3 L198.3,317.4 L199.2,317.5 L200.1,317.6 L201.1,317.7 L202.0,317.8 L202.9,317.8 L203.9,317.9 L204.8,317.9 L205.7,317.9 L206.7,318.0 L207.6,318.0 L208.5,318.0 L209.5,318.0 L210.4,318.0 L211.3,318.0 L212.3,318.0 L213.2,318.0 L214.1,318.0 L215.1,318.0 L216.0,318.0 L216.9,318.0 L217.9,318.0 L218.8,318.0 L219.7,318.0 L220.7,318.0 L221.6,318.0 L222.5,318.0 L223.5,318.0 L224.4,318.0 L225.3,318.0 L226.3,317.9 L227.2,317.9 L228.1,317.9 L229.1,317.8 L230.0,317.8 L230.9,317.7 L231.9,317.6 L232.8,317.5 L233.7,317.4 L234.7,317.3 L235.6,317.2 L236.5,317.0 L237.5,316.8 L238.4,316.6 L239.3,316.3 L240.3,316.0 L241.2,315.7 L242.1,315.3 L243.1,314.9 L244.0,314.5 L244.9,314.0 L245.9,313.5 L246.8,312.9 L247.7,312.2 L248.7,311.5 L249.6,310.7 L250.5,309.9 L251.5,309.0 L252.4,308.0 L253.3,306.9 L254.3,305.8 L255.2,304.6 L256.1,303.2 L257.1,301.8 L258.0,300.3 L258.9,298.7 L259.9,296.9 L260.8,295.1 L261.7,293.1 L262.7,291.0 L263.6,288.8 L264.5,286.4 L265.5,283.9 L266.4,281.3 L267.3,278.5 L268.3,275.5 L269.2,272.4 L270.1,269.1 L271.1,265.6 L272.0,262.0" fill="none" stroke="#111" stroke-width="2"/>
+<path d="M272,262 L328,206" fill="none" stroke="#111" stroke-width="2"/>
+<line x1="160" y1="262" x2="160" y2="150" stroke="#111" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="160" cy="150" r="5" fill="#fff" stroke="#111" stroke-width="1.6"/>
+<circle cx="160" cy="262" r="5" fill="#111" stroke="#111" stroke-width="1.6"/>
+</svg>

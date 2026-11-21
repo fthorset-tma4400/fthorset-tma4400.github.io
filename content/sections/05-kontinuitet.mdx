@@ -1,0 +1,248 @@
+---
+order: 5
+title: Kontinuitet
+summary: Grenseverdier og kontinuitet med ε-δ-definisjonen, ekstremalverdisetningen og skjæringssetningen, og inverse funksjoner, også de trigonometriske inversene og logaritmen.
+importance: core
+part: "Del 2: Følger, kontinuitet og derivasjon"
+tag: "Uke 38"
+---
+
+<LearningGoals>
+- Avgjøre fra en graf eller en formel om en grenseverdi eksisterer og om en funksjon er kontinuerlig i et punkt
+- Skrive ε-δ-definisjonen av kontinuitet og bruke den på en enkel funksjon
+- Bruke ekstremalverdisetningen og skjæringssetningen, og vite hvilke forutsetninger de krever
+- Avgjøre om en funksjon har en invers, og finne inversen med definisjons- og verdimengde
+- Kjenne definisjons- og verdimengden til $\arcsin$, $\arccos$, $\arctan$ og $\ln$
+</LearningGoals>
+
+<Figure
+  src="/figures/05-graf-h25.svg"
+  alt="Graf av en funksjon på [0, 5] med et sprang i x = 1, en knekk i x = 2 og et isolert punkt i x = 3"
+  caption="En funksjon på $[0,5]$ med tre punkter som må sjekkes: $x = 1$, $x = 2$ og $x = 3$."
+  number={1}
+  width={368}
+  height={358}
+/>
+
+Grafen i figur 1 har tre steder som ser mistenkelige ut. I $x = 1$ hopper grafen fra $3$ ned til $2$. I $x = 2$ har grafen en knekk. I $x = 3$ ligger funksjonsverdien $f(3) = 4$ alene, mens grafen ellers går gjennom $(3, 2)$. Bare to av de tre punktene er brudd i kontinuiteten. For å avgjøre hvilke trenger du presise definisjoner av grenseverdi og kontinuitet.
+
+## Grenseverdier
+
+Grenseverdien $\lim_{x\to a} f(x) = L$ sier at $f(x)$ kommer så nær $L$ du vil når $x$ er nær nok $a$. Verdien $f(a)$ spiller ingen rolle, og $f$ trenger ikke engang være definert i $a$.
+
+<Statement kind="definition" name="Grenseverdi">
+$\lim_{x\to a} f(x) = L$ betyr at det for hvert $\varepsilon > 0$ finnes en $\delta > 0$ slik at $|f(x) - L| < \varepsilon$ for alle $x$ med $0 < |x - a| < \delta$.
+</Statement>
+
+Definisjonen har samme oppbygging som for følger. Der $N$ sa hvor langt ut i følgen du måtte gå, sier $\delta$ hvor nær $a$ du må være.
+
+De <Term name="Ensidig grenseverdi">ensidige grenseverdiene</Term> $\lim_{x\to a^-} f(x)$ og $\lim_{x\to a^+} f(x)$ krever bare $x < a$ eller bare $x > a$. Grenseverdien $\lim_{x\to a} f(x)$ eksisterer hvis og bare hvis begge de ensidige grenseverdiene eksisterer og er like. I figur 1 er $\lim_{x\to 1^-} f(x) = 3$ og $\lim_{x\to 1^+} f(x) = 2$, så $\lim_{x\to 1} f(x)$ eksisterer ikke.
+
+Regnereglene for summer, produkter og kvotienter er de samme som for følger. Skal du vise at en grense ikke eksisterer, holder det å finne to følger $x_n \to a$ og $y_n \to a$ der $f(x_n)$ og $f(y_n)$ har forskjellige grenser. For $f(x) = \sin(1/x)$ gir
+
+$$
+x_n = \frac{1}{\pi/2 + 2\pi n} \to 0,\quad f(x_n) = 1, \qquad y_n = \frac{1}{3\pi/2 + 2\pi n} \to 0,\quad f(y_n) = -1,
+$$
+
+så $\lim_{x\to 0}\sin(1/x)$ eksisterer ikke. Funksjonen svinger mellom $-1$ og $1$ uendelig mange ganger nær $0$.
+
+Når en funksjon ligger klemt mellom to funksjoner med samme grense, har den samme grense selv. Dette er <Term name="Skviseteoremet">skviseteoremet</Term>: hvis $g(x) \le f(x) \le h(x)$ nær $a$ og $\lim g = \lim h = L$, er $\lim_{x\to a} f(x) = L$. For $x\sin(1/x)$ er
+
+$$
+-|x| \le x\sin(1/x) \le |x| \ \Rightarrow\ \lim_{x\to 0} x\sin(1/x) = 0,
+$$
+
+fordi $|\sin(1/x)| \le 1$. Med skviseteoremet viser du også den viktigste trigonometriske grensen:
+
+$$
+\lim_{x\to 0}\frac{\sin x}{x} = 1.
+$$
+
+<Derivation title="Hvorfor $\sin x / x \to 1$">
+For $0 < x < \pi/2$ ligger trekanten med hjørner i $(0,0)$, $(1,0)$ og $(\cos x, \sin x)$ inni sirkelsektoren med vinkel $x$, som igjen ligger inni trekanten med hjørner i $(0,0)$, $(1,0)$ og $(1, \tan x)$. Arealene gir
+
+$$
+\frac{\sin x}{2} \le \frac{x}{2} \le \frac{\tan x}{2} \ \Rightarrow\ \cos x \le \frac{\sin x}{x} \le 1.
+$$
+
+Siden $\cos x \to 1$ når $x \to 0$, gir skviseteoremet grensen. Funksjonen $\sin x / x$ er like, så det samme gjelder fra venstre.
+</Derivation>
+
+## Kontinuitet
+
+<Statement kind="definition" name="Kontinuitet" id="definisjon-kontinuitet">
+$f$ er kontinuerlig i $a$ hvis $f(a)$ er definert og $\lim_{x\to a} f(x) = f(a)$. Med ε og δ: for hvert $\varepsilon > 0$ finnes det en $\delta > 0$ slik at $|f(x) - f(a)| < \varepsilon$ for alle $x$ med $|x - a| < \delta$.
+</Statement>
+
+$f$ er kontinuerlig på en mengde hvis den er kontinuerlig i hvert punkt i mengden. Rekkefølgen i definisjonen er viktig: ε velges først, og δ får avhenge av ε. Bytter du om, eller bytter du plass på $\varepsilon$ og $\delta$ i ulikhetene, får du en annen påstand.
+
+Polynomer, $e^x$, $\sin x$ og $\cos x$ er kontinuerlige på hele $\mathbb R$. Rasjonale funksjoner er kontinuerlige der nevneren ikke er null, $\ln x$ for $x > 0$ og $\tan x$ for $x \ne \frac\pi2 + k\pi$. Summer, produkter, kvotienter og sammensetninger av kontinuerlige funksjoner er kontinuerlige der de er definert. Det er nok til å avgjøre kontinuitet for nesten alle formler. ε-δ-definisjonen trengs når du skal bevise en påstand direkte.
+
+<Example title="Kontinuiteten til $x^2$ i $a = 1$ med ε og δ">
+Vis at $f(x) = x^2$ er kontinuerlig i $a = 1$.
+
+<Solution>
+Du må finne en $\delta$ som gjør $|x^2 - 1|$ mindre enn $\varepsilon$. Faktoriser:
+
+$$
+|x^2 - 1| = |x - 1|\,|x + 1|.
+$$
+
+Faktoren $|x - 1|$ kan gjøres liten. Faktoren $|x + 1|$ må holdes begrenset: krever du $|x - 1| < 1$, er $0 < x < 2$ og $|x + 1| < 3$. Da er $|x^2 - 1| < 3|x - 1|$, som er mindre enn $\varepsilon$ når $|x - 1| < \varepsilon/3$. Begge kravene er oppfylt med
+
+$$
+\delta = \min\left(1, \frac\varepsilon3\right).
+$$
+
+For $|x - 1| < \delta$ er da $|x^2 - 1| < 3 \cdot \frac\varepsilon3 = \varepsilon$.
+
+<Answer>$\delta = \min(1, \varepsilon/3)$ virker for hver $\varepsilon > 0$, så $x^2$ er kontinuerlig i $1$.</Answer>
+</Solution>
+</Example>
+
+<Example label="Eksamensoppgave" title="Definisjonen av kontinuitet">
+<ExamRef id="tma4400-h2025" task="flervalg 5" />
+
+<Quiz
+  question="Kva er definisjonen av at ein funksjon $f(x)$ er kontinuerleg i $x = x_0$?"
+  options={["Det finst $\\varepsilon > 0$ slik at for alle $\\delta > 0$ og for alle $x$ med $|x - x_0| < \\varepsilon$ så er $|f(x) - f(x_0)|$ […]", "For alle $\\varepsilon > 0$ finst det $\\delta > 0$ slik at for alle $x$ med $|x - x_0| < \\varepsilon$ så er $|f(x) - f(x_0)| < \\delta$.", "For alle $\\varepsilon > 0$ finst det $\\delta > 0$ slik at for alle $x$ med $|x - x_0| < \\delta$ så er $|f(x) - f(x_0)| < \\varepsilon$.", "Det finst $\\varepsilon > 0$ og det finst $\\delta > 0$ slik at for alle $x$ med $|x - x_0| < \\varepsilon$ så er $|f(x) - f(x_0)| < \\delta$.", "Det finst $\\varepsilon > 0$ slik at for alle $\\delta > 0$ og for alle $x$ med $|x - x_0| < \\delta$ så er $|f(x) - f(x_0)|$ […]"]}
+  answer={2}
+  explanation={"Toleransen $\\varepsilon$ gjelder funksjonsverdiene og velges først, for alle $\\varepsilon > 0$. Avstanden $\\delta$ gjelder $x$ og må finnes for hver $\\varepsilon$. Alternativ 2 har byttet rollene til $\\varepsilon$ og $\\delta$, og alternativ 4 krever bare ett par, noe alle begrensede funksjoner oppfyller. Slutten av alternativ 1 og 5 er kuttet i PDF-en, men de begynner med «det finst $\\varepsilon$», så de er feil uansett."}
+/>
+</Example>
+
+Tilbake til figur 1. I $x = 1$ eksisterer ikke grenseverdien. I $x = 2$ er $\lim_{x\to 2} f(x) = 1 = f(2)$. Knekken betyr at grafen ikke er glatt, men den er sammenhengende, og $f$ er kontinuerlig der. I $x = 3$ er grenseverdien $2$, mens $f(3) = 4$.
+
+<Example label="Eksamensoppgave" title="Kontinuitet fra en graf">
+<ExamRef id="tma4400-h2025" task="flervalg 1" />
+
+Grafen er den i figur 1.
+
+<Quiz
+  question="Kva for alternativ stemmer for funksjonen $f(x)$ definert for $0 \leq x \leq 5$ gjeven under?"
+  options={["$f(x)$ er ikkje kontinuerleg i $x = 1$, $x = 3$ og $x = 2$.", "$f(x)$ er ikkje kontinuerleg i $x = 3$, men kontinuerleg elles.", "$f(x)$ er ikkje kontinuerleg i $x = 1$ og $x = 3$, men kontinuerleg elles.", "$f(x)$ er kontinuerleg for alle $x \\in [0, 5]$.", "$f(x)$ er ikkje kontinuerleg i $x = 1$, men kontinuerleg elles."]}
+  answer={2}
+  explanation={"I $x = 1$ er venstre grense $3$ og høyre grense $2$, så grensen eksisterer ikke. I $x = 3$ er grensen $2$, men $f(3) = 4$. I $x = 2$ er grensen lik $f(2) = 1$, så knekken er ikke et brudd."}
+/>
+</Example>
+
+## Ekstremalverdisetningen og skjæringssetningen
+
+Begge setningene krever at $f$ er kontinuerlig på et lukket og begrenset intervall $[a, b]$. Bevisene bygger på kompletthetsegenskapen.
+
+<Statement kind="theorem" name="Ekstremalverdisetningen">
+Hvis $f$ er kontinuerlig på $[a, b]$, har $f$ en største og en minste verdi på $[a, b]$. Det finnes altså $c, d \in [a, b]$ med $f(d) \le f(x) \le f(c)$ for alle $x \in [a, b]$.
+</Statement>
+
+Ta bort en av forutsetningene, og setningen faller. $f(x) = 1/x$ er kontinuerlig på $(0, 1]$, men har ingen største verdi, fordi intervallet er åpent i $0$. $f(x) = x$ på $(0, 1)$ har verken største eller minste verdi.
+
+<Statement kind="theorem" name="Skjæringssetningen">
+Hvis $f$ er kontinuerlig på $[a, b]$ og $f(a)$ og $f(b)$ har motsatt fortegn, finnes det minst én $c \in (a, b)$ med $f(c) = 0$.
+</Statement>
+
+Setningen sier at grafen må krysse $x$-aksen. Den sier ikke hvor, og ikke hvor mange ganger. Skal du vise at to grafer skjærer hverandre, bruker du setningen på differansen. Det samme grepet viser at en ligning $g(x) = x$ har en løsning: bruk setningen på $g(x) - x$.
+
+<Example label="Eksamensoppgave" title="Skjæring mellom $\ln x$ og $x^2 - 2$">
+<ExamRef id="tma4100-h2025" task="1" />
+
+Vis at grafane til funksjonane
+
+$$
+f(x) = \ln(x) \qquad\text{og}\qquad g(x) = x^2 - 2
+$$
+
+skjer kvarandre minst éin gong i intervallet $[1, 2]$.
+
+<Solution>
+Grafene skjærer hverandre der $h(x) = f(x) - g(x) = \ln x - x^2 + 2$ er null. $h$ er kontinuerlig på $[1, 2]$, fordi $\ln x$ er kontinuerlig for $x > 0$ og $x^2 - 2$ er et polynom. Endepunktene gir
+
+$$
+h(1) = 0 - 1 + 2 = 1 > 0, \qquad h(2) = \ln 2 - 4 + 2 = \ln 2 - 2 < 0,
+$$
+
+fordi $\ln 2 < \ln e = 1$. Skjæringssetningen gir en $c \in (1, 2)$ med $h(c) = 0$, altså $\ln c = c^2 - 2$.
+
+<Answer>Grafene skjærer hverandre i minst ett punkt med $x \in (1,2)$.</Answer>
+</Solution>
+</Example>
+
+## Inverse funksjoner
+
+En funksjon $f$ er <Term name="Injektiv">injektiv</Term> hvis $f(x_1) = f(x_2)$ bare når $x_1 = x_2$. Da gir hver verdi $y$ i verdimengden nøyaktig én $x$, og <Term name="Invers funksjon">inversen</Term> $f^{-1}$ er funksjonen som sender $y$ tilbake til denne $x$:
+
+$$
+f^{-1}(f(x)) = x \ \text{ for } x \in D_f, \qquad f(f^{-1}(y)) = y \ \text{ for } y \in V_f.
+$$
+
+Definisjonsmengden til $f^{-1}$ er verdimengden til $f$, og omvendt. Grafen til $f^{-1}$ er grafen til $f$ speilet om linja $y = x$. $f(x) = x^2$ på $\mathbb R$ er ikke injektiv, fordi $f(-2) = f(2)$, men avgrenset til $[0, \infty)$ har den inversen $\sqrt y$.
+
+En strengt monoton funksjon er injektiv, og det er den vanligste måten å vise at en invers finnes. Sammensetninger hjelper: er $u$ strengt avtakende og $g$ strengt voksende, er $g(u(x))$ strengt avtakende. Inversen finner du ved å løse $y = f(x)$ med hensyn på $x$.
+
+<Steps>
+<Step title="Vis at $f$ er injektiv">
+Vanligvis ved å vise at $f$ er strengt voksende eller strengt avtakende på definisjonsmengden.
+</Step>
+<Step title="Finn verdimengden $V_f$">
+Den blir definisjonsmengden til $f^{-1}$.
+</Step>
+<Step title="Løs $y = f(x)$ for $x$">
+Velg fortegn eller gren slik at $x$ havner i $D_f$. Bytt til slutt navn på variabelen hvis oppgaven ber om $f^{-1}(x)$.
+</Step>
+</Steps>
+
+<Example label="Eksamensoppgave" title="Invers til $e^{x^{-2}} - 1$">
+<ExamRef id="tma4100-h2025" task="7" />
+
+Forklar kvifor funksjonen
+
+$$
+f(x) = e^{x^{-2}} - 1
+$$
+
+har ein invers for $x > 0$. Finn eit uttrykk for $f^{-1}(x)$ for $x > 0$.
+
+<Solution>
+For $x > 0$ er $x^{-2} = 1/x^2$ strengt avtakende, og $e^u$ er strengt voksende. Sammensetningen $e^{x^{-2}}$ er derfor strengt avtakende, og det er $f$ også. En strengt monoton funksjon er injektiv, så $f$ har en invers.
+
+Når $x$ går fra $0$ til $\infty$, går $x^{-2}$ fra $\infty$ til $0$, så $e^{x^{-2}}$ tar alle verdier i $(1, \infty)$, og $V_f = (0, \infty)$. Løs $y = e^{x^{-2}} - 1$ for $x$:
+
+$$
+y + 1 = e^{1/x^2} \ \Rightarrow\ \ln(1 + y) = \frac{1}{x^2} \ \Rightarrow\ x = \frac{1}{\sqrt{\ln(1 + y)}}.
+$$
+
+Den positive roten velges fordi verdiene til $f^{-1}$ skal ligge i $D_f = (0, \infty)$.
+
+<Answer>$f^{-1}(x) = \dfrac{1}{\sqrt{\ln(1 + x)}}$ for $x > 0$</Answer>
+</Solution>
+</Example>
+
+### Eksponential-, logaritme- og trigonometriske funksjoner
+
+$e^x$ er strengt voksende med verdimengde $(0, \infty)$, og inversen er $\ln x$ for $x > 0$. For $a > 0$ er $a^x = e^{x\ln a}$, så alle eksponentialfunksjoner kan skrives med $e$.
+
+Sinus, cosinus og tangens er periodiske og derfor ikke injektive. Inversene defineres ved å avgrense til et intervall der funksjonen er strengt monoton:
+
+<Table
+  columns={["Invers", "Definisjonsmengde", "Verdimengde", "Inverse av"]}
+  rows={[
+    ["$\\arcsin x$", "$[-1, 1]$", "$[-\\pi/2, \\pi/2]$", "$\\sin x$ på $[-\\pi/2, \\pi/2]$"],
+    ["$\\arccos x$", "$[-1, 1]$", "$[0, \\pi]$", "$\\cos x$ på $[0, \\pi]$"],
+    ["$\\arctan x$", "$\\mathbb R$", "$(-\\pi/2, \\pi/2)$", "$\\tan x$ på $(-\\pi/2, \\pi/2)$"],
+    ["$\\ln x$", "$(0, \\infty)$", "$\\mathbb R$", "$e^x$ på $\\mathbb R$"],
+  ]}
+/>
+
+Verdimengden er det du må huske. $\arcsin(\sin\pi) = \arcsin 0 = 0$, ikke $\pi$, fordi $\pi$ ligger utenfor $[-\pi/2, \pi/2]$.
+
+<SelfCheck question="$f$ er kontinuerlig på $(0, 1)$ med $f(x) \to -1$ når $x \to 0^+$ og $f(x) \to 1$ når $x \to 1^-$. Har $f$ et nullpunkt?">
+Ja. Velg $a$ nær $0$ med $f(a) < 0$ og $b$ nær $1$ med $f(b) > 0$. Da er $f$ kontinuerlig på det lukkede intervallet $[a, b]$, og skjæringssetningen gir et nullpunkt i $(a, b)$.
+</SelfCheck>
+
+<KeyTakeaways>
+- $\lim_{x\to a} f(x) = L$: for hver $\varepsilon > 0$ finnes $\delta > 0$ med $|f(x) - L| < \varepsilon$ når $0 < |x - a| < \delta$. Verdien $f(a)$ spiller ingen rolle
+- Grensen eksisterer hvis og bare hvis de ensidige grensene eksisterer og er like
+- $f$ er kontinuerlig i $a$ når $\lim_{x\to a} f(x) = f(a)$. En knekk er ikke et brudd
+- Skviseteoremet gir $\lim_{x\to 0} x\sin(1/x) = 0$ og $\lim_{x\to 0} \frac{\sin x}{x} = 1$
+- Ekstremalverdisetningen og skjæringssetningen krever kontinuitet på et lukket, begrenset intervall
+- En strengt monoton funksjon har en invers. $D_{f^{-1}} = V_f$, og verdimengden til $\arcsin$, $\arccos$ og $\arctan$ avgjør hvilken vinkel du får
+</KeyTakeaways>

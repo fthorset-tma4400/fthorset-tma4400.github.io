@@ -1,0 +1,192 @@
+---
+order: 9
+title: Integrasjonsteknikker
+summary: Substitusjon, delvis integrasjon og delbrøkoppspalting for å finne antideriverte, og uegentlige integraler med p-integraler og sammenligning.
+importance: core
+part: "Del 3: Integrasjon"
+tag: "Uke 42"
+---
+
+<LearningGoals>
+- Kjenne igjen når et integral kan løses med substitusjon, og bytte grenser i et bestemt integral
+- Bruke delvis integrasjon, også flere ganger og på $\ln x$
+- Spalte en rasjonal funksjon i delbrøker med enkle, doble og kvadratiske faktorer i nevneren
+- Avgjøre om et uegentlig integral konvergerer, og regne ut verdien
+- Bruke p-integraler og sammenligning til å avgjøre konvergens
+</LearningGoals>
+
+$\int x e^{x^2}\,dx$ og $\int x e^x\,dx$ ser nesten like ut. Det første er lett: $x$ er halvparten av den deriverte av $x^2$, så svaret er $\frac12 e^{x^2} + C$. Det andre har ikke den strukturen, og du trenger en annen metode. Begge metodene er derivasjonsregler lest baklengs. Substitusjon er kjerneregelen baklengs, og delvis integrasjon er produktregelen baklengs.
+
+## Substitusjon
+
+Kjerneregelen sier at $\frac{d}{dx}\,G(u(x)) = G'(u(x))\,u'(x)$. Leser du den baklengs, får du
+
+$$
+\int g(u(x))\,u'(x)\,dx = \int g(u)\,du, \qquad u = u(x),\ du = u'(x)\,dx.
+$$
+
+Se etter en indre funksjon $u(x)$ der $u'(x)$, opp til en konstant, står som faktor. I et bestemt integral bytter du grensene samtidig: $x = a$ blir $u = u(a)$, og du trenger ikke gå tilbake til $x$.
+
+<Example label="Eksamensoppgave" title="Substitusjon i et bestemt integral">
+<ExamRef id="tma4400-k2026" task="4" />
+
+Rekn ut
+
+$$
+\int_2^4 \frac{2 - 4x}{(3 - 2x)^2}\,dx.
+$$
+
+<Solution>
+Sett $u = 3 - 2x$. Da er $du = -2\,dx$, $x = \frac{3 - u}{2}$ og $2 - 4x = 2 - 2(3 - u) = 2u - 4$. Grensene blir $u(2) = -1$ og $u(4) = -5$:
+
+$$
+\int_2^4 \frac{2 - 4x}{(3 - 2x)^2}\,dx = \int_{-1}^{-5} \frac{2u - 4}{u^2}\left(-\frac{du}{2}\right) = \int_{-5}^{-1} \left(\frac1u - \frac{2}{u^2}\right)du.
+$$
+
+En antiderivert er $\ln|u| + \frac2u$, fordi $\frac{d}{du}\frac2u = -\frac{2}{u^2}$. Innsatt:
+
+$$
+\Bigl[\ln|u| + \tfrac2u\Bigr]_{-5}^{-1} = (0 - 2) - \left(\ln 5 - \tfrac25\right) = -\tfrac85 - \ln 5.
+$$
+
+Kontroll: telleren $2 - 4x$ er negativ og nevneren positiv på hele $[2, 4]$, så integralet må være negativt. Det offisielle løsningsforslaget oppgir $\frac85 - \ln 5 \approx -0{,}009$. Der har fortegnet på leddet $\frac2u$ blitt feil, og en numerisk sjekk gir $-3{,}209$, som stemmer med svaret her.
+
+<Answer>$-\dfrac85 - \ln 5 \approx -3{,}209$</Answer>
+</Solution>
+</Example>
+
+## Delvis integrasjon
+
+Produktregelen $(fg)' = f'g + fg'$ integrert og omordnet gir
+
+<Formula tex="\int f'(x)\,g(x)\,dx = f(x)\,g(x) - \int f(x)\,g'(x)\,dx." />
+
+Metoden lønner seg når $g$ blir enklere av å deriveres og $f'$ er lett å integrere. Typiske valg er $g = x^n$ mot $f' = e^{ax}$, $\sin x$ eller $\cos x$, og $g = \ln x$ mot $f' = x^n$, også $f' = 1$.
+
+<Example title="$\int_1^2 \ln x\,dx$">
+Regn ut $\int_1^2 \ln x\,dx$.
+
+<Solution>
+Skriv integranden som $1 \cdot \ln x$, og velg $f' = 1$ og $g = \ln x$. Da er $f = x$ og $g' = \frac1x$:
+
+$$
+\int_1^2 \ln x\,dx = \Bigl[x\ln x\Bigr]_1^2 - \int_1^2 x\cdot\frac1x\,dx = 2\ln 2 - 0 - (2 - 1).
+$$
+
+<Answer>$2\ln 2 - 1 \approx 0{,}386$</Answer>
+</Solution>
+</Example>
+
+Noen ganger må du integrere delvis to ganger. For $\int x^2 e^x\,dx$ reduserer første runde $x^2$ til $2x$, og andre runde $2x$ til $2$. For $\int e^x\sin x\,dx$ kommer det opprinnelige integralet tilbake etter to runder, og du løser ligningen for det.
+
+## Delbrøkoppspalting
+
+En rasjonal funksjon $\frac{P(x)}{Q(x)}$ integreres ved å skrive den som en sum av enkle brøker med kjente antideriverte. Dette er <Term name="Delbrøkoppspalting">delbrøkoppspalting</Term>.
+
+<Steps>
+<Step title="Gjør brøken ekte">
+Er graden til $P$ minst like stor som graden til $Q$, utfører du polynomdivisjon først. Da står du igjen med et polynom pluss en brøk der telleren har lavere grad enn nevneren.
+</Step>
+<Step title="Faktoriser nevneren">
+Skriv $Q$ som et produkt av lineære faktorer og kvadratiske faktorer uten reelle nullpunkter.
+</Step>
+<Step title="Sett opp delbrøkene">
+En enkel faktor $(x - a)$ gir et ledd $\frac{A}{x - a}$. En dobbel faktor $(x - a)^2$ gir $\frac{A}{x - a} + \frac{B}{(x - a)^2}$. En kvadratisk faktor $x^2 + px + q$ gir $\frac{Bx + C}{x^2 + px + q}$.
+</Step>
+<Step title="Finn konstantene">
+Gang med $Q(x)$. Sett inn nullpunktene til nevneren, og sammenlign koeffisienter for resten.
+</Step>
+<Step title="Integrer leddene">
+$\int \frac{dx}{x - a} = \ln|x - a| + C$, $\int \frac{dx}{(x - a)^2} = -\frac{1}{x - a} + C$, og kvadratiske ledd gir $\ln$ og $\arctan$ etter at du har fullført kvadratet.
+</Step>
+</Steps>
+
+<Example label="Eksamensoppgave" title="Tre lineære faktorer">
+<ExamRef id="tma4100-h2022" task="1" />
+
+Rekn ut
+
+$$
+\int \frac{x^2}{(x + 1)(x - 1)(x - 2)}\,dx.
+$$
+
+<Solution>
+Telleren har grad $2$ og nevneren grad $3$, så brøken er ekte. Sett opp
+
+$$
+\frac{x^2}{(x + 1)(x - 1)(x - 2)} = \frac{A}{x + 1} + \frac{B}{x - 1} + \frac{C}{x - 2}
+$$
+
+og gang med nevneren: $x^2 = A(x - 1)(x - 2) + B(x + 1)(x - 2) + C(x + 1)(x - 1)$.
+
+- $x = -1$: $1 = A \cdot (-2)(-3) = 6A$, så $A = \frac16$
+- $x = 1$: $1 = B \cdot 2 \cdot (-1)$, så $B = -\frac12$
+- $x = 2$: $4 = C \cdot 3 \cdot 1$, så $C = \frac43$
+
+Hvert ledd integreres til en logaritme.
+
+<Answer>$\dfrac16\ln|x + 1| - \dfrac12\ln|x - 1| + \dfrac43\ln|x - 2| + C$</Answer>
+</Solution>
+</Example>
+
+## Uegentlige integraler
+
+Definisjonen av $\int_a^b f(x)\,dx$ krever et begrenset intervall og en begrenset funksjon. Et <Term name="Uegentlig integral">uegentlig integral</Term> bryter ett av kravene, og defineres som en grense:
+
+$$
+\int_a^\infty f(x)\,dx = \lim_{t\to\infty}\int_a^t f(x)\,dx, \qquad \int_a^b f(x)\,dx = \lim_{t\to a^+}\int_t^b f(x)\,dx \ \text{ når } f \text{ er ubegrenset nær } a.
+$$
+
+Finnes grensen, konvergerer integralet. Ellers divergerer det. Er $f$ ubegrenset nær et indre punkt $c$, deler du i $c$, og integralet konvergerer bare hvis begge delene gjør det. Det samme gjelder $\int_{-\infty}^\infty$, som deles i $0$.
+
+<Statement kind="theorem" name="p-integraler" id="p-integraler">
+$\int_1^\infty \frac{dx}{x^p}$ konvergerer hvis og bare hvis $p > 1$, og da er verdien $\frac{1}{p-1}$. $\int_0^1 \frac{dx}{x^p}$ konvergerer hvis og bare hvis $p < 1$, og da er verdien $\frac{1}{1-p}$.
+</Statement>
+
+For $p \ne 1$ er $\int_1^t x^{-p}\,dx = \frac{t^{1-p} - 1}{1 - p}$, og $t^{1-p} \to 0$ når $t \to \infty$ bare hvis $p > 1$. For $p = 1$ er integralet $\ln t \to \infty$. Grensen $p = 1$ divergerer i begge tilfellene.
+
+Når du ikke finner en antiderivert, kan du sammenligne. Hvis $0 \le f(x) \le g(x)$ og $\int_a^\infty g$ konvergerer, konvergerer også $\int_a^\infty f$. Hvis $\int_a^\infty f$ divergerer, divergerer også $\int_a^\infty g$. For eksempel er $0 \le \frac{1}{x^2 + x} \le \frac{1}{x^2}$ for $x \ge 1$, så $\int_1^\infty \frac{dx}{x^2 + x}$ konvergerer. Sammenlign med en funksjon som oppfører seg likt der problemet er, ofte et p-integral.
+
+<Example label="Eksamensoppgave" title="Ubegrenset integrand i $x = 0$">
+<ExamRef id="tma4400-prove2025" task="7" />
+
+Vis at integralet
+
+$$
+\int_0^{1/2} \frac{\cos(\pi x)}{(\sin(\pi x))^{1/3}}\,dx
+$$
+
+konvergerer, og finn så verdien til integralet.
+
+<Solution>
+Nevneren er null i $x = 0$, og integranden går mot $\infty$ når $x \to 0^+$. Integralet er derfor uegentlig og betyr
+
+$$
+\lim_{\varepsilon\to 0^+}\int_\varepsilon^{1/2} \frac{\cos(\pi x)}{(\sin(\pi x))^{1/3}}\,dx.
+$$
+
+Sett $u = \sin(\pi x)$, så $du = \pi\cos(\pi x)\,dx$. Grensene blir $u = \sin(\pi\varepsilon)$ og $u = 1$:
+
+$$
+\int_\varepsilon^{1/2} \frac{\cos(\pi x)}{(\sin(\pi x))^{1/3}}\,dx = \frac1\pi\int_{\sin(\pi\varepsilon)}^1 u^{-1/3}\,du = \frac1\pi\Bigl[\tfrac32 u^{2/3}\Bigr]_{\sin(\pi\varepsilon)}^1 = \frac{3}{2\pi}\left(1 - (\sin(\pi\varepsilon))^{2/3}\right).
+$$
+
+Når $\varepsilon \to 0^+$, går $\sin(\pi\varepsilon) \to 0$, og grensen er $\frac{3}{2\pi}$. Grensen finnes, så integralet konvergerer. Etter substitusjonen er det et p-integral med $p = \frac13 < 1$.
+
+<Answer>Integralet konvergerer og er lik $\dfrac{3}{2\pi} \approx 0{,}477$.</Answer>
+</Solution>
+</Example>
+
+<SelfCheck question="Hva er galt med utregningen $\int_{-1}^{1}\frac{dx}{x^2} = \left[-\frac1x\right]_{-1}^{1} = -2$?">
+Integranden er ubegrenset i $x = 0$, som ligger inni intervallet, så fundamentalteoremet kan ikke brukes direkte. Integralet må deles i $0$, og $\int_0^1 \frac{dx}{x^2}$ er et p-integral med $p = 2 \ge 1$, som divergerer. Hele integralet divergerer. At svaret ble negativt for en positiv integrand, var et varsel.
+</SelfCheck>
+
+<KeyTakeaways>
+- Substitusjon er kjerneregelen baklengs: se etter $g(u(x))\,u'(x)$, og bytt grenser i bestemte integraler
+- Delvis integrasjon: $\int f'g = fg - \int fg'$. Velg $g$ som blir enklere av å deriveres, for eksempel $\ln x$ eller $x^n$
+- Delbrøkoppspalting: gjør brøken ekte, faktoriser nevneren, ett ledd per faktor, og finn konstantene ved å sette inn nullpunkter
+- Et uegentlig integral er en grense. Del opp i hvert problempunkt
+- $\int_1^\infty x^{-p}\,dx$ konvergerer for $p > 1$, $\int_0^1 x^{-p}\,dx$ for $p < 1$
+- Sammenligning: mindre enn et konvergent integral konvergerer, større enn et divergent divergerer
+- Sjekk fortegnet på svaret mot fortegnet på integranden
+</KeyTakeaways>
