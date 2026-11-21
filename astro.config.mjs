@@ -21,6 +21,6 @@ export default defineConfig({
   // it for the canonical link, Open Graph / Twitter cards and the sitemap — set
   // it to your real deploy URL. Without it those absolute-URL features are
   // skipped (with a dev warning).
-  // site: "https://<din-adresse>", // settes når siden publiseres
+  site: "https://fthorset.github.io",
   integrations: [studyCompanion(), courseTheme],
 });
